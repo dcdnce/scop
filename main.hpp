@@ -9,7 +9,6 @@
 #include <GL/glut.h>
 #include <GLFW/glfw3.h>
 
-
 #define	W_HEIGHT	480
 #define	W_WIDTH		640 
 
