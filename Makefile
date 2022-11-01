@@ -1,25 +1,38 @@
-SRCS =	main.cpp my_GL.cpp shader.cpp
+SRCS =	sources/main.cpp \
+			sources/my_GL.cpp \
+			sources/shader.cpp \
+
 OBJS = $(SRCS:%.cpp=%.o)
 
 C = clang++
 
-# Compiler flags (+ where to find headers)
-CFLAGS = -Wall -Wextra 
-CFLAGS += -I/usr/include
-# Linking flags (+ where to find library to link at - -L & -l)
-LDFLAGS = -L/usr/lib/x86_64-linux-gnu/
-LDFLAGS += -lGL -lglfw -ldl -lGLEW
+OS = $(shell uname)
+
+# CFLAGS - Compiler flags (where to find headers)
+# LFLAGS - Linking flags (where to find library to link at - -L & -l)
+
+CFLAGS = -Wall -Wextra -Wno-deprecated
+CFLAGS += -Iincludes
+
+ifeq ($(OS), Darwin)
+	LFLAGS 	= -framework OpenGL 
+	LFLAGS +=  -Llibs/glad -Llibs/GLFW -lglad -lglfw.3.3
+else
+	CFLAGS += -I/usr/include
+	LFLAGS = -L/usr/lib/x86_64-linux-gnu/
+	LFLAGS += -lGL -lglfw -ldl -lGLEW
+endif
 
 NAME = prog
 
 %.o	:	%.cpp
-	$(C) $(CFLAGS) -c $< -o $@
+	$(C) -g $(CFLAGS) -c $< -o $@
 
 #######################################################################################
 #######################################################################################
 
 $(NAME):	$(OBJS)
-	$(C) -o $@ $^ $(LDFLAGS)
+	$(C) -o $@ $^ $(LFLAGS)
 
 all:	$(NAME)
 
