@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:52:37 by difool            #+#    #+#             */
-/*   Updated: 2022/11/01 17:54:31 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 09:05:36 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ int	main(void)
 	GLuint	vao;
 	GLuint	ebo;
 	
-	gl.initWindow();
+	if (!gl.initWindow())
+		return (-1);
+
 	// Load texture
 	loadTexture(&texture);
+
 	// Init Shader
 	loadShader(&gl.program);
 	

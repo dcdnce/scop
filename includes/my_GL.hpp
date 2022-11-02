@@ -7,7 +7,7 @@ class my_GL
 	public:
 		my_GL(void);
 		~my_GL(void);
-		void initWindow(void);
+		int initWindow(void);
 
 		int			framebufferWidth;
 		int			framebufferHeight;

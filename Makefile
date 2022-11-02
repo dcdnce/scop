@@ -16,7 +16,7 @@ CFLAGS += -Iincludes
 
 ifeq ($(OS), Darwin)
 	LFLAGS 	= -framework OpenGL 
-	LFLAGS +=  -Llibs/glad -Llibs/GLFW -lglad -lglfw.3.3
+	LFLAGS += libs/glad/libglad.a libs/GLFW/libglfw.3.3.dylib
 else
 	CFLAGS += -I/usr/include
 	LFLAGS = -L/usr/lib/x86_64-linux-gnu/
