@@ -42,9 +42,9 @@ int	loadShader(GLuint *program)
 	GLuint		vertexShaderRef;
 	GLuint		fragmentShaderRef;
 
-	if (!createShader(&vertexShaderRef, GL_VERTEX_SHADER, "vertex_core.glsl"))
+	if (!createShader(&vertexShaderRef, GL_VERTEX_SHADER, "shaders/vertex_core.glsl"))
 		return (0);
-	if (!createShader(&fragmentShaderRef, GL_FRAGMENT_SHADER, "fragment_core.glsl"))
+	if (!createShader(&fragmentShaderRef, GL_FRAGMENT_SHADER, "shaders/fragment_core.glsl"))
 		return (0);
 	*program = glCreateProgram();
 	glAttachShader(*program, vertexShaderRef);

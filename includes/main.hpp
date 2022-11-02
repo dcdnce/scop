@@ -14,8 +14,8 @@
 	#include <GLFW/glfw3.h>
 #endif
 
-#define	W_HEIGHT	480
-#define	W_WIDTH		640 
+#define	W_HEIGHT	600	
+#define	W_WIDTH		800 
 
 
 /* shader.cpp	*/

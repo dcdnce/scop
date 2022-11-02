@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:52:37 by difool            #+#    #+#             */
-/*   Updated: 2022/11/02 09:05:36 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 09:15:37 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,6 @@ unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
     1, 2, 3    // second triangle
 };
-
-void	scroll_callback(GLFWwindow *window, double x, double y)
-{
-	vertices[0] -= y / 10;
-	vertices[1] -= y / 10;
-	//vertices[2] += y / 10;
-
-	vertices[6] += y / 10;
-	vertices[7] -= y / 10;
-	//vertices[8] += y / 10;
-
-	//vertices[12] += y / 10;
-	vertices[13] += y / 10;
-	//vertices[14] += y / 10;
-}
 
 void	processInput(GLFWwindow *w)
 {
@@ -90,14 +75,13 @@ int	main(void)
 	if (!gl.initWindow())
 		return (-1);
 
+	// Init Shader
+	if (!loadShader(&gl.program))
+		return (-1);
+
 	// Load texture
 	loadTexture(&texture);
-
-	// Init Shader
-	loadShader(&gl.program);
-	
-	glfwSetScrollCallback(gl.window, scroll_callback); 
-
+		
 	// Init VAO & buffers
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -135,9 +119,11 @@ int	main(void)
 
 		/* Draw	*/
 		glUseProgram(gl.program);
+
 		// Rebind vao & texture
 		glBindVertexArray(vao);
-		//glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+
 		// Draw data
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);	
 
