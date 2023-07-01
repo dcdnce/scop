@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:52:37 by difool            #+#    #+#             */
-/*   Updated: 2022/11/02 09:15:37 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:31:47 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	processInput(GLFWwindow *w)
 		glfwSetWindowShouldClose(w, true);
 }
 
-void	loadTexture(GLuint *texture) {
+void	loadTexture(GLuint *texture, const char* filename) {
 	/* Gen texture 
 	 * & configure wrapping/filtering	*/
 	glGenTextures(1, texture);
@@ -52,10 +52,11 @@ void	loadTexture(GLuint *texture) {
 	/* stbi load */
 	unsigned char	*data;
 	int				width, height, nbrChannels;
-	data = stbi_load("container.jpg", &width, &height, &nbrChannels, 0);
+	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
 	if (data) {
 		/* Add(!) & Configure texture	*/
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		GLenum format = !strcmp(filename, "container.jpg") ? GL_RGB : GL_RGBA;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
@@ -67,7 +68,8 @@ void	loadTexture(GLuint *texture) {
 int	main(void)
 {
 	my_GL 	gl;
-	GLuint	texture;
+	GLuint	texture1;
+	GLuint	texture2;
 	GLuint	vbo;
 	GLuint	vao;
 	GLuint	ebo;
@@ -80,7 +82,14 @@ int	main(void)
 		return (-1);
 
 	// Load texture
-	loadTexture(&texture);
+	loadTexture(&texture1, "container.jpg");
+	loadTexture(&texture2, "awesomeface.png");
+	
+	// Associate uniform sampler2D -> texture unit
+	glUseProgram(gl.program);
+	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
+	glUniform1i(glGetUniformLocation(gl.program, "texture2"), 1);
+	glUseProgram(0);
 		
 	// Init VAO & buffers
 	glGenVertexArrays(1, &vao);
@@ -122,13 +131,19 @@ int	main(void)
 
 		// Rebind vao & texture
 		glBindVertexArray(vao);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
 
 		// Draw data
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);	
 
 		// Unbind - only if multiple entities are used
 		glBindVertexArray(0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
         /* Swap front and back buffers */
