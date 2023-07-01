@@ -1,6 +1,6 @@
-SRCS =	sources/main.cpp \
-			sources/my_GL.cpp \
-			sources/shader.cpp \
+SRCS =	srcs/main.cpp \
+		srcs/my_GL.cpp \
+		srcs/shader.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 
