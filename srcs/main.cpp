@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:52:37 by difool            #+#    #+#             */
-/*   Updated: 2023/07/01 16:31:47 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/07/01 18:18:16 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+#include <glm/glm.hpp> // vec2, vec3, mat4, radians
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #define	A_RAND	"\e[38;5;222m"
 #define A_ESC	"\e[0m"
@@ -85,7 +89,8 @@ int	main(void)
 	loadTexture(&texture1, "container.jpg");
 	loadTexture(&texture2, "awesomeface.png");
 	
-	// Associate uniform sampler2D -> texture unit
+	
+	// Uniforms settings
 	glUseProgram(gl.program);
 	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
 	glUniform1i(glGetUniformLocation(gl.program, "texture2"), 1);
@@ -128,6 +133,12 @@ int	main(void)
 
 		/* Draw	*/
 		glUseProgram(gl.program);
+
+		// Transformations
+		glm::mat4 trans = glm::mat4(1.0f);
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.f, 1.f, 0.f));
+		glUniformMatrix4fv(glGetUniformLocation(gl.program, "transformation"), 1, GL_FALSE, glm::value_ptr(trans));
+
 
 		// Rebind vao & texture
 		glBindVertexArray(vao);

@@ -15,7 +15,6 @@
 	#include <GLFW/glfw3.h>
 #endif
 
-
 #define	W_HEIGHT	600	
 #define	W_WIDTH		800 
 
