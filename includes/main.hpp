@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 
+
 #ifdef __linux__
 	#include <GL/glew.h>
 	#include <GL/glut.h>
@@ -14,9 +15,9 @@
 	#include <GLFW/glfw3.h>
 #endif
 
+
 #define	W_HEIGHT	600	
 #define	W_WIDTH		800 
-
 
 /* shader.cpp	*/
 int		loadShader(GLuint *program);
