@@ -23,7 +23,7 @@ else
 	LFLAGS += -lGL -lglfw -ldl -lGLEW
 endif
 
-NAME = prog
+NAME = gl
 
 %.o	:	%.cpp
 	$(C) -g $(CFLAGS) -c $< -o $@
