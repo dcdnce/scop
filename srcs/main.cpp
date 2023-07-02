@@ -12,25 +12,22 @@
 
 #include "main.hpp"
 #include "Engine.hpp"
-#include "math.h"
 #include "Camera.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <string>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb/stb_image.h"
 
 #include <glm/glm.hpp> // vec2, vec3, mat4, radians
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define	A_RAND	"\e[38;5;222m"
-#define A_ESC	"\e[0m"
-
 void	processInput(GLFWwindow *w);
-void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
-void	loadTexture_jpg(GLuint *texture, const char* filename);
+void 	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
+void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
 
 float vertices[] = {
 	// positions		  //texture coords
@@ -95,10 +92,6 @@ Camera	camera;
 float deltaTime = 0.f;
 float lastFrame = 0.f;
 
-bool	firstCursor = true;
-float	lastMouseX = 0.f;
-float	lastMouseY = 0.f;
-
 int	main(void)
 {
 	Engine 	gl;
@@ -119,7 +112,7 @@ int	main(void)
 	glUseProgram(gl.program);
 
 	// Load texture
-	loadTexture_jpg(&texture1, "container.jpg");
+	loadTexture_jpg(&texture1, "container.jpg", GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
 
 	// Projection Matrix
@@ -133,17 +126,16 @@ int	main(void)
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// Link vbo data
+
+	// Link VBO
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
 	// unbind VAO & buffers
-	// - only necessary if multiples entities are used
-	// - always unbind VAO first
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 
 	// Main loop
 	while (!glfwWindowShouldClose(gl.window))
@@ -160,7 +152,6 @@ int	main(void)
 		glBindVertexArray(vao);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
-
 		glUseProgram(gl.program);
 
 		// Update viewMatrix uniform
@@ -207,14 +198,17 @@ void	processInput(GLFWwindow *w)
 
 void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)
 {
+	static bool firstMouse = true;
+	static float lastMouseX;
+	static float lastMouseY;
     float xpos = static_cast<float>(currMouseX);
     float ypos = static_cast<float>(currMouseY);
 
-    if (firstCursor)
+    if (firstMouse)
     {
         lastMouseX = xpos;
         lastMouseY = ypos;
-        firstCursor = false;
+        firstMouse = false;
     }
 
     float xoffset = xpos - lastMouseX;
@@ -225,15 +219,17 @@ void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)
 	camera.processMouseMovement(xoffset, yoffset);
 }
 
-void	loadTexture_jpg(GLuint *texture, const char* filename) {
+void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture)
+{
 	glGenTextures(1, texture);
+	glActiveTexture(activeTexture);
 	glBindTexture(GL_TEXTURE_2D, *texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	/* stbi load */
+	// stbi Load
 	unsigned char	*data;
 	int				width, height, nbrChannels;
 	data = stbi_load(filename, &width, &height, &nbrChannels, 0);

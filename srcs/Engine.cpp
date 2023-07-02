@@ -14,9 +14,9 @@ int Engine::initWindow(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-#ifdef __APPLE__
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+	#ifdef __APPLE__
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	#endif
 
 	this->window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "OpenGL Tutorial", NULL, NULL);
 	if (this->window == NULL)
