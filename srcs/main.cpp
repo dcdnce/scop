@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:52:37 by difool            #+#    #+#             */
-/*   Updated: 2023/07/02 13:21:40 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:09:00by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 //     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
 //     -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
 // };
+
+void	loadTexture(GLuint *texture, const char* filename);
 
 float vertices[] = {
 	// positions		  //texture coords
@@ -95,36 +97,67 @@ unsigned int indices[] = {  // note that we start from 0!
     1, 2, 3    // second triangle
 };
 
+glm::vec3	cameraPos(0.f, 0.f, 3.f);
+glm::vec3	cameraFront(0.f, 0.f, -1.f);
+glm::vec3	cameraUp(0.f, 1.f, 0.f);
+
+float deltaTime = 0.f;
+float lastFrame = 0.f;
+
+bool	firstCursor = true;
+float	lastMouseX = 0.f;
+float	lastMouseY = 0.f;
+float	mouseSensivity = 0.1f;
+float yaw   = -90.0f;
+float pitch =  0.0f;
+
 void	processInput(GLFWwindow *w)
 {
+	float	cameraSpeed = 3.f * deltaTime;
+
 	if (glfwGetKey(w, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(w, true);
+	if (glfwGetKey(w, GLFW_KEY_W) == GLFW_PRESS)
+		cameraPos += cameraFront * cameraSpeed;
+	if (glfwGetKey(w, GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraFront * cameraSpeed;
+	if (glfwGetKey(w, GLFW_KEY_A) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
-void	loadTexture(GLuint *texture, const char* filename) {
-	/* Gen texture 
-	 * & configure wrapping/filtering	*/
-	glGenTextures(1, texture);
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)
+{
+    float xpos = static_cast<float>(currMouseX);
+    float ypos = static_cast<float>(currMouseY);
 
-	/* stbi load */
-	unsigned char	*data;
-	int				width, height, nbrChannels;
-	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
-	if (data) {
-		/* Add(!) & Configure texture	*/
-		GLenum format = !strcmp(filename, "container.jpg") ? GL_RGB : GL_RGBA;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
-	stbi_image_free(data);
-	glBindTexture(GL_TEXTURE_2D, 0);
+    if (firstCursor)
+    {
+        lastMouseX = xpos;
+        lastMouseY = ypos;
+        firstCursor = false;
+    }
+
+    float xoffset = xpos - lastMouseX;
+    float yoffset = lastMouseY - ypos; // reversed since y-coordinates go from bottom to top
+    lastMouseX = xpos;
+    lastMouseY = ypos;
+
+    yaw += xoffset * mouseSensivity;
+    pitch += yoffset * mouseSensivity;
+
+    // make sure that when pitch is out of bounds, screen doesn't get flipped
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(direction);
 }
 
 int	main(void)
@@ -134,7 +167,7 @@ int	main(void)
 	GLuint	vbo;
 	GLuint	vao;
 	// GLuint	ebo;
-	
+
 	if (!gl.initWindow())
 		return (-1);
 
@@ -147,13 +180,8 @@ int	main(void)
 
 	glUseProgram(gl.program);
 	// Transformations
-		// - Model matrix -> world space
 		glm::mat4	model = glm::rotate(glm::mat4(1.0f), glm::radians(-55.0f), glm::vec3(1.0f, 0.f, 0.f));
-		// - View matrix -> camera space
-		glm::mat4	view = glm::translate(glm::mat4(1.0f), glm::vec3(1.f, 0.f, -3.f));
-		view = glm::rotate(view, glm::radians(45.f), glm::vec3(0.f, 1.0f, 0.f));
-
-		// - Projection matrix -> clip space
+		glm::mat4	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		glm::mat4	proj = glm::perspective(glm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
 		glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
@@ -191,6 +219,10 @@ int	main(void)
 	// Main loop
 	while (!glfwWindowShouldClose(gl.window))
 	{
+		float	currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		processInput(gl.window);
 
 		glClearColor(0.3f, 0.49f, 0.66f, 1.f);
@@ -207,9 +239,13 @@ int	main(void)
 		// Draw data
 		// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);	
 		glUseProgram(gl.program);
+
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, glm::value_ptr(view));
+
 		for (size_t i = 0 ; i < 10 ; i++)
 		{
-			glm::mat4 model = glm::translate(glm::mat4(1.f), cubePositions[i]);
+			model = glm::translate(glm::mat4(1.f), cubePositions[i]);
 			float	angle = 20.f * i + 1;
 			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(0.5f, 1.0f, 0.0f));
 			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -233,4 +269,30 @@ int	main(void)
     // glDeleteBuffers(1, &ebo);
     glDeleteProgram(gl.program);
 	return (0);
+}
+
+void	loadTexture(GLuint *texture, const char* filename) {
+	/* Gen texture 
+	 * & configure wrapping/filtering	*/
+	glGenTextures(1, texture);
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	/* stbi load */
+	unsigned char	*data;
+	int				width, height, nbrChannels;
+	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
+	if (data) {
+		/* Add(!) & Configure texture	*/
+		GLenum format = !strcmp(filename, "container.jpg") ? GL_RGB : GL_RGBA;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
+	stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

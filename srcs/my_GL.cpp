@@ -35,11 +35,9 @@ int my_GL::initWindow(void)
 	glfwGetFramebufferSize(this->window, &this->framebufferWidth, &this->framebufferHeight);
 	glViewport(0, 0, this->framebufferWidth, this->framebufferHeight);
 
-	// if (glewInit() != GLEW_OK)
-	// {
-	// 	std::cout << printf("error::main.cpp::glewInit()") << std::endl;
-	// 	return(glfwTerminate());
-	// }
+	// Mouse setup
+	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouseCallback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -65,4 +63,3 @@ my_GL::~my_GL(void)
 	glfwTerminate();
 	std::cout << "my_GL::Destructor!" << std::endl;
 }
-

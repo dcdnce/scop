@@ -18,6 +18,9 @@
 #define	W_HEIGHT	600	
 #define	W_WIDTH		800 
 
-/* shader.cpp	*/
+// shader.cpp
 int		loadShader(GLuint *program);
+
+// Events
+void	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 #endif
