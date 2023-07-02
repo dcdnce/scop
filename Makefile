@@ -1,6 +1,7 @@
 SRCS =	srcs/main.cpp \
-		srcs/my_GL.cpp \
+		srcs/Engine.cpp \
 		srcs/shader.cpp \
+		srcs/Camera.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 

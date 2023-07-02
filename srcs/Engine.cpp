@@ -1,10 +1,13 @@
 #include "main.hpp"
-#include "my_GL.hpp"
+#include "Engine.hpp"
 
-int my_GL::initWindow(void)
+#include <iostream>
+
+int Engine::initWindow(void)
 {
 	//Init GLFW
 	glfwInit();
+
 	//Create a window
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); 
@@ -49,17 +52,17 @@ int my_GL::initWindow(void)
 	return (1);
 }
 
-my_GL::my_GL(void) : framebufferWidth(0), framebufferHeight(0), window(NULL), program(0)
+Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL), program(0)
 {
-	std::cout << "my_GL::Constructor!" << std::endl;
+	std::cout << "Engine::Constructor!" << std::endl;
 }
 
-my_GL::~my_GL(void)
+Engine::~Engine(void)
 {
 	if (program)
 		glDeleteProgram(program);
 	if (window)
 		glfwDestroyWindow(this->window);
 	glfwTerminate();
-	std::cout << "my_GL::Destructor!" << std::endl;
+	std::cout << "Engine::Destructor!" << std::endl;
 }

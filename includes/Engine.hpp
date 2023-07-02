@@ -1,12 +1,14 @@
+#pragma once
+
 #include "main.hpp"
 
-class my_GL
+class Engine
 {
 	private:
 
 	public:
-		my_GL(void);
-		~my_GL(void);
+		Engine(void);
+		~Engine(void);
 		int initWindow(void);
 
 		int			framebufferWidth;

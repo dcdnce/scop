@@ -1,5 +1,8 @@
 #include "main.hpp"
 
+#include <iostream>
+#include <fstream>
+
 static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
 {
 	GLint			status;
