@@ -1,14 +1,8 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#ifdef __linux__
-	#include <GL/glew.h>
-	#include <GL/glut.h>
-	#include <GLFW/glfw3.h>
-#elif defined __APPLE__
-	#include <glad/glad.h>
-	#include <GLFW/glfw3.h>
-#endif
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #define	W_HEIGHT	600	
 #define	W_WIDTH		800 

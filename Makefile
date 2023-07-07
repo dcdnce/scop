@@ -1,4 +1,5 @@
 SRCS =	srcs/main.cpp \
+		libs/glad/glad.cpp \
 		srcs/Engine.cpp \
 		srcs/shader.cpp \
 		srcs/Camera.cpp \
@@ -17,11 +18,11 @@ CFLAGS += -Iincludes
 
 ifeq ($(OS), Darwin)
 	LFLAGS 	= -framework OpenGL 
-	LFLAGS += libs/glad/libglad.a libs/GLFW/libglfw.3.3.dylib
+	LFLAGS += libs/GLFW/libglfw.3.3.dylib
 else
 	CFLAGS += -I/usr/include
 	LFLAGS = -L/usr/lib/x86_64-linux-gnu/
-	LFLAGS += -lGL -lglfw -ldl -lGLEW
+	LFLAGS += -lGL -lglfw -ldl
 endif
 
 NAME = gl

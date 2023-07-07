@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-int Engine::initWindow(void)
+int Engine::init(void)
 {
 	//Init GLFW
 	glfwInit();
@@ -28,6 +28,7 @@ int Engine::initWindow(void)
 
 	glfwMakeContextCurrent(this->window);
 
+	// Glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -41,13 +42,6 @@ int Engine::initWindow(void)
 	// Mouse setup
 	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouseCallback);
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		glfwTerminate();
-		return (0);
-	}
 
 	return (1);
 }

@@ -99,7 +99,7 @@ int	main(void)
 	GLuint	vbo;
 	GLuint	vao;
 
-	if (!gl.initWindow())
+	if (!gl.init())
 		return (-1);
 
 	// Init Shader

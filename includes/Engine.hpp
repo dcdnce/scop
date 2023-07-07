@@ -9,7 +9,7 @@ class Engine
 	public:
 		Engine(void);
 		~Engine(void);
-		int initWindow(void);
+		int init(void);
 
 		int			framebufferWidth;
 		int			framebufferHeight;
