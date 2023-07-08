@@ -10,6 +10,12 @@ namespace pfm {
         typedef T value_type
         typedef vec<3, T> type;
 
+        // Data
+        union { T x, r, s; };
+        union { T y, g, t; };
+        union { T z, b, p; };
+
+
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR vec() PFM_DEFAULT;
         PFM_FUNC_DECL PFM_CONSTEXPR vec(vec const& v) PFM_DEFAULT;
@@ -60,6 +66,7 @@ namespace pfm {
     PFM_FUNC_DECL PFM_CONSTEXPR vec<3, T>& operator/(vec<3, T> const& v1, vec<3, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL PFM_CONSTEXPR vec<3, T>& operator/(T scalar, vec<3, T> const& v);
+
 
     // Boolean operators
     template<typename T>
