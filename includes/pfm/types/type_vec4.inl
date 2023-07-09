@@ -17,6 +17,45 @@ namespace pfm {
         : x(x), y(y), z(z), w(w)
     {}
 
+    // Accesses
+    template<typename T>
+    PFM_INLINE typename vec<4, T>::value_type& vec<4, T>::operator[](length_t i) noexcept
+    {
+        assert(i >= 0 && i < 4);
+        switch(i)
+		{
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            case 3:
+                return w;
+            default:
+                return x;
+		}
+    }
+
+    template<typename T>
+    PFM_INLINE PFM_CONSTEXPR typename vec<4, T>::value_type const& vec<4, T>::operator[](length_t i) const noexcept
+    {
+        assert(i >= 0 && i < 4);
+        switch(i)
+		{
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            case 3:
+                return w;
+            default:
+                return x;
+		}
+    }
+
     // Unary arithmetic operators
     template<typename T> //struct template
     template<typename U> //extern template

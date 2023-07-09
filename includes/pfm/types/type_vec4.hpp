@@ -16,6 +16,9 @@ namespace pfm {
         union { T z, b;};
         union { T w, a;};
 
+        // Accesses
+        PFM_FUNC_DECL value_type& operator[](length_t i) noexcept;
+        PFM_FUNC_DECL PFM_CONSTEXPR value_type const& operator[](length_t i) const noexcept;
 
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR vec() PFM_DEFAULT;

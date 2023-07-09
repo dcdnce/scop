@@ -15,6 +15,9 @@ namespace pfm {
         union { T y, g, t;};
         union { T z, b, p;};
 
+        // Accesses
+        PFM_FUNC_DECL value_type& operator[](length_t i) noexcept;
+        PFM_FUNC_DECL PFM_CONSTEXPR value_type const& operator[](length_t i) const noexcept;
 
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR vec() PFM_DEFAULT;
@@ -72,6 +75,11 @@ namespace pfm {
     PFM_FUNC_DECL PFM_CONSTEXPR bool operator==(vec<3, T> const& v1, vec<3, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL PFM_CONSTEXPR bool operator!=(vec<3, T> const& v1, vec<3, T> const& v2);
+
+    // IO operators
+    template<typename T>
+    PFM_FUNC_DECL std::ostream& operator<<(std::ostream & o, vec<3, T> const& v);
+
 
 }//namespace pfm
 

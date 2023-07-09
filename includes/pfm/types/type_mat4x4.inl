@@ -263,4 +263,18 @@ namespace pfm {
     {
         return !(m1 == m2);
     }
+
+    // IO operators
+    template<typename T>
+    PFM_INLINE std::ostream& operator<<(std::ostream & o, mat<4, 4, T> const& m)
+    {
+        for (size_t i = 0 ; i < 4 ; i++)
+        {
+            o << "[";
+            o << m[0][i] << ", " << m[1][i] << ", " << m[2][i] << ", " << m[3][i];
+            o << "]" << std::endl;
+        }
+        return (o);
+    }
+
 }

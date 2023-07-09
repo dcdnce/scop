@@ -17,6 +17,42 @@ namespace pfm {
         : x(x), y(y), z(z)
     {}
 
+    // Accesses
+    template<typename T>
+    PFM_INLINE typename vec<3, T>::value_type& vec<3, T>::operator[](length_t i) noexcept
+    {
+        assert(i >= 0 && i < 3);
+        switch(i)
+		{
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            default:
+                return x;
+		}
+    }
+
+    template<typename T>
+    PFM_INLINE PFM_CONSTEXPR typename vec<3, T>::value_type const& vec<3, T>::operator[](length_t i) const noexcept
+    {
+        assert(i >= 0 && i < 3);
+        switch(i)
+		{
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            default:
+                return x;
+		}
+    }
+
+
     // Unary arithmetic operators
     template<typename T> //struct template
     template<typename U> //extern template
@@ -215,4 +251,11 @@ namespace pfm {
         return !(v1 == v2);
     }
 
+    // IO operators
+    template<typename T>
+    PFM_INLINE std::ostream& operator<<(std::ostream & o, vec<3, T> const& v)
+    {
+        o << "[" << v.x << ", " << v.y << ", " << v.z << "]";
+        return (o);
+    }
 }//namespace pfm

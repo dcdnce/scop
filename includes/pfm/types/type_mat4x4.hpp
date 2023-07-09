@@ -80,6 +80,9 @@ namespace pfm {
 	template<typename T>
 	PFM_FUNC_DECL bool operator!=(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
 
+    // IO operators
+    template<typename T>
+    PFM_FUNC_DECL std::ostream& operator<<(std::ostream & o, mat<4, 4, T> const& m);
 }
 
 #include "type_mat4x4.inl"
