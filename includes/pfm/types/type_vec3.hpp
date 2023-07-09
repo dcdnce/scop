@@ -1,24 +1,23 @@
 #pragma once
 
-#include "../setup.hpp"
+#include "../setup/setup.hpp"
 
 namespace pfm {
     template<typename T>
     struct vec<3, T>
     {
         // Typedefs
-        typedef T value_type
+        typedef T value_type;
         typedef vec<3, T> type;
 
         // Data
-        union { T x, r, s; };
-        union { T y, g, t; };
-        union { T z, b, p; };
+        union { T x, r, s;};
+        union { T y, g, t;};
+        union { T z, b, p;};
 
 
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR vec() PFM_DEFAULT;
-        PFM_FUNC_DECL PFM_CONSTEXPR vec(vec const& v) PFM_DEFAULT;
         PFM_FUNC_DECL PFM_CONSTEXPR vec(vec<3, T> const& v);
 
         // Explicit basic constructors

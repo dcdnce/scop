@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../setup.hpp"
+#include "../setup/setup.hpp"
 
 namespace pfm {
     // Implicit basic constructors
@@ -11,8 +11,8 @@ namespace pfm {
 
     // Explicit basic constructors
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat(mat<4, 4, T> const& m)
-		: value{col_type(s, 0, 0, 0), col_type(0, s, 0, 0), col_type(0, 0, s, 0), col_type(0, 0, 0, s)}
+    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat(T scalar)
+		: value{col_type(scalar, 0, 0, 0), col_type(0, scalar, 0, 0), col_type(0, 0, scalar, 0), col_type(0, 0, 0, scalar)}
     {}
 
     template<typename T>

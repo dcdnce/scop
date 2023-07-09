@@ -1,4 +1,4 @@
-#include "../setup.hpp"
+#include "../setup/setup.hpp"
 
 namespace pfm {
     // Implicit basic constructors
@@ -232,5 +232,14 @@ namespace pfm {
     {
         return !(v1 == v2);
     }
+
+    // IO operators
+    template<typename T>
+    PFM_INLINE std::ostream& operator<<(std::ostream & o, vec<4, T> const& v)
+    {
+        o << "[" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << "]";
+        return (o);
+    }
+
 
 }//namespace pfm

@@ -1,25 +1,24 @@
 #pragma once
 
-#include "../setup.hpp"
+#include "../setup/setup.hpp"
 
 namespace pfm {
     template<typename T>
     struct vec<4, T>
     {
         // Typedefs
-        typedef T value_type
+        typedef T value_type;
         typedef vec<4, T> type;
 
         // Data
-        union { T x, r };
-        union { T y, g };
-        union { T z, b };
-        union { T w, a };
+        union { T x, r;};
+        union { T y, g;};
+        union { T z, b;};
+        union { T w, a;};
 
 
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR vec() PFM_DEFAULT;
-        PFM_FUNC_DECL PFM_CONSTEXPR vec(vec const& v) PFM_DEFAULT;
         PFM_FUNC_DECL PFM_CONSTEXPR vec(vec<4, T> const& v);
 
         // Explicit basic constructors
@@ -74,6 +73,10 @@ namespace pfm {
     PFM_FUNC_DECL PFM_CONSTEXPR bool operator==(vec<4, T> const& v1, vec<4, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL PFM_CONSTEXPR bool operator!=(vec<4, T> const& v1, vec<4, T> const& v2);
+
+    // IO operators
+    template<typename T>
+    PFM_FUNC_DECL std::ostream& operator<<(std::ostream & o, vec<4, T> const& v);
 
 }//namespace pfm
 
