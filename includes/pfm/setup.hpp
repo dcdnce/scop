@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cassert>
+
 #define PFM_FUNC_DECL
 #define PFM_INLINE inline
 #define PFM_CONSTEXPR constexpr

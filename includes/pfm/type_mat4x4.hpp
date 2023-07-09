@@ -14,6 +14,10 @@ namespace pfm {
         // Data
         col_type value[4];
 
+        // Accesses
+        PFM_FUNC_DECL col_type& operator[](length_t i) noexcept;
+        PFM_FUNC_DECL PFM_CONSTEXPR col_type const& operator[](length_t i) const noexcept;
+
         // Implicit basic constructors
         PFM_FUNC_DECL PFM_CONSTEXPR mat() PFM_DEFAULT;
         PFM_FUNC_DECL PFM_CONSTEXPR mat(mat<4, 4, T> const& m);
@@ -32,6 +36,50 @@ namespace pfm {
             col_type const& v3);
 
         // Unary arithmetic operations
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator=(mat<4, 4, U> const& m);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator+=(U scalar);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator+=(mat<4, 4, U> const& m);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator-=(U scalar);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator-=(mat<4, 4, U> const& m);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator*=(U scalar);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator*=(mat<4, 4, U> const& m);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator/=(U scalar);
+		template<typename U>
+		PFM_FUNC_DECL mat<4, 4, T> & operator/=(mat<4, 4, U> const& m);
+    };// struct mat<4, 4, T>
 
-    };
+    // Binary arithmetic operators
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator+(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator+(mat<4, 4, T> const& m, T scalar);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator-(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator-(mat<4, 4, T> const& m, T scalar);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator*(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator*(mat<4, 4, T> const& m, T scalar);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator/(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T>& operator/(mat<4, 4, T> const& m, T scalar);
+
+    // Boolean operators
+	template<typename T>
+	PFM_FUNC_DECL bool operator==(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+	template<typename T>
+	PFM_FUNC_DECL bool operator!=(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
+
 }
+
+#include "type_mat4x4.inl"
