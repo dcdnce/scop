@@ -1,6 +1,6 @@
 #pragma once
 
-#include "setup.hpp"
+#include "../setup.hpp"
 
 namespace pfm {
     // Implicit basic constructors
@@ -263,6 +263,4 @@ namespace pfm {
     {
         return !(m1 == m2);
     }
-
-
 }
