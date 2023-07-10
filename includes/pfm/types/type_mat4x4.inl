@@ -151,7 +151,7 @@ namespace pfm {
 
     // Binary arithmetic operators
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator+(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
+    PFM_INLINE mat<4, 4, T> operator+(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
         return mat<4, 4, T>
         (
@@ -163,7 +163,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator+(mat<4, 4, T> const& m, T scalar)
+    PFM_INLINE mat<4, 4, T> operator+(mat<4, 4, T> const& m, T scalar)
     {
         return mat<4, 4, T>
         (
@@ -175,7 +175,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator-(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
+    PFM_INLINE mat<4, 4, T> operator-(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
         return mat<4, 4, T>
         (
@@ -187,7 +187,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator-(mat<4, 4, T> const& m, T scalar)
+    PFM_INLINE mat<4, 4, T> operator-(mat<4, 4, T> const& m, T scalar)
     {
         return mat<4, 4, T>
         (
@@ -245,7 +245,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator*(mat<4, 4, T> const& m, T scalar)
+    PFM_INLINE mat<4, 4, T> operator*(mat<4, 4, T> const& m, T scalar)
     {
         return mat<4, 4, T>
         (
@@ -257,7 +257,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator/(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
+    PFM_INLINE mat<4, 4, T> operator/(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
         return mat<4, 4, T>
         (
@@ -269,7 +269,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator/(mat<4, 4, T> const& m, T scalar)
+    PFM_INLINE mat<4, 4, T> operator/(mat<4, 4, T> const& m, T scalar)
     {
         return mat<4, 4, T>
         (

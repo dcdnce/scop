@@ -158,7 +158,7 @@ namespace pfm {
 
     // Binary arithmetic operators
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator+(vec<4, T> const& v1, vec<4, T> const& v2)
+    PFM_INLINE  vec<4, T> operator+(vec<4, T> const& v1, vec<4, T> const& v2)
     {
         return vec<4, T>
             (
@@ -170,7 +170,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator+(T scalar, vec<4, T> const& v)
+    PFM_INLINE  vec<4, T> operator+(T scalar, vec<4, T> const& v)
     {
         return vec<4, T>
             (
@@ -182,7 +182,14 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator-(vec<4, T> const& v1, vec<4, T> const& v2)
+    PFM_INLINE  vec<4, T> operator+(vec<4, T> const& v, T scalar)
+    {
+        return (scalar + v);
+    }
+
+
+    template<typename T>
+    PFM_INLINE  vec<4, T> operator-(vec<4, T> const& v1, vec<4, T> const& v2)
     {
         return vec<4, T>
             (
@@ -195,7 +202,7 @@ namespace pfm {
 
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator-(T scalar, vec<4, T> const& v)
+    PFM_INLINE  vec<4, T> operator-(T scalar, vec<4, T> const& v)
     {
         return vec<4, T>
             (
@@ -207,7 +214,14 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator*(vec<4, T> const& v1, vec<4, T> const& v2)
+    PFM_INLINE  vec<4, T> operator-(vec<4, T> const& v, T scalar)
+    {
+        return (scalar - v);
+    }
+
+
+    template<typename T>
+    PFM_INLINE  vec<4, T> operator*(vec<4, T> const& v1, vec<4, T> const& v2)
     {
         return vec<4, T>
             (
@@ -219,7 +233,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator*(T scalar, vec<4, T> const& v)
+    PFM_INLINE  vec<4, T> operator*(T scalar, vec<4, T> const& v)
     {
         return vec<4, T>
             (
@@ -231,7 +245,14 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator/(vec<4, T> const& v1, vec<4, T> const& v2)
+    PFM_INLINE  vec<4, T> operator*(vec<4, T> const& v, T scalar)
+    {
+        return (scalar * v);
+    }
+
+
+    template<typename T>
+    PFM_INLINE  vec<4, T> operator/(vec<4, T> const& v1, vec<4, T> const& v2)
     {
         return vec<4, T>
         (
@@ -243,7 +264,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<4, T>& operator/(T scalar, vec<4, T> const& v)
+    PFM_INLINE  vec<4, T> operator/(T scalar, vec<4, T> const& v)
     {
         return vec<4, T>
             (
@@ -253,6 +274,13 @@ namespace pfm {
                 v.w / scalar
             );
     }
+
+    template<typename T>
+    PFM_INLINE  vec<4, T> operator/(vec<4, T> const& v, T scalar)
+    {
+        return (scalar / v);
+    }
+
 
     // Boolean operators
     template<typename T>

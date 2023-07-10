@@ -146,7 +146,7 @@ namespace pfm {
 
     // Binary arithmetic operators
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator+(vec<3, T> const& v1, vec<3, T> const& v2)
+    PFM_INLINE  vec<3, T> operator+(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
             (
@@ -157,7 +157,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator+(T scalar, vec<3, T> const& v)
+    PFM_INLINE  vec<3, T> operator+(T scalar, vec<3, T> const& v)
     {
         return vec<3, T>
             (
@@ -168,7 +168,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator-(vec<3, T> const& v1, vec<3, T> const& v2)
+    PFM_INLINE  vec<3, T> operator-(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
             (
@@ -180,7 +180,7 @@ namespace pfm {
 
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator-(T scalar, vec<3, T> const& v)
+    PFM_INLINE  vec<3, T> operator-(T scalar, vec<3, T> const& v)
     {
         return vec<3, T>
             (
@@ -191,7 +191,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator*(vec<3, T> const& v1, vec<3, T> const& v2)
+    PFM_INLINE  vec<3, T> operator*(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
             (
@@ -202,7 +202,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator*(T scalar, vec<3, T> const& v)
+    PFM_INLINE  vec<3, T> operator*(T scalar, vec<3, T> const& v)
     {
         return vec<3, T>
             (
@@ -213,7 +213,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator/(vec<3, T> const& v1, vec<3, T> const& v2)
+    PFM_INLINE  vec<3, T> operator/(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
         (
@@ -224,7 +224,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE  vec<3, T>& operator/(T scalar, vec<3, T> const& v)
+    PFM_INLINE  vec<3, T> operator/(T scalar, vec<3, T> const& v)
     {
         return vec<3, T>
             (
