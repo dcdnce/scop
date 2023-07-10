@@ -1,22 +1,23 @@
 #pragma once
 
 #include "../setup/setup.hpp"
+#include <iostream>
 
 namespace pfm {
     // Implicit basic constructors
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat(mat<4, 4, T> const& m)
+    PFM_INLINE mat<4, 4, T>::mat(mat<4, 4, T> const& m)
         : value{col_type(m[0]), col_type(m[1]), col_type(m[2]), col_type(m[3])}
     {}
 
     // Explicit basic constructors
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat(T scalar)
+    PFM_INLINE mat<4, 4, T>::mat(T scalar)
 		: value{col_type(scalar, 0, 0, 0), col_type(0, scalar, 0, 0), col_type(0, 0, scalar, 0), col_type(0, 0, 0, scalar)}
     {}
 
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat
+    PFM_INLINE mat<4, 4, T>::mat
     (
         T const& x0, T const& y0, T const& z0, T const& w0,
         T const& x1, T const& y1, T const& z1, T const& w1,
@@ -31,7 +32,7 @@ namespace pfm {
     {}
 
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR mat<4, 4, T>::mat
+    PFM_INLINE mat<4, 4, T>::mat
     (
         col_type const& v0,
         col_type const& v1,
@@ -50,7 +51,7 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE PFM_CONSTEXPR typename mat<4, 4, T>::col_type const& mat<4, 4, T>::operator[](length_t i) const noexcept
+    PFM_INLINE  typename mat<4, 4, T>::col_type const& mat<4, 4, T>::operator[](length_t i) const noexcept
     {
         assert(i >= 0 && i < 4);
         return this->value[i];
@@ -198,14 +199,48 @@ namespace pfm {
     }
 
     template<typename T>
-    PFM_INLINE mat<4, 4, T>& operator*(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
+    PFM_INLINE mat<4, 4, T> operator*(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
-        return mat<4, 4, T>
+        typename mat<4, 4, T>::row_type m1Rows[4];
+        m1Rows[0] = {m1[0][0], m1[1][0], m1[2][0], m1[3][0]};
+        m1Rows[1] = {m1[1][1], m1[1][1], m1[2][1], m1[3][1]};
+        m1Rows[2] = {m1[1][2], m1[1][2], m1[2][2], m1[3][2]};
+        m1Rows[3] = {m1[1][3], m1[1][3], m1[2][3], m1[3][3]};
+
+        mat<4, 4, T> ret = { 
+            m1Rows[0][0] * m2[0][0] + m1Rows[0][1] * m2[0][1] + m1Rows[0][2] * m2[0][2] + m1Rows[0][3] * m2[0][3],
+            m1Rows[0][0] * m2[1][0] + m1Rows[0][1] * m2[1][1] + m1Rows[0][2] * m2[1][2] + m1Rows[0][3] * m2[1][3],
+            m1Rows[0][0] * m2[2][0] + m1Rows[0][1] * m2[2][1] + m1Rows[0][2] * m2[2][2] + m1Rows[0][3] * m2[2][3],
+            m1Rows[0][0] * m2[3][0] + m1Rows[0][1] * m2[3][1] + m1Rows[0][2] * m2[3][2] + m1Rows[0][3] * m2[3][3],
+
+            m1Rows[1][0] * m2[0][0] + m1Rows[1][1] * m2[0][1] + m1Rows[1][2] * m2[0][2] + m1Rows[1][3] * m2[0][3],
+            m1Rows[1][0] * m2[1][0] + m1Rows[1][1] * m2[1][1] + m1Rows[1][2] * m2[1][2] + m1Rows[1][3] * m2[1][3],
+            m1Rows[1][0] * m2[2][0] + m1Rows[1][1] * m2[2][1] + m1Rows[1][2] * m2[2][2] + m1Rows[1][3] * m2[2][3],
+            m1Rows[1][0] * m2[3][0] + m1Rows[1][1] * m2[3][1] + m1Rows[1][2] * m2[3][2] + m1Rows[1][3] * m2[3][3],
+
+            m1Rows[2][0] * m2[0][0] + m1Rows[2][1] * m2[0][1] + m1Rows[2][2] * m2[0][2] + m1Rows[2][3] * m2[0][3],
+            m1Rows[2][0] * m2[1][0] + m1Rows[2][1] * m2[1][1] + m1Rows[2][2] * m2[1][2] + m1Rows[2][3] * m2[1][3],
+            m1Rows[2][0] * m2[2][0] + m1Rows[2][1] * m2[2][1] + m1Rows[2][2] * m2[2][2] + m1Rows[2][3] * m2[2][3],
+            m1Rows[2][0] * m2[3][0] + m1Rows[2][1] * m2[3][1] + m1Rows[2][2] * m2[3][2] + m1Rows[2][3] * m2[3][3],
+
+            m1Rows[3][0] * m2[0][0] + m1Rows[3][1] * m2[0][1] + m1Rows[3][2] * m2[0][2] + m1Rows[3][3] * m2[0][3],
+            m1Rows[3][0] * m2[1][0] + m1Rows[3][1] * m2[1][1] + m1Rows[3][2] * m2[1][2] + m1Rows[3][3] * m2[1][3],
+            m1Rows[3][0] * m2[2][0] + m1Rows[3][1] * m2[2][1] + m1Rows[3][2] * m2[2][2] + m1Rows[3][3] * m2[2][3],
+            m1Rows[3][0] * m2[3][0] + m1Rows[3][1] * m2[3][1] + m1Rows[3][2] * m2[3][2] + m1Rows[3][3] * m2[3][3]
+        };
+
+        return (ret);
+    }
+
+	template<typename T> // Post multiplication
+    PFM_INLINE typename mat<4, 4, T>::col_type operator*(mat<4, 4, T> const& m, typename mat<4, 4, T>::row_type const& v)
+    {
+        return typename mat<4, 4, T>::col_type
         (
-            m1[0] * m2[0],
-            m1[1] * m2[1],
-            m1[2] * m2[2],
-            m1[3] * m2[3]
+			m[0][0] * v[0] + m[1][0] * v[1] + m[2][0] * v[2] + m[3][0] * v[3],
+			m[0][1] * v[0] + m[1][1] * v[1] + m[2][1] * v[2] + m[3][1] * v[3],
+			m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2] + m[3][2] * v[3],
+			m[0][3] * v[0] + m[1][3] * v[1] + m[2][3] * v[2] + m[3][3] * v[3]
         );
     }
 
@@ -272,9 +307,9 @@ namespace pfm {
         {
             o << "[";
             o << m[0][i] << ", " << m[1][i] << ", " << m[2][i] << ", " << m[3][i];
-            o << "]" << std::endl;
+            o << "]";
+            o << std::endl;
         }
         return (o);
     }
-
 }

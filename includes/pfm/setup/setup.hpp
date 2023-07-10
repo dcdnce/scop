@@ -4,7 +4,6 @@
 
 #define PFM_FUNC_DECL
 #define PFM_INLINE inline
-#define PFM_CONSTEXPR constexpr
 #define PFM_EXPLICIT explicit
 #define PFM_DEFAULT = default
 

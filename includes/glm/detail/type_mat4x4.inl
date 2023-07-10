@@ -593,7 +593,6 @@ namespace glm
 			m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2] + m[2][3] * v[3],
 			m[3][0] * v[0] + m[3][1] * v[1] + m[3][2] * v[2] + m[3][3] * v[3]);
 	}
-
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER mat<2, 4, T, Q> operator*(mat<4, 4, T, Q> const& m1, mat<2, 4, T, Q> const& m2)
 	{
