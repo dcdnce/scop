@@ -1,1 +1,9 @@
-- binary op mat4 x mat4
+- matrix
+    - translation
+    - lookAt
+    - perspective
+    - rotate
+- vector
+    - normalize
+    - cross
+    - dot
