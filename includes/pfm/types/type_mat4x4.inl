@@ -175,6 +175,13 @@ namespace pfm {
     }
 
     template<typename T>
+    PFM_INLINE mat<4, 4, T> operator+(T scalar, mat<4, 4, T> const& m)
+    {
+        return (m + scalar);
+    }
+
+
+    template<typename T>
     PFM_INLINE mat<4, 4, T> operator-(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
         return mat<4, 4, T>
@@ -197,6 +204,13 @@ namespace pfm {
             m[3] - scalar
         );
     }
+
+    template<typename T>
+    PFM_INLINE mat<4, 4, T> operator-(T scalar, mat<4, 4, T> const& m)
+    {
+        return (m - scalar);
+    }
+
 
     template<typename T>
     PFM_INLINE mat<4, 4, T> operator*(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
@@ -257,6 +271,13 @@ namespace pfm {
     }
 
     template<typename T>
+    PFM_INLINE mat<4, 4, T> operator*(T scalar, mat<4, 4, T> const& m)
+    {
+        return (m * scalar);
+    }
+
+
+    template<typename T>
     PFM_INLINE mat<4, 4, T> operator/(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2)
     {
         return mat<4, 4, T>
@@ -279,6 +300,13 @@ namespace pfm {
             m[3] / scalar
         );
     }
+
+    template<typename T>
+    PFM_INLINE mat<4, 4, T> operator/(T scalar, mat<4, 4, T> const& m)
+    {
+        return (m / scalar);
+    }
+
 
     // Boolean operators
 	template<typename T>

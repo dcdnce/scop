@@ -59,18 +59,25 @@ namespace pfm {
     template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator+(T scalar, vec<3, T> const& v);
     template<typename T>
+    PFM_FUNC_DECL  vec<3, T> operator+(vec<3, T> const& v, T scalar);
+    template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator-(vec<3, T> const& v1, vec<3, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator-(T scalar, vec<3, T> const& v);
+    template<typename T>
+    PFM_FUNC_DECL  vec<3, T> operator-(vec<3, T> const& v, T scalar);
     template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator*(vec<3, T> const& v1, vec<3, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator*(T scalar, vec<3, T> const& v);
     template<typename T>
+    PFM_FUNC_DECL  vec<3, T> operator*(vec<3, T> const& v, T scalar);
+    template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator/(vec<3, T> const& v1, vec<3, T> const& v2);
     template<typename T>
     PFM_FUNC_DECL  vec<3, T> operator/(T scalar, vec<3, T> const& v);
-
+    template<typename T>
+    PFM_FUNC_DECL  vec<3, T> operator/(vec<3, T> const& v, T scalar);
 
     // Boolean operators
     template<typename T>

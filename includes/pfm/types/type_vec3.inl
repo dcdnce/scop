@@ -168,6 +168,13 @@ namespace pfm {
     }
 
     template<typename T>
+    PFM_INLINE  vec<3, T> operator+(vec<3, T> const& v, T scalar)
+    {
+        return (scalar + v);
+    }
+
+
+    template<typename T>
     PFM_INLINE  vec<3, T> operator-(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
@@ -189,6 +196,13 @@ namespace pfm {
                 v.z - scalar
             );
     }
+
+    template<typename T>
+    PFM_INLINE  vec<3, T> operator-(vec<3, T> const& v, T scalar)
+    {
+        return (scalar - v);
+    }
+
 
     template<typename T>
     PFM_INLINE  vec<3, T> operator*(vec<3, T> const& v1, vec<3, T> const& v2)
@@ -213,6 +227,13 @@ namespace pfm {
     }
 
     template<typename T>
+    PFM_INLINE  vec<3, T> operator*(vec<3, T> const& v, T scalar)
+    {
+        return (scalar * v);
+    }
+
+
+    template<typename T>
     PFM_INLINE  vec<3, T> operator/(vec<3, T> const& v1, vec<3, T> const& v2)
     {
         return vec<3, T>
@@ -233,6 +254,13 @@ namespace pfm {
                 v.z / scalar
             );
     }
+
+    template<typename T>
+    PFM_INLINE  vec<3, T> operator/(vec<3, T> const& v, T scalar)
+    {
+        return (scalar * v);
+    }
+
 
     // Boolean operators
     template<typename T>

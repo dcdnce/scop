@@ -1,2 +1,1 @@
-- scalar * object both sides for vec3 and mat4
 - binary op mat4 x mat4

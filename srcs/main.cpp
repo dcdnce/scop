@@ -106,6 +106,10 @@ int	main(void)
 	if (!loadShader(&gl.program))
 		return (-1);
 
+	glm::vec3 v = glm::vec3( 1.3f, -2.0f, -2.5f);
+	v =  v + 1.f;
+	v =  1.f + v;
+	
 	// Enable z-buffer
 	glEnable(GL_DEPTH_TEST);
 

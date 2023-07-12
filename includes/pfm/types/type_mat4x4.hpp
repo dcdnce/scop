@@ -64,9 +64,13 @@ namespace pfm {
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator+(mat<4, 4, T> const& m, T scalar);
     template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> operator+(T scalar, mat<4, 4, T> const& m);
+    template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator-(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator-(mat<4, 4, T> const& m, T scalar);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> operator-(T scalar, mat<4, 4, T> const& m);
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator*(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
     template<typename T>
@@ -74,9 +78,14 @@ namespace pfm {
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator*(mat<4, 4, T> const& m, T scalar);
     template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> operator*(T scalar, mat<4, 4, T> const& m);
+    template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator/(mat<4, 4, T> const& m1, mat<4, 4, T> const& m2);
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> operator/(mat<4, 4, T> const& m, T scalar);
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> operator/(T scalar, mat<4, 4, T> const& m);
+
 
     // Boolean operators
 	template<typename T>
