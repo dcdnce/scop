@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <cmath>
 
 #define PFM_FUNC_DECL
 #define PFM_INLINE inline
