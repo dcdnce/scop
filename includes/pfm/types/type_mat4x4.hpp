@@ -19,7 +19,7 @@ namespace pfm {
         // Accesses
         PFM_FUNC_DECL col_type& operator[](length_t i) noexcept;
         PFM_FUNC_DECL col_type const& operator[](length_t i) const noexcept;
-        PFM_FUNC_DECL col_type* operator&();
+        PFM_FUNC_DECL typename col_type::value_type* operator&();
 
         // Implicit basic constructors
         PFM_FUNC_DECL mat() PFM_DEFAULT;

@@ -59,7 +59,7 @@ namespace pfm {
 
 
     template<typename T>
-    PFM_INLINE typename mat<4, 4, T>::col_type* mat<4, 4, T>::operator&()
+    PFM_INLINE typename mat<4, 4, T>::col_type::value_type* mat<4, 4, T>::operator&()
     {
         return (&value[0]);
     }
