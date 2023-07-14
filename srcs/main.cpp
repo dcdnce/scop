@@ -25,6 +25,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "pfm/pfm.hpp"
+
 void	processInput(GLFWwindow *w);
 void 	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
@@ -74,17 +76,17 @@ float vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-glm::vec3 cubePositions[] = {
-    glm::vec3( 0.0f,  0.0f,  0.0f), 
-    glm::vec3( 2.0f,  5.0f, -15.0f), 
-    glm::vec3(-1.5f, -2.2f, -2.5f),  
-    glm::vec3(-3.8f, -2.0f, -12.3f),  
-    glm::vec3( 2.4f, -0.4f, -3.5f),  
-    glm::vec3(-1.7f,  3.0f, -7.5f),  
-    glm::vec3( 1.3f, -2.0f, -2.5f),  
-    glm::vec3( 1.5f,  2.0f, -2.5f), 
-    glm::vec3( 1.5f,  0.2f, -1.5f), 
-    glm::vec3(-1.3f,  1.0f, -1.5f)  
+pfm::vec3 cubePositions[] = {
+    pfm::vec3( 0.0f,  0.0f,  0.0f), 
+    pfm::vec3( 2.0f,  5.0f, -15.0f), 
+    pfm::vec3(-1.5f, -2.2f, -2.5f),  
+    pfm::vec3(-3.8f, -2.0f, -12.3f),  
+    pfm::vec3( 2.4f, -0.4f, -3.5f),  
+    pfm::vec3(-1.7f,  3.0f, -7.5f),  
+    pfm::vec3( 1.3f, -2.0f, -2.5f),  
+    pfm::vec3( 1.5f,  2.0f, -2.5f), 
+    pfm::vec3( 1.5f,  0.2f, -1.5f), 
+    pfm::vec3(-1.3f,  1.0f, -1.5f)  
 };
 
 Camera	camera;
@@ -161,9 +163,9 @@ int	main(void)
 		// Draw cubes
 		for (size_t i = 0 ; i < 10 ; i++)
 		{
-			glm::mat4 model = glm::translate(glm::mat4(1.f), cubePositions[i]);
+			pfm::mat4 model = pfm::translate(pfm::mat4(1.f), cubePositions[i]);
 			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.f * i + 1), glm::vec3(0.5f, 1.0f, 0.0f));
-			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, &model);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
