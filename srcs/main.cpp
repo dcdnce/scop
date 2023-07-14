@@ -157,8 +157,8 @@ int	main(void)
 		glUseProgram(gl.program);
 
 		// Update viewMatrix uniform
-		glm::mat4	currViewMatrix = camera.getViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, glm::value_ptr(currViewMatrix));
+		pfm::mat4	currViewMatrix = camera.getViewMatrix();
+		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, &currViewMatrix);
 
 		// Draw cubes
 		for (size_t i = 0 ; i < 10 ; i++)

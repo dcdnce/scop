@@ -1,8 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "pfm/pfm.hpp"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -26,11 +25,11 @@ class Camera
 
 	public:
 		// camera Attributes
-		glm::vec3 position;
-		glm::vec3 front;
-		glm::vec3 up;
-		glm::vec3 right;
-		glm::vec3 worldUp;
+		pfm::vec3 position;
+		pfm::vec3 front;
+		pfm::vec3 up;
+		pfm::vec3 right;
+		pfm::vec3 worldUp;
 		// euler Angles
 		float yaw;
 		float pitch;
@@ -39,9 +38,9 @@ class Camera
 		float mouseSensitivity;
 		float zoom;
 
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
+		Camera(pfm::vec3 position = pfm::vec3(0.0f, 0.0f, 0.0f), pfm::vec3 up = pfm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
 
-		glm::mat4 getViewMatrix();
+		pfm::mat4 getViewMatrix();
 
 		void processKeyboard(Camera_Movement direction, float deltaTime);
 		void processMouseMovement(float xoffset, float yoffset);

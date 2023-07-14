@@ -1,8 +1,8 @@
 #include "Camera.hpp"
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
+Camera::Camera(pfm::vec3 position, pfm::vec3 up, float yaw, float pitch)
 {
-	this->front = glm::vec3(0.0f, 0.0f, -1.0f);
+	this->front = pfm::vec3(0.0f, 0.0f, -1.0f);
 	this->movementSpeed = SPEED;
 	this->mouseSensitivity = SENSITIVITY;
 	this->zoom = ZOOM;
@@ -13,28 +13,28 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 	_updateCameraVectors();
 }
 
-glm::mat4 Camera::getViewMatrix()
+pfm::mat4 Camera::getViewMatrix()
 {
-	return glm::lookAt(position, position + front, up);
+	return pfm::lookAt(position, position + front, up);
 }
 
 void Camera::_updateCameraVectors()
 {
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	this->front = glm::normalize(direction);
+	pfm::vec3 direction;
+	direction.x = cos(pfm::radians(yaw)) * cos(pfm::radians(pitch));
+	direction.y = sin(pfm::radians(pitch));
+	direction.z = sin(pfm::radians(yaw)) * cos(pfm::radians(pitch));
+	this->front = pfm::normalize(direction);
 	// also re-calculate the Right and Up vector
-	right = glm::normalize(glm::cross(front, worldUp));
-	up    = glm::normalize(glm::cross(right, front));
+	right = pfm::normalize(pfm::cross(worldUp, front));
+	up    = pfm::normalize(pfm::cross(front, right));
 }
 
 void Camera::processKeyboard(Camera_Movement direction, float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
 	if (direction == FORWARD)
-		position += front * velocity;
+		position += velocity * front;
 	if (direction == BACKWARD)
 		position -= front * velocity;
 	if (direction == LEFT)
