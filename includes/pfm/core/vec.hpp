@@ -2,8 +2,8 @@
 
 #include "../setup/setup.hpp"
 
-#include "../types/type_vec3.hpp"
-#include "../types/type_vec4.hpp"
+#include "types/type_vec3.hpp"
+#include "types/type_vec4.hpp"
 
 namespace pfm {
     typedef vec<3, float> vec3;

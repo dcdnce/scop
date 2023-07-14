@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../setup/setup.hpp"
+#include "../../setup/setup.hpp"
 
 #include <iostream>
 

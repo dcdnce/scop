@@ -2,7 +2,7 @@
 
 #include "../setup/setup.hpp"
 
-#include "../types/type_mat4x4.hpp"
+#include "types/type_mat4x4.hpp"
 
 namespace pfm {
     typedef mat<4, 4, float> mat4x4;
