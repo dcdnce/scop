@@ -10,7 +10,7 @@ namespace pfm {
     PFM_FUNC_DECL float dot(vec<3, T> const& v1, vec<3, T> const& v2);
 
     template<typename T>
-    PFM_FUNC_DECL float cross(vec<3, T> const& v1, vec<3, T> const& v2);
+    PFM_FUNC_DECL vec<3, T> cross(vec<3, T> const& v1, vec<3, T> const& v2);
 }
 
 #include "vector_transform.inl"
