@@ -2,7 +2,8 @@
 
 #include "setup/setup.hpp"
 
-#include "detail/vec.hpp"
-#include "detail/mat.hpp"
-#include "transform/matrix_transform.hpp"
-#include "transform/vector_transform.hpp"
+#include "core/utils.hpp"
+#include "core/vec.hpp"
+#include "core/mat.hpp"
+#include "core/transform/matrix_transform.hpp"
+#include "core/transform/vector_transform.hpp"

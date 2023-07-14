@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../setup/setup.hpp"
 #include <iostream>
 
 namespace pfm {

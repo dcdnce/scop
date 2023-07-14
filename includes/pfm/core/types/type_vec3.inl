@@ -1,5 +1,3 @@
-#include "../setup/setup.hpp"
-
 namespace pfm {
     // Implicit basic constructors
     template<typename T>
