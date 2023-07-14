@@ -106,10 +106,6 @@ int	main(void)
 	if (!loadShader(&gl.program))
 		return (-1);
 
-	glm::vec3 v = glm::vec3( 1.3f, -2.0f, -2.5f);
-	v =  v + 1.f;
-	v =  1.f + v;
-	
 	// Enable z-buffer
 	glEnable(GL_DEPTH_TEST);
 
@@ -166,7 +162,7 @@ int	main(void)
 		for (size_t i = 0 ; i < 10 ; i++)
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.f), cubePositions[i]);
-			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.f * i + 1), glm::vec3(0.5f, 1.0f, 0.0f));
+			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.f * i + 1), glm::vec3(0.5f, 1.0f, 0.0f));
 			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
