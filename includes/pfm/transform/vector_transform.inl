@@ -11,9 +11,9 @@ namespace pfm {
         {
             float imagnitude = 1.0f / magnitude;
 
-            ret.x *= imagnitude,
-            ret.y *= imagnitude,
-            ret.z *= imagnitude
+            ret.x *= imagnitude;
+            ret.y *= imagnitude;
+            ret.z *= imagnitude;
         }
 
         return (ret);

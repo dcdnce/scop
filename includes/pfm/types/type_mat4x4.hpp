@@ -18,15 +18,16 @@ namespace pfm {
 
         // Accesses
         PFM_FUNC_DECL col_type& operator[](length_t i) noexcept;
-        PFM_FUNC_DECL  col_type const& operator[](length_t i) const noexcept;
+        PFM_FUNC_DECL col_type const& operator[](length_t i) const noexcept;
+        PFM_FUNC_DECL col_type* operator&();
 
         // Implicit basic constructors
-        PFM_FUNC_DECL  mat() PFM_DEFAULT;
-        PFM_FUNC_DECL  mat(mat<4, 4, T> const& m);
+        PFM_FUNC_DECL mat() PFM_DEFAULT;
+        PFM_FUNC_DECL mat(mat<4, 4, T> const& m);
 
         // Explicit basic constructors
-        PFM_FUNC_DECL  PFM_EXPLICIT mat(T scalar);
-		PFM_FUNC_DECL  mat(
+        PFM_FUNC_DECL PFM_EXPLICIT mat(T scalar);
+		PFM_FUNC_DECL mat(
 			T const& x0, T const& y0, T const& z0, T const& w0,
 			T const& x1, T const& y1, T const& z1, T const& w1,
 			T const& x2, T const& y2, T const& z2, T const& w2,

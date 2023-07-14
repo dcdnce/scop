@@ -20,6 +20,7 @@ namespace pfm {
         // Accesses
         PFM_FUNC_DECL value_type& operator[](length_t i) noexcept;
         PFM_FUNC_DECL value_type const& operator[](length_t i) const noexcept;
+        PFM_FUNC_DECL  value_type* operator&();
 
         // Implicit basic constructors
         PFM_FUNC_DECL vec() PFM_DEFAULT;

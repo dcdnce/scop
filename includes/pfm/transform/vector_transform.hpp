@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types/type_vec3.hpp"
+#include "../types/type_vec3.hpp"
 
 namespace pfm {
     template<typename T>

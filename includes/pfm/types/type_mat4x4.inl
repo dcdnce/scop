@@ -58,6 +58,13 @@ namespace pfm {
     }
 
 
+    template<typename T>
+    PFM_INLINE typename mat<4, 4, T>::col_type* mat<4, 4, T>::operator&()
+    {
+        return (&value[0]);
+    }
+
+
     // Unary arithmetic operations
     template<typename T>
     template<typename U>

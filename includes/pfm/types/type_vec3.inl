@@ -52,6 +52,13 @@ namespace pfm {
 		}
     }
 
+    template<typename T>
+    PFM_INLINE  typename vec<3, T>::value_type* vec<3, T>::operator&()
+    {
+        return &x;
+    }
+
+
 
     // Unary arithmetic operators
     template<typename T> //struct template
