@@ -18,7 +18,7 @@ namespace pfm {
         return mat<4, 4, T>(
             x.x,    x.y,    x.z,    -dot(x, eye),
             y.x,    y.y,    y.z,    -dot(y, eye),
-            z.x,    z.y,    z.z,    -dot(z, eye),
+           -z.x,   -z.y,    -z.z,    dot(z, eye),
             0.f,    0.f,    0.f,    1.f
         );
     }
