@@ -15,12 +15,29 @@ namespace pfm {
         vec<3, T> x = normalize(cross(z, up));
         vec<3, T> y = normalize(cross(x, z));
 
-        return mat<4, 4, T>(
-            x.x,    x.y,    x.z,    -dot(x, eye),
-            y.x,    y.y,    y.z,    -dot(y, eye),
-           -z.x,   -z.y,    -z.z,    dot(z, eye),
-            0.f,    0.f,    0.f,    1.f
-        );
+        mat<4, 4, T> ret;
+
+		ret[0][0] = x.x;
+		ret[1][0] = x.y;
+		ret[2][0] = x.z;
+		ret[3][0] = -dot(x, eye);
+
+		ret[0][1] = y.x;
+		ret[1][1] = y.y;
+		ret[2][1] = y.z;
+		ret[3][1] = -dot(y, eye);
+
+		ret[0][2] = -z.x;
+		ret[1][2] = -z.y;
+		ret[2][2] = -z.z;
+		ret[3][2] = dot(z, eye);
+
+		ret[0][3] = 0.f;
+		ret[1][3] = 0.f;
+		ret[2][3] = 0.f;
+		ret[3][3] = 1.0f;
+
+		return ret;
     }
 
 }

@@ -35,13 +35,13 @@ void Camera::processKeyboard(Camera_Movement direction, float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
 	if (direction == FORWARD)
-		position += velocity * front;
+		position += front * velocity;
 	if (direction == BACKWARD)
 		position -= front * velocity;
 	if (direction == LEFT)
-		position -= right * velocity;
-	if (direction == RIGHT)
 		position += right * velocity;
+	if (direction == RIGHT)
+		position -= right * velocity;
 }
 
 // processes input received from a mouse input system. Expects the offset value in both the x and y direction.

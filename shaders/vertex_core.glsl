@@ -12,7 +12,7 @@ uniform mat4 mvp_test;
 
 void main()
 {
-    //gl_Position = proj * view * model * vec4(aPos, 1.0);
-    gl_Position = mvp_test * vec4(aPos, 1.0);
+    gl_Position = proj * view * model * vec4(aPos, 1.0);
+    //gl_Position = mvp_test * vec4(aPos, 1.0);
     TexCoord = aTexCoord;
 }
