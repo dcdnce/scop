@@ -8,9 +8,11 @@ out vec2 TexCoord;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
+uniform mat4 mvp_test;
 
 void main()
 {
-    gl_Position = proj * view * model * vec4(aPos, 1.0);
+    //gl_Position = proj * view * model * vec4(aPos, 1.0);
+    gl_Position = mvp_test * vec4(aPos, 1.0);
     TexCoord = aTexCoord;
 }

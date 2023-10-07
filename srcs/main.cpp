@@ -121,6 +121,27 @@ int	main(void)
 	glm::mat4	proj = glm::perspective(glm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
 	glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 	glUseProgram(0);
+
+	pfm::mat4 p;
+	p[0][0]	= proj[0][0];
+	p[0][1]	= proj[0][1];
+	p[0][2]	= proj[0][2];
+	p[0][3]	= proj[0][3];
+
+	p[1][0]	= proj[1][0];
+	p[1][1]	= proj[1][1];
+	p[1][2]	= proj[1][2];
+	p[1][3]	= proj[1][3];
+
+	p[2][0]	= proj[2][0];
+	p[2][1]	= proj[2][1];
+	p[2][2]	= proj[2][2];
+	p[2][3]	= proj[2][3];
+
+	p[3][0]	= proj[3][0];
+	p[3][1]	= proj[3][1];
+	p[3][2]	= proj[3][2];
+	p[3][3]	= proj[3][3];
 		
 	// Init VAO & buffers
 	glGenVertexArrays(1, &vao);
@@ -128,6 +149,7 @@ int	main(void)
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 
 	// Link VBO
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
@@ -159,6 +181,7 @@ int	main(void)
 		// Update viewMatrix uniform
 		pfm::mat4	currViewMatrix = camera.getViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, &currViewMatrix);
+		//std::cout << "[view]\n" << currViewMatrix << std::endl;
 
 		// Draw cubes
 		for (size_t i = 0 ; i < 10 ; i++)
@@ -166,6 +189,12 @@ int	main(void)
 			pfm::mat4 model = pfm::translate(pfm::mat4(1.f), cubePositions[i]);
 			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.f * i + 1), glm::vec3(0.5f, 1.0f, 0.0f));
 			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, &model);
+			//std::cout << "[model]\n" << model << std::endl;
+
+			pfm::mat4 mvp_test =  currViewMatrix * model;
+			std::cout << mvp_test << std::endl;
+			glUniformMatrix4fv(glGetUniformLocation(gl.program, "mvp_test"), 1, GL_FALSE, &mvp_test);
+
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
