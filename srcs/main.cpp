@@ -128,14 +128,11 @@ int	main(void)
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-
 	// Link VBO
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-
 	// unbind VAO & buffers
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -158,8 +155,8 @@ int	main(void)
 		glUseProgram(gl.program);
 
 		// Update viewMatrix uniform
-		pfm::mat4	currViewMatrix = camera.getViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, &currViewMatrix);
+		pfm::mat4	viewMatrix = camera.getViewMatrix();
+		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, &viewMatrix);
 
 		// Draw cubes
 		for (size_t i = 0 ; i < 10 ; i++)
@@ -182,6 +179,7 @@ int	main(void)
 	glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteProgram(gl.program);
+	// todo // delete texture
 	return (0);
 }
 
