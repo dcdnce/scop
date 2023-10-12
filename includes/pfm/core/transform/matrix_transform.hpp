@@ -14,7 +14,7 @@ namespace pfm {
     PFM_FUNC_DECL mat<4, 4, T> lookAt(vec<3, T> const& eye, vec<3, T> const& target, vec<3, T> const& up);
 
     template<typename T>
-    PFM_FUNC_DECL mat<4, 4, T> perspective(float const& fovy, float const& ar, float const& znear, float const& zfar);
+    PFM_FUNC_DECL mat<4, 4, T> perspective(T const& fovy, T const& ar,  T const& znear, T const& zfar);
 }
 
 #include "matrix_transform.inl"

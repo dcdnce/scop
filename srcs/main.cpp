@@ -118,8 +118,10 @@ int	main(void)
 	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
 
 	// Projection Matrix
-	glm::mat4	proj = glm::perspective(glm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
-	glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
+	//glm::mat4	proj = glm::perspective(glm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
+	//glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
+	pfm::mat4	proj = pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
+	glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, &proj);
 	glUseProgram(0);
 		
 	// Init VAO & buffers

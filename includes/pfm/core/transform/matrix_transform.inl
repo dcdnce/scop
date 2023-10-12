@@ -40,4 +40,22 @@ namespace pfm {
 		return ret;
     }
 
+	template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> perspective(T const& fovy, T const& ar,  T const& znear, T const& zfar)
+	{
+		assert(ar > static_cast<T>(0));
+
+		T const tanThetaHalf = tan(fovy / 2.f);
+
+		mat<4, 4, T> ret(0.f);
+
+		ret[0][0] = 1.f / (ar * tanThetaHalf);
+		ret[1][1] = 1.f / tanThetaHalf; 
+		ret[2][2] = - zfar / (zfar - znear);
+		ret[2][3] = - 1.f;
+		ret[3][2] = (-zfar * znear) / (zfar - znear);
+
+		return (ret);
+	}
 }
+
