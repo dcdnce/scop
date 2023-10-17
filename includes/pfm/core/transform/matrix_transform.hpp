@@ -15,6 +15,9 @@ namespace pfm {
 
     template<typename T>
     PFM_FUNC_DECL mat<4, 4, T> perspective(T const& fovy, T const& ar,  T const& znear, T const& zfar);
+
+    template<typename T>
+    PFM_FUNC_DECL mat<4, 4, T> rotate(mat<4, 4, T> const& m, T const& a, vec<3, T> const& v);
 }
 
 #include "matrix_transform.inl"

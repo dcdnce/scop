@@ -164,7 +164,7 @@ int	main(void)
 		for (size_t i = 0 ; i < 10 ; i++)
 		{
 			pfm::mat4 model = pfm::translate(pfm::mat4(1.f), cubePositions[i]);
-			//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.f * i + 1), glm::vec3(0.5f, 1.0f, 0.0f));
+			model = pfm::rotate(model, (float)glfwGetTime() * pfm::radians(20.f * i + 1), pfm::vec3(0.5f, 1.0f, 0.0f));
 			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, &model);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
