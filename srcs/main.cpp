@@ -13,6 +13,7 @@
 #include "main.hpp"
 #include "Engine.hpp"
 #include "Camera.hpp"
+#include "Mesh.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -21,9 +22,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-#include <glm/glm.hpp> // vec2, vec3, mat4, radians
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+// #include <glm/glm.hpp> // vec2, vec3, mat4, radians
+// #include <glm/gtc/matrix_transform.hpp>
+// #include <glm/gtc/type_ptr.hpp>
 
 #include "pfm/pfm.hpp"
 
