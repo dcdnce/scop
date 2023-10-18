@@ -7,6 +7,7 @@
 
 struct Vertex {
     pfm::vec3 position;
+    pfm::vec3 normal;
     pfm::vec2 texCoords;
 };
 
@@ -22,7 +23,7 @@ class Mesh {
 
     public:
         std::vector<Vertex> vertices;
-        //std::vector<unsigned int> indices;
+        std::vector<unsigned int> indices;
         std::vector<Texture> textures;
 
         Mesh(std::vector<Vertex> const& vertices, std::vector<Texture> const& textures);
