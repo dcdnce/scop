@@ -1,4 +1,0 @@
-- pfm switch
-    - [WIP] Camera.cpp
-        - weird behavior (surely lookAt)
-    - projection matrix
