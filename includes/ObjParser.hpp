@@ -23,4 +23,6 @@ class ObjParser {
 
     public:
         ObjParser(char * const path);
+
+        Mesh    buildMesh();
 };

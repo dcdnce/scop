@@ -14,6 +14,7 @@
 #include "Engine.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
+#include "ObjParser.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -52,12 +53,16 @@ int	main(void)
 	Engine 	gl;
 	GLuint	texture1;
 
-	if (!gl.init())
-		return (-1);
+	// if (!gl.init())
+	// 	return (-1);
 
-	// Init Shader
-	if (!loadShader(&gl.program))
-		return (-1);
+	// // Init Shader
+	// if (!loadShader(&gl.program))
+	// 	return (-1);
+
+	ObjParser	cubeParsing("./cube.obj");
+
+	exit(0);
 
 	// Create cube mesh
 	Mesh cubeMesh = createCubeMesh();

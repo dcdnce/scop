@@ -26,7 +26,7 @@ class Mesh {
         std::vector<unsigned int> indices;
         std::vector<Texture> textures;
 
-        Mesh(std::vector<Vertex> const& vertices, std::vector<Texture> const& textures);
+        Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures);
 
         void    Draw(void);
 };

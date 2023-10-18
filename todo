@@ -1,0 +1,6 @@
+ - ObjParser
+    - no nl at end file bug
+    - test exceptions/errors
+
+- Makefile
+    - add debug (for logger::debug and bc it's better)

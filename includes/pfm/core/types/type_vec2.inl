@@ -19,7 +19,7 @@ namespace pfm {
     template<typename T>
     PFM_INLINE typename vec<2, T>::value_type& vec<2, T>::operator[](length_t i) noexcept
     {
-        assert(i >= 0 && i < 1);
+        assert(i >= 0 && i < 2);
         switch(i)
 		{
             case 0:
@@ -34,7 +34,7 @@ namespace pfm {
     template<typename T>
     PFM_INLINE  typename vec<2, T>::value_type const& vec<2, T>::operator[](length_t i) const noexcept
     {
-        assert(i >= 0 && i < 1);
+        assert(i >= 0 && i < 2);
         switch(i)
 		{
             case 0:

@@ -1,4 +1,5 @@
 #include "../includes/ObjParser.hpp"
+#include "../includes/Logger.hpp"
 #include <cstdlib>
 
 ObjParser::ObjParser(char * const path)
@@ -12,6 +13,12 @@ ObjParser::ObjParser(char * const path)
         _parseLine();
 
     // do something with exceptions
+
+    Logger::info(true) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
+    Logger::info(true) << "v: " << _v.size() << std::endl;
+    Logger::info(true) << "vn: " << _vn.size() << std::endl;
+    Logger::info(true) << "vt: " << _vt.size() << std::endl;
+    Logger::info(true) << "f: " << _f.size() << std::endl;
 }
 
 void ObjParser::_parseLine() 
@@ -82,4 +89,12 @@ void ObjParser::_parseF()
             currIndice += currFace[j];
         _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
     }
+
+    Logger::info(false) << "parsed F" << std::endl;
+}
+
+
+Mesh    ObjParser::buildMesh()
+{
+    Mesh
 }

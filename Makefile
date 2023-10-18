@@ -4,6 +4,8 @@ SRCS =	srcs/main.cpp \
 		srcs/shader.cpp \
 		srcs/Camera.cpp \
 		srcs/Mesh.cpp \
+		srcs/ObjParser/ObjParser.cpp \
+		srcs/ObjParser/ObjParser_Utils.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 
@@ -14,7 +16,7 @@ OS = $(shell uname)
 # CFLAGS - Compiler flags (where to find headers)
 # LFLAGS - Linking flags (where to find library to link at - -L & -l)
 
-CFLAGS = -Wall -Wextra -Wno-deprecated
+CFLAGS = -Wall -Wextra -Wno-deprecated -g
 CFLAGS += -Iincludes
 
 ifeq ($(OS), Darwin)
