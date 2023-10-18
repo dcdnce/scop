@@ -89,12 +89,24 @@ void ObjParser::_parseF()
             currIndice += currFace[j];
         _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
     }
-
-    Logger::info(false) << "parsed F" << std::endl;
 }
 
 
 Mesh    ObjParser::buildMesh()
 {
-    Mesh
+    std::vector<Vertex>         vertices;
+    std::vector<unsigned int>   indices;
+    std::vector<Texture>        textures;
+
+    for (size_t i = 0 ; i < _f.size() ; i += 3)
+    {
+        indices.push_back(_f[i]-1);
+        Vertex  currVertex;
+        currVertex.position = _v[i];
+        currVertex.texCoords = _vt[i+1];
+        currVertex.normal = _vn[i+2];
+        vertices.push_back(currVertex);
+    }
+
+    return (Mesh(vertices, indices, textures));
 }

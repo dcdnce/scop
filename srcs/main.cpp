@@ -53,19 +53,16 @@ int	main(void)
 	Engine 	gl;
 	GLuint	texture1;
 
-	// if (!gl.init())
-	// 	return (-1);
+	if (!gl.init())
+		return (-1);
 
-	// // Init Shader
-	// if (!loadShader(&gl.program))
-	// 	return (-1);
-
-	ObjParser	cubeParsing("./cube.obj");
-
-	exit(0);
+	// Init Shader
+	if (!loadShader(&gl.program))
+		return (-1);
 
 	// Create cube mesh
-	Mesh cubeMesh = createCubeMesh();
+	ObjParser	cubeParsing("./cube.obj");
+	Mesh cubeMesh = cubeParsing.buildMesh();
 
 	// Enable z-buffer
 	glEnable(GL_DEPTH_TEST);
@@ -183,127 +180,4 @@ void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture
 		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
 	stbi_image_free(data);
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-Mesh createCubeMesh(void)
-{
-	std::vector<Vertex> vertices;
-	std::vector<Texture> textures;
-	Vertex	currVertex;
-
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 1.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(1.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 0.f);
-	vertices.push_back(currVertex);
-	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
-	currVertex.texCoords = pfm::vec2(0.f, 1.f);
-	vertices.push_back(currVertex);
-
-	return (Mesh(vertices, textures));
 }

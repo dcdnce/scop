@@ -1,3 +1,5 @@
+ - mesh not rendering quite well (see objparse or mesh)
+
  - ObjParser
     - no nl at end file bug
     - test exceptions/errors
