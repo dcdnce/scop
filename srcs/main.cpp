@@ -32,51 +32,6 @@ void	processInput(GLFWwindow *w);
 void 	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
 
-float vertices[] = {
-	// positions		  //texture coords
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-};
-
 pfm::vec3 cubePositions[] = {
     pfm::vec3( 0.0f,  0.0f,  0.0f), 
     pfm::vec3( 2.0f,  5.0f, -15.0f), 
@@ -99,8 +54,6 @@ int	main(void)
 {
 	Engine 	gl;
 	GLuint	texture1;
-	GLuint	vbo;
-	GLuint	vao;
 
 	if (!gl.init())
 		return (-1);
@@ -108,6 +61,127 @@ int	main(void)
 	// Init Shader
 	if (!loadShader(&gl.program))
 		return (-1);
+
+	// Create cube mesh
+	std::vector<Vertex> vertices;
+	std::vector<Texture> textures;
+	Vertex	currVertex;
+
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, -0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 1.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(1.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, 0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 0.f);
+	vertices.push_back(currVertex);
+	currVertex.position	 = pfm::vec3(-0.5f, 0.5f, -0.5f);
+	currVertex.texCoords = pfm::vec2(0.f, 1.f);
+	vertices.push_back(currVertex);
+
+	Mesh cubeMesh(vertices, textures);
 
 	// Enable z-buffer
 	glEnable(GL_DEPTH_TEST);
@@ -119,27 +193,10 @@ int	main(void)
 	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
 
 	// Projection Matrix
-	//glm::mat4	proj = glm::perspective(glm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
-	//glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 	pfm::mat4	proj = pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
 	glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, &proj);
 	glUseProgram(0);
 		
-	// Init VAO & buffers
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// Link VBO
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// unbind VAO & buffers
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 	// Main loop
 	while (!glfwWindowShouldClose(gl.window))
 	{
@@ -151,8 +208,7 @@ int	main(void)
 		glClearColor(0.3f, 0.49f, 0.66f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Bind vao, bind texture, use program
-		glBindVertexArray(vao);
+		// Bind texture, use program
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glUseProgram(gl.program);
@@ -167,11 +223,10 @@ int	main(void)
 			pfm::mat4 model = pfm::translate(pfm::mat4(1.f), cubePositions[i]);
 			model = pfm::rotate(model, (float)glfwGetTime() * pfm::radians(20.f * i + 1), pfm::vec3(0.5f, 1.0f, 0.0f));
 			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, &model);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			cubeMesh.Draw();
 		}
 
 		// Unbind
-		glBindVertexArray(0);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -179,8 +234,6 @@ int	main(void)
         glfwPollEvents();
 	}
 
-	glDeleteVertexArrays(1, &vao);
-    glDeleteBuffers(1, &vbo);
     glDeleteProgram(gl.program);
 	// todo // delete texture
 	return (0);

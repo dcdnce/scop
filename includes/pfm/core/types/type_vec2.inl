@@ -11,7 +11,7 @@ namespace pfm {
         : x(scalar), y(scalar)
     {}
     template<typename T>
-    PFM_INLINE  vec<2, T>::vec(T x, T y, T z)
+    PFM_INLINE  vec<2, T>::vec(T x, T y)
         : x(x), y(y)
     {}
 

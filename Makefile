@@ -3,6 +3,7 @@ SRCS =	srcs/main.cpp \
 		srcs/Engine.cpp \
 		srcs/shader.cpp \
 		srcs/Camera.cpp \
+		srcs/Mesh.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 
