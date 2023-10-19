@@ -81,10 +81,12 @@ void ObjParser::_parseF()
             currIndice += currFace[j];
         _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
         currIndice.clear();
+        j++;
         for (; j < currFace.size() && currFace[j] != '/' ; j++)
             currIndice += currFace[j];
         _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
         currIndice.clear();
+        j++;
         for (; j < currFace.size() ; j++)
             currIndice += currFace[j];
         _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
@@ -102,9 +104,9 @@ Mesh    ObjParser::buildMesh()
     {
         indices.push_back(_f[i]-1);
         Vertex  currVertex;
-        currVertex.position = _v[i];
-        currVertex.texCoords = _vt[i+1];
-        currVertex.normal = _vn[i+2];
+        currVertex.position = _v[_f[i]-1];
+        currVertex.texCoords = _vt[_f[i+1]-1];
+        currVertex.normal = _vn[_f[i+2]-1];
         vertices.push_back(currVertex);
     }
 

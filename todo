@@ -1,4 +1,5 @@
- - mesh not rendering quite well (see objparse or mesh)
+ - drawArrays -> working but bad texture
+ - drawElements -> not really working
 
  - ObjParser
     - no nl at end file bug

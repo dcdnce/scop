@@ -32,15 +32,15 @@ Mesh createCubeMesh(void);
 
 pfm::vec3 cubePositions[] = {
     pfm::vec3( 0.0f,  0.0f,  0.0f), 
-    pfm::vec3( 2.0f,  5.0f, -15.0f), 
-    pfm::vec3(-1.5f, -2.2f, -2.5f),  
-    pfm::vec3(-3.8f, -2.0f, -12.3f),  
-    pfm::vec3( 2.4f, -0.4f, -3.5f),  
-    pfm::vec3(-1.7f,  3.0f, -7.5f),  
-    pfm::vec3( 1.3f, -2.0f, -2.5f),  
-    pfm::vec3( 1.5f,  2.0f, -2.5f), 
-    pfm::vec3( 1.5f,  0.2f, -1.5f), 
-    pfm::vec3(-1.3f,  1.0f, -1.5f)  
+    pfm::vec3( 4.0f,  10.0f, -30.0f), 
+    pfm::vec3(-3.f, -4.f, -5.f),  
+    pfm::vec3(-8.f, -4.0f, -24.f),  
+    pfm::vec3( 5.f, -1.f, -7.f),  
+    pfm::vec3(-4.f,  6.f, -15.f),  
+    pfm::vec3( 2.f, -4.0f, -5.f),  
+    pfm::vec3( 3.f,  4.0f, -5.f), 
+    pfm::vec3( 3.f,  0.5f, -3.f), 
+    pfm::vec3(-2.3f,  2.0f, -3.f)  
 };
 
 Camera	camera;
