@@ -13,7 +13,7 @@ bool ObjParser::_isEOF()
 
 bool ObjParser::_isNewLine()
 {
-	for (; std::isspace(_ifs.peek()); _ifs.get())
+	for (; _ifs.peek() != '\n' && std::isspace(_ifs.peek()); _ifs.get())
 		;
 
 	if (_ifs.peek() == '\n')
@@ -26,7 +26,7 @@ std::string ObjParser::_getWord()
 {
     std::string word = "";
 
-	for (; std::isspace(_ifs.peek()); _ifs.get())
+	for (; std::isspace(_ifs.peek()) ; _ifs.get())
 		;
 	for (; !std::isspace(_ifs.peek()) && !_ifs.eof(); word += _ifs.get())
 		;
@@ -36,7 +36,7 @@ std::string ObjParser::_getWord()
 
 void ObjParser::_skipToNewLine()
 {
-    for (; _ifs.peek() != '\n'; _ifs.get())
+    for (; _ifs.peek() != '\n' && !_isEOF(); _ifs.get())
 		;
 	_ifs.get();
 }

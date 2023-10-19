@@ -130,7 +130,7 @@ Mesh    ObjParser::buildMesh()
 
     for (size_t i = 0 ; i < _faces.size() ; i++)
     {
-        for (size_t j = 0 ; j < _faces[i].vertexNb ; i++)
+        for (size_t j = 0 ; j < _faces[i].vertexNb ; j++)
         {
             // Build current vertex
             Vertex  currVertex = {};
