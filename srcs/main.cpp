@@ -28,7 +28,6 @@
 void	processInput(GLFWwindow *w);
 void 	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
-Mesh createCubeMesh(void);
 
 pfm::vec3 cubePositions[] = {
     pfm::vec3( 0.0f,  0.0f,  0.0f), 

@@ -1,6 +1,7 @@
 #include "../includes/ObjParser.hpp"
 #include "../includes/Logger.hpp"
 #include <cstdlib>
+#include <algorithm>
 
 ObjParser::ObjParser(char * const path)
 {
@@ -79,17 +80,17 @@ void ObjParser::_parseF()
         currIndice.clear();
         for (; j < currFace.size() && currFace[j] != '/' ; j++)
             currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
+        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
         currIndice.clear();
         j++;
         for (; j < currFace.size() && currFace[j] != '/' ; j++)
             currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
+        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
         currIndice.clear();
         j++;
         for (; j < currFace.size() ; j++)
             currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)));
+        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
     }
 }
 
@@ -102,12 +103,34 @@ Mesh    ObjParser::buildMesh()
 
     for (size_t i = 0 ; i < _f.size() ; i += 3)
     {
-        indices.push_back(_f[i]-1);
+        // Build current vertex
         Vertex  currVertex;
-        currVertex.position = _v[_f[i]-1];
-        currVertex.texCoords = _vt[_f[i+1]-1];
-        currVertex.normal = _vn[_f[i+2]-1];
-        vertices.push_back(currVertex);
+        currVertex.position = _v[_f[i]];
+        currVertex.texCoords = _vt[_f[i+1]];
+        currVertex.normal = _vn[_f[i+2]];
+
+        // Find if already exists
+        std::vector<Vertex>::iterator it = std::find_if(vertices.begin(), vertices.end(),
+        [&currVertex](const Vertex& v) {
+            return v.position.x == currVertex.position.x && v.position.y == currVertex.position.y && v.position.z == currVertex.position.z
+                && v.normal.x == currVertex.normal.x && v.normal.y == currVertex.normal.y && v.normal.z == currVertex.normal.z
+                && v.texCoords.x == currVertex.texCoords.x && v.texCoords.y == currVertex.texCoords.y;
+        });
+
+        // Similar vertex ?
+        // - indices.push_back(index)
+        if (it != vertices.end())
+        {
+            indices.push_back(std::distance(vertices.begin(), it));
+        }
+        // New vertex ?
+        //  - vertices.push_back(currVertex)
+        //  - indices.push_back(vertices.size()-1) <- last elem
+        else
+        {
+            vertices.push_back(currVertex);
+            indices.push_back(vertices.size() - 1);
+        }
     }
 
     return (Mesh(vertices, indices, textures));

@@ -1,9 +1,14 @@
- - drawArrays -> working but bad texture
- - drawElements -> not really working
-
  - ObjParser
-    - no nl at end file bug
+    - gerer les faces polymorphes
     - test exceptions/errors
+    - [buildMesh()]
+        - tri des index + efficace
+    - [bugs]
+        - pas de newline fin de fichier
+
+- Mesh 
+    - gerer Setup() selon s'il y a des f avec vt, vn, etc
+    - destructor delete buffers
 
 - Makefile
     - add debug (for logger::debug and bc it's better)
