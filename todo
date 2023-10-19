@@ -3,8 +3,12 @@
     - triangulation
     - gerer les faces modulaires (v/vn/vt)
     - test exceptions/errors
+    - erreurs pour vertexNb > 4 ?
     - [buildMesh()]
         - tri des index + efficace
+    - [refactor]
+        - parseF()
+        - buildMesh()
     - [bugs]
         - pas de newline fin de fichier
 

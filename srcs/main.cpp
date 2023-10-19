@@ -60,7 +60,7 @@ int	main(void)
 		return (-1);
 
 	// Create cube mesh
-	ObjParser	cubeParsing("./cube.obj");
+	ObjParser	cubeParsing("./sphere.obj");
 	Mesh cubeMesh = cubeParsing.buildMesh();
 
 	// Enable z-buffer

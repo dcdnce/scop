@@ -2,6 +2,7 @@
 #include "../includes/Logger.hpp"
 #include <cstdlib>
 #include <algorithm>
+#include <unistd.h>
 
 ObjParser::ObjParser(char * const path)
 {
@@ -127,6 +128,51 @@ Mesh    ObjParser::buildMesh()
     std::vector<Vertex>         vertices;
     std::vector<unsigned int>   indices;
     std::vector<Texture>        textures;
+
+    // Make triangles from vertexNb = 4
+    for (std::vector<Face>::iterator it = _faces.begin() ; it != _faces.end() ; it++)
+    {
+        if (it->vertexNb != 4)
+            continue ;
+
+        Face  newFace1 = {};
+        Face  newFace2 = {};
+
+        newFace1.vertexNb = 3;
+        newFace2.vertexNb = 3;
+
+        newFace1.positionIndexes.push_back(it->positionIndexes[0]);
+        newFace1.positionIndexes.push_back(it->positionIndexes[1]);
+        newFace1.positionIndexes.push_back(it->positionIndexes[3]);
+
+        newFace2.positionIndexes.push_back(it->positionIndexes[1]);
+        newFace2.positionIndexes.push_back(it->positionIndexes[2]);
+        newFace2.positionIndexes.push_back(it->positionIndexes[3]);
+
+        newFace1.normalIndexes.push_back(it->normalIndexes[0]);
+        newFace1.normalIndexes.push_back(it->normalIndexes[1]);
+        newFace1.normalIndexes.push_back(it->normalIndexes[3]);
+
+        newFace2.normalIndexes.push_back(it->normalIndexes[1]);
+        newFace2.normalIndexes.push_back(it->normalIndexes[2]);
+        newFace2.normalIndexes.push_back(it->normalIndexes[3]);
+
+        newFace1.textureIndexes.push_back(it->textureIndexes[0]);
+        newFace1.textureIndexes.push_back(it->textureIndexes[1]);
+        newFace1.textureIndexes.push_back(it->textureIndexes[3]);
+
+        newFace2.textureIndexes.push_back(it->textureIndexes[1]);
+        newFace2.textureIndexes.push_back(it->textureIndexes[2]);
+        newFace2.textureIndexes.push_back(it->textureIndexes[3]);
+
+        _faces.push_back(newFace1);
+        _faces.push_back(newFace2);
+
+    }
+
+    _faces.erase(std::remove_if(_faces.begin(), _faces.end(), [](const Face& face) {
+        return face.vertexNb == 4;
+    }), _faces.end());
 
     for (size_t i = 0 ; i < _faces.size() ; i++)
     {
