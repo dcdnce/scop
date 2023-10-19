@@ -11,6 +11,17 @@ bool ObjParser::_isEOF()
 	return (false);
 }
 
+bool ObjParser::_isNewLine()
+{
+	for (; std::isspace(_ifs.peek()); _ifs.get())
+		;
+
+	if (_ifs.peek() == '\n')
+		return (true);
+
+	return (false);
+}
+
 std::string ObjParser::_getWord()
 {
     std::string word = "";

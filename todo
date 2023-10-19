@@ -1,5 +1,6 @@
  - ObjParser
-    - gerer les faces polymorphes
+    - gerer les faces modulaires (v/vn/vt)
+    - gerer les faces polymorphes (4v ou 3v ou +)
     - test exceptions/errors
     - [buildMesh()]
         - tri des index + efficace

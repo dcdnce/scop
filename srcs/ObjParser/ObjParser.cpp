@@ -19,7 +19,7 @@ ObjParser::ObjParser(char * const path)
     Logger::info(true) << "v: " << _v.size() << std::endl;
     Logger::info(true) << "vn: " << _vn.size() << std::endl;
     Logger::info(true) << "vt: " << _vt.size() << std::endl;
-    Logger::info(true) << "f: " << _f.size() << std::endl;
+    Logger::info(true) << "f: " << _faces.size() << std::endl;
 }
 
 void ObjParser::_parseLine() 
@@ -70,28 +70,55 @@ void ObjParser::_parseVt()
 
 void ObjParser::_parseF()
 {
-    std::string currIndice;
+    Face    currFace = {};
+    static bool firstVertexParsed = false;
 
-    for (size_t i = 0 ; i < 3 ; i++)
+    while (!_isNewLine())
     {
-        std::string currFace = _getWord(); 
-        size_t  j = 0;
+        currFace.vertexNb += 1;
+        std::string currVertex = _getWord();
+        std::string currIndex = "";
+        size_t j = 0;
 
-        currIndice.clear();
-        for (; j < currFace.size() && currFace[j] != '/' ; j++)
-            currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
-        currIndice.clear();
+        // V parsing
+        currIndex.clear();
+        for (; j < currVertex.size() && currVertex[j] != '/' ; j++)
+            currIndex += currVertex[j];
+        j++; // replace by j+=1 in for loop ?
+        if (currIndex.size())
+        {
+            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_V; // replace by |= ?
+            currFace.positionIndexes.push_back(
+                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
+        }
+
+        // Vt parsing
+        currIndex.clear();
+        for (; j < currVertex.size() && currVertex[j] != '/' ; j++)
+            currIndex += currVertex[j];
         j++;
-        for (; j < currFace.size() && currFace[j] != '/' ; j++)
-            currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
-        currIndice.clear();
-        j++;
-        for (; j < currFace.size() ; j++)
-            currIndice += currFace[j];
-        _f.push_back(static_cast<unsigned int>(strtof(currIndice.c_str(), nullptr)) - 1);
+        if (currIndex.size())
+        {
+            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_VT;
+            currFace.textureIndexes.push_back(
+                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
+        }
+
+        // Vn parsing
+        currIndex.clear();
+        for (; j < currVertex.size() ; j++)
+            currIndex += currVertex[j];
+        if (currIndex.size())
+        {
+            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_VN;
+            currFace.normalIndexes.push_back(
+                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
+        }
+
+        firstVertexParsed = true;
     }
+
+    _faces.push_back(currFace);
 }
 
 
@@ -101,35 +128,35 @@ Mesh    ObjParser::buildMesh()
     std::vector<unsigned int>   indices;
     std::vector<Texture>        textures;
 
-    for (size_t i = 0 ; i < _f.size() ; i += 3)
+    for (size_t i = 0 ; i < _faces.size() ; i++)
     {
-        // Build current vertex
-        Vertex  currVertex;
-        currVertex.position = _v[_f[i]];
-        currVertex.texCoords = _vt[_f[i+1]];
-        currVertex.normal = _vn[_f[i+2]];
-
-        // Find if already exists
-        std::vector<Vertex>::iterator it = std::find_if(vertices.begin(), vertices.end(),
-        [&currVertex](const Vertex& v) {
-            return v.position.x == currVertex.position.x && v.position.y == currVertex.position.y && v.position.z == currVertex.position.z
-                && v.normal.x == currVertex.normal.x && v.normal.y == currVertex.normal.y && v.normal.z == currVertex.normal.z
-                && v.texCoords.x == currVertex.texCoords.x && v.texCoords.y == currVertex.texCoords.y;
-        });
-
-        // Similar vertex ?
-        // - indices.push_back(index)
-        if (it != vertices.end())
+        for (size_t j = 0 ; j < _faces[i].vertexNb ; i++)
         {
-            indices.push_back(std::distance(vertices.begin(), it));
-        }
-        // New vertex ?
-        //  - vertices.push_back(currVertex)
-        //  - indices.push_back(vertices.size()-1) <- last elem
-        else
-        {
-            vertices.push_back(currVertex);
-            indices.push_back(vertices.size() - 1);
+            // Build current vertex
+            Vertex  currVertex = {};
+            if (_facesType & FACE_ELEM_V)
+                currVertex.position = _v[_faces[i].positionIndexes[j]];
+            if (_facesType & FACE_ELEM_VT)
+                currVertex.texCoords = _vt[_faces[i].textureIndexes[j]];
+            if (_facesType & FACE_ELEM_VN)
+                currVertex.normal = _vn[_faces[i].normalIndexes[j]];
+
+            // Build indexes
+            std::vector<Vertex>::iterator it = std::find_if(vertices.begin(), vertices.end(),
+            [&currVertex](const Vertex& v) {
+                return v.position.x == currVertex.position.x && v.position.y == currVertex.position.y && v.position.z == currVertex.position.z
+                    && v.normal.x == currVertex.normal.x && v.normal.y == currVertex.normal.y && v.normal.z == currVertex.normal.z
+                    && v.texCoords.x == currVertex.texCoords.x && v.texCoords.y == currVertex.texCoords.y;
+            });
+            if (it != vertices.end())
+            {
+                indices.push_back(std::distance(vertices.begin(), it));
+            }
+            else
+            {
+                vertices.push_back(currVertex);
+                indices.push_back(vertices.size() - 1);
+            }
         }
     }
 
