@@ -55,8 +55,8 @@ int	main(void)
 	if (!gl.init())
 		return (-1);
 
-	// Init Shader**/*.obj
-	if (!loadShader(&gl.program))
+	// Init Shader
+	if (!loadShader(&gl.program, "./shaders/vertex_V.glsl", "./shaders/fragment_V.glsl"))
 		return (-1);
 
 	// Create cube mesh

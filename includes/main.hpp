@@ -11,7 +11,7 @@
 #define A_ESC	"\e[0m"
 
 // shader.cpp
-int		loadShader(GLuint *program);
+int	loadShader(GLuint *program, char * const vertexShaderPath, char * const fragmentShaderPath);
 // main.cpp
 void	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 

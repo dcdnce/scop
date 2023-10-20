@@ -8,7 +8,7 @@ Mesh    ObjParser::buildMesh()
     _buildMeshTriangulation();
     _buildMeshCraftVerticesIndices();
 
-    return (Mesh(_outVertices, _outIndices, _outTextures));
+    return (Mesh(_outVertices, _outIndices, _outTextures, _facesType));
 }
 
 inline void    ObjParser::_buildMeshTriangulation()
@@ -27,30 +27,32 @@ inline void    ObjParser::_buildMeshTriangulation()
         newFace1.positionIndexes.push_back(_inFaces[i].positionIndexes[0]);
         newFace1.positionIndexes.push_back(_inFaces[i].positionIndexes[1]);
         newFace1.positionIndexes.push_back(_inFaces[i].positionIndexes[3]);
-
         newFace2.positionIndexes.push_back(_inFaces[i].positionIndexes[1]);
         newFace2.positionIndexes.push_back(_inFaces[i].positionIndexes[2]);
         newFace2.positionIndexes.push_back(_inFaces[i].positionIndexes[3]);
 
-        newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[0]);
-        newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[1]);
-        newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[3]);
+        if (_facesType & FACE_ELEM_VN)
+        {
+            newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[0]);
+            newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[1]);
+            newFace1.normalIndexes.push_back(_inFaces[i].normalIndexes[3]);
+            newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[1]);
+            newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[2]);
+            newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[3]);
+        }
 
-        newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[1]);
-        newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[2]);
-        newFace2.normalIndexes.push_back(_inFaces[i].normalIndexes[3]);
-
-        newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[0]);
-        newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[1]);
-        newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[3]);
-                                                   
-        newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[1]);
-        newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[2]);
-        newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[3]);
+        if (_facesType & FACE_ELEM_VT)
+        {
+            newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[0]);
+            newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[1]);
+            newFace1.textureIndexes.push_back(_inFaces[i].textureIndexes[3]);
+            newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[1]);
+            newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[2]);
+            newFace2.textureIndexes.push_back(_inFaces[i].textureIndexes[3]);
+        }
 
         _inFaces.push_back(newFace1);
         _inFaces.push_back(newFace2);
-
     }
 }
 
@@ -91,5 +93,4 @@ inline void    ObjParser::_buildMeshCraftVerticesIndices()
             }
         }
     }
-
 }

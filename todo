@@ -1,7 +1,11 @@
+ - Shaders
+    - gerer les faces modulaires (v/vn/vt) (see Mesh) ✅
+
  - ObjParser
     - gerer les faces modulaires (v/vn/vt) (see Mesh) ✅
     - test exceptions/errors
     - erreurs pour vertexNb > 4 ?
+    - erreur pour non FACE_TYPE_V
     - [buildMesh()]
         - tri des index + efficace
     - [refactor]
@@ -11,7 +15,6 @@
         - pas de newline fin de fichier
 
 - Mesh 
-    - gerer Setup() selon s'il y a des f avec vt, vn, etc
     - destructor delete buffers
 
 - Makefile

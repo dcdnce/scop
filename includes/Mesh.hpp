@@ -19,14 +19,15 @@ struct Texture {
 class Mesh {
     private:
         unsigned int VAO, VBO, EBO;
-        void Setup(void);
+        void _setup(void);
 
     public:
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
         std::vector<Texture> textures;
+        int const facesType;
 
-        Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures);
+        Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, int const facesType);
 
         void    Draw(void);
 };

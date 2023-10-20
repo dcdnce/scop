@@ -1,16 +1,8 @@
-#include "../includes/Mesh.hpp"
+#include "Mesh.hpp"
+#include "FacesType.hpp"
 #include <fstream>
 #include <iostream>
 #include <vector>
-
-#define FACE_ELEM_V 0b0001
-#define FACE_ELEM_VT 0b0010
-#define FACE_ELEM_VN 0b0100
-
-#define FACE_TYPE_V  (FACE_ELEM_V)
-#define FACE_TYPE_VVT  (FACE_ELEM_V | FACE_ELEM_VT)
-#define FACE_TYPE_VVN  (FACE_ELEM_V | FACE_ELEM_VN)
-#define FACE_TYPE_VVTVN  (FACE_ELEM_V | FACE_ELEM_VT | FACE_ELEM_VN)
 
 struct Face {
     size_t vertexNb;

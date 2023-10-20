@@ -37,7 +37,7 @@ static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
 	return (1);
 }
 
-int	loadShader(GLuint *program)
+int	loadShader(GLuint *program, char * const vertexShaderPath, char * const fragmentShaderPath)
 {
 	int			ret_value = 1;
 	char		infoLog[512];
@@ -45,9 +45,9 @@ int	loadShader(GLuint *program)
 	GLuint		vertexShaderRef;
 	GLuint		fragmentShaderRef;
 
-	if (!createShader(&vertexShaderRef, GL_VERTEX_SHADER, "shaders/vertex_core.glsl"))
+	if (!createShader(&vertexShaderRef, GL_VERTEX_SHADER, vertexShaderPath))
 		return (0);
-	if (!createShader(&fragmentShaderRef, GL_FRAGMENT_SHADER, "shaders/fragment_core.glsl"))
+	if (!createShader(&fragmentShaderRef, GL_FRAGMENT_SHADER, fragmentShaderPath))
 		return (0);
 	*program = glCreateProgram();
 	glAttachShader(*program, vertexShaderRef);

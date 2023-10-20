@@ -1,13 +1,19 @@
 #include "../includes/Mesh.hpp"
 #include "../includes/glad/glad.h"
+#include "../includes/FacesType.hpp"
 
-Mesh::Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures)
-    : vertices(vertices), indices(indices), textures(textures)
+Mesh::Mesh(
+    std::vector<Vertex> const& vertices, 
+    std::vector<unsigned int> const& indices, 
+    std::vector<Texture> const& textures, 
+    int const facesType
+    )
+    : vertices(vertices), indices(indices), textures(textures), facesType(facesType)
 {
-    Setup();
+    _setup();
 }
 
-void Mesh::Setup()
+void Mesh::_setup()
 {
     /* Init objects */
     glGenVertexArrays(1, &VAO);
@@ -41,7 +47,6 @@ void Mesh::Setup()
 void Mesh::Draw(void)
 {
     glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
