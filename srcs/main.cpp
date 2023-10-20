@@ -49,72 +49,66 @@ float lastFrame = 0.f;
 
 int	main(void)
 {
-	Engine 	gl;
+	Engine 	scop;
 	GLuint	texture1;
 
-	if (!gl.init())
+	if (!scop.init())
 		return (-1);
 
-	// Init Shader
-	if (!loadShader(&gl.program, "./shaders/vertex_V.glsl", "./shaders/fragment_V.glsl"))
-		return (-1);
-
-	// Create cube mesh
-	ObjParser	cubeParsing("./resources/42.obj");
-	Mesh cubeMesh = cubeParsing.buildMesh();
+	// Create current mesh
+	ObjParser	parsing("./resources/42.obj");
+	Mesh currMesh = parsing.buildMesh();
 
 	// Enable z-buffer
 	glEnable(GL_DEPTH_TEST);
 
-	glUseProgram(gl.program);
-
+	glUseProgram(currMesh.shader.program);
 	// Load texture
 	loadTexture_jpg(&texture1, "container.jpg", GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(gl.program, "texture1"), 0);
-
+	glUniform1i(glGetUniformLocation(currMesh.shader.program, "texture1"), 0);
 	// Projection Matrix
 	pfm::mat4	proj = pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f);
-	glUniformMatrix4fv(glGetUniformLocation(gl.program, "proj"), 1, GL_FALSE, &proj);
+	glUniformMatrix4fv(glGetUniformLocation(currMesh.shader.program, "proj"), 1, GL_FALSE, &proj);
 	glUseProgram(0);
 		
 	// Main loop
-	while (!glfwWindowShouldClose(gl.window))
+	while (!glfwWindowShouldClose(scop.window))
 	{
 		float	currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		processInput(gl.window);
+		processInput(scop.window);
 		glClearColor(0.3f, 0.49f, 0.66f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Bind texture, use program
+		glUseProgram(currMesh.shader.program);
+		// Bind texture
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
-		glUseProgram(gl.program);
 
 		// Update viewMatrix uniform
 		pfm::mat4	viewMatrix = camera.getViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(gl.program, "view"), 1 , GL_FALSE, &viewMatrix);
+		glUniformMatrix4fv(glGetUniformLocation(currMesh.shader.program, "view"), 1 , GL_FALSE, &viewMatrix);
 
 		// Draw cubes
 		for (size_t i = 0 ; i < 10 ; i++)
 		{
 			pfm::mat4 model = pfm::translate(pfm::mat4(1.f), cubePositions[i]);
 			model = pfm::rotate(model, (float)glfwGetTime() * pfm::radians(20.f * i + 1), pfm::vec3(0.5f, 1.0f, 0.0f));
-			glUniformMatrix4fv(glGetUniformLocation(gl.program, "model"), 1, GL_FALSE, &model);
-			cubeMesh.Draw();
+			glUniformMatrix4fv(glGetUniformLocation(currMesh.shader.program, "model"), 1, GL_FALSE, &model);
+			currMesh.Draw();
 		}
 
 		// Unbind
+    	glUseProgram(0);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-        glfwSwapBuffers(gl.window);
+        glfwSwapBuffers(scop.window);
         glfwPollEvents();
 	}
 
-    glDeleteProgram(gl.program);
 	// todo // delete texture
 	return (0);
 }

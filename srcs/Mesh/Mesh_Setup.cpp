@@ -1,25 +1,7 @@
-#include "../includes/Mesh.hpp"
-#include "../includes/glad/glad.h"
+#include "Mesh.hpp"
+#include "FacesType.hpp"
 
-Mesh::Mesh(
-    std::vector<Vertex> const& vertices, 
-    std::vector<unsigned int> const& indices, 
-    std::vector<Texture> const& textures, 
-    int const facesType
-    )
-    : vertices(vertices), indices(indices), textures(textures), facesType(facesType)
-{
-    _setup();
-}
-
-Mesh::~Mesh()
-{
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-}
-
-void Mesh::_setup()
+void Mesh::_setupBuffers()
 {
     /* Init objects */
     glGenVertexArrays(1, &VAO);
@@ -50,9 +32,10 @@ void Mesh::_setup()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Mesh::Draw(void)
+void Mesh::_setupShaders()
 {
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    if (facesType == FACE_TYPE_V)
+        shader.loadShaders(FACE_TYPE_V_VERTEX_SHADER, FACE_TYPE_V_FRAG_SHADER);
+    else if (facesType == FACE_TYPE_VVTVN)
+        shader.loadShaders(FACE_TYPE_VVTVN_VERTEX_SHADER, FACE_TYPE_VVTVN_FRAG_SHADER);
 }

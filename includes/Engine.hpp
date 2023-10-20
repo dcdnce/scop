@@ -14,6 +14,5 @@ class Engine
 		int			framebufferWidth;
 		int			framebufferHeight;
 		GLFWwindow* window;
-		GLuint		program;
 };
 

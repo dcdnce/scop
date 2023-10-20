@@ -18,7 +18,7 @@ int Engine::init(void)
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	#endif
 
-	this->window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "OpenGL Tutorial", NULL, NULL);
+	this->window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "Scop", NULL, NULL);
 	if (this->window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -46,17 +46,13 @@ int Engine::init(void)
 	return (1);
 }
 
-Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL), program(0)
+Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 {
-	std::cout << "Engine::Constructor!" << std::endl;
 }
 
 Engine::~Engine(void)
 {
-	if (program)
-		glDeleteProgram(program);
 	if (window)
 		glfwDestroyWindow(this->window);
 	glfwTerminate();
-	std::cout << "Engine::Destructor!" << std::endl;
 }

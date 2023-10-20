@@ -1,9 +1,10 @@
 SRCS =	srcs/main.cpp \
 		libs/glad/glad.cpp \
 		srcs/Engine.cpp \
-		srcs/shader.cpp \
+		srcs/Shader.cpp \
 		srcs/Camera.cpp \
-		srcs/Mesh.cpp \
+		srcs/Mesh/Mesh.cpp \
+		srcs/Mesh/Mesh_Setup.cpp \
 		srcs/ObjParser/ObjParser.cpp \
 		srcs/ObjParser/ObjParser_Utils.cpp \
 		srcs/ObjParser/ObjParser_BuildMesh.cpp \
