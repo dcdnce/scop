@@ -6,6 +6,7 @@ SRCS =	srcs/main.cpp \
 		srcs/Mesh.cpp \
 		srcs/ObjParser/ObjParser.cpp \
 		srcs/ObjParser/ObjParser_Utils.cpp \
+		srcs/ObjParser/ObjParser_BuildMesh.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 

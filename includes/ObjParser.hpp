@@ -28,6 +28,10 @@ class ObjParser {
         std::vector<Face>           _faces;
         int                         _facesType;
 
+        std::vector<Vertex> _outVertices;
+        std::vector<unsigned int> _outIndices;
+        std::vector<Texture> _outTextures;
+
         bool        _isEOF();
         bool        _isNewLine();
         std::string _getWord();
@@ -38,6 +42,9 @@ class ObjParser {
         void    _parseVn();
         void    _parseVt();
         void    _parseF();
+
+        void    _buildMeshTriangulation();
+        void    _buildMeshCraftVerticesIndices();
 
     public:
         ObjParser(char * const path);
