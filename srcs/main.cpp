@@ -55,7 +55,7 @@ int	main(void)
 	if (!gl.init())
 		return (-1);
 
-	// Init Shader
+	// Init Shader**/*.obj
 	if (!loadShader(&gl.program))
 		return (-1);
 

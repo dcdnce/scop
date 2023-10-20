@@ -1,6 +1,6 @@
  - ObjParser
-    - gerer les faces polymorphes (4v ou 3v ou +) ✅
-    - triangulation
+    - un seul rectangle manquant ?
+    - triangulation ✅
     - gerer les faces modulaires (v/vn/vt)
     - test exceptions/errors
     - erreurs pour vertexNb > 4 ?
