@@ -22,10 +22,10 @@ struct Face {
 class ObjParser {
     private:
         std::ifstream _ifs;
-        std::vector<pfm::vec3>      _v;
-        std::vector<pfm::vec3>      _vn;
-        std::vector<pfm::vec2>      _vt;
-        std::vector<Face>           _faces;
+        std::vector<pfm::vec3>      _inV;
+        std::vector<pfm::vec3>      _inVn;
+        std::vector<pfm::vec2>      _inVt;
+        std::vector<Face>           _inFaces;
         int                         _facesType;
 
         std::vector<Vertex> _outVertices;

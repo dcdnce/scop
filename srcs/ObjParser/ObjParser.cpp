@@ -5,10 +5,10 @@
 
 ObjParser::ObjParser(char * const path)
 {
-    _v.clear();
-    _vn.clear();
-    _vt.clear();
-    _faces.clear();
+    _inV.clear();
+    _inVn.clear();
+    _inVt.clear();
+    _inFaces.clear();
     _facesType = 0;
 
     _ifs.open(path);
@@ -22,10 +22,10 @@ ObjParser::ObjParser(char * const path)
     // do something with exceptions
 
     Logger::info(true) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
-    Logger::info(true) << "v: " << _v.size() << std::endl;
-    Logger::info(true) << "vn: " << _vn.size() << std::endl;
-    Logger::info(true) << "vt: " << _vt.size() << std::endl;
-    Logger::info(true) << "f: " << _faces.size() << std::endl;
+    Logger::info(true) << "v: " << _inV.size() << std::endl;
+    Logger::info(true) << "vn: " << _inVn.size() << std::endl;
+    Logger::info(true) << "vt: " << _inVt.size() << std::endl;
+    Logger::info(true) << "f: " << _inFaces.size() << std::endl;
 }
 
 void ObjParser::_parseLine() 
@@ -51,7 +51,7 @@ void ObjParser::_parseV()
     for (size_t i = 0 ; i < 3 ; i++)
         newV[i] = strtof(_getWord().c_str(), nullptr);
 
-    _v.push_back(newV);
+    _inV.push_back(newV);
 }
 
 void ObjParser::_parseVn()
@@ -61,7 +61,7 @@ void ObjParser::_parseVn()
     for (size_t i = 0 ; i < 3 ; i++)
         newVn[i] = strtof(_getWord().c_str(), nullptr);
 
-    _vn.push_back(newVn);
+    _inVn.push_back(newVn);
 }
 
 void ObjParser::_parseVt()
@@ -71,7 +71,7 @@ void ObjParser::_parseVt()
     for (size_t i = 0 ; i < 2 ; i++)
         newVt[i] = strtof(_getWord().c_str(), nullptr);
 
-    _vt.push_back(newVt);
+    _inVt.push_back(newVt);
 }
 
 void ObjParser::_parseF()
@@ -124,5 +124,5 @@ void ObjParser::_parseF()
         firstVertexParsed = true;
     }
 
-    _faces.push_back(currFace);
+    _inFaces.push_back(currFace);
 }
