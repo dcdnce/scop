@@ -76,3 +76,43 @@ static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
 	}
 	return (1);
 }
+
+void  Shader::setProjMat(pfm::mat4 const& newProjMat)
+{
+	_projMat = newProjMat;
+	glUseProgram(program);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, &_projMat);
+	glUseProgram(0);
+}
+
+void  Shader::setViewMat(pfm::mat4 const& newViewMat)
+{
+	_viewMat = newViewMat;
+	glUseProgram(program);
+	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, &_viewMat);
+	glUseProgram(0);
+}
+
+void  Shader::setModelMat(pfm::mat4 const& newModelMat)
+{
+	_modelMat = newModelMat;
+	glUseProgram(program);
+	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &_modelMat);
+	glUseProgram(0);
+
+}
+
+pfm::mat4	Shader::getProjMat() const
+{
+	return _projMat;
+}
+
+pfm::mat4	Shader::getViewMat() const
+{
+	return _viewMat;
+}
+
+pfm::mat4	Shader::getModelMat() const
+{
+	return _modelMat;
+}

@@ -20,9 +20,11 @@ Mesh::~Mesh()
     glDeleteBuffers(1, &EBO);
 }
 
-void Mesh::Draw(void)
+void Mesh::draw(void)
 {
+    glUseProgram(attachedShader.program);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+    glUseProgram(0);
 }
