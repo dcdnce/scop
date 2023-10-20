@@ -28,6 +28,7 @@ class Mesh {
         int const facesType;
 
         Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, int const facesType);
+        ~Mesh();
 
         void    Draw(void);
 };

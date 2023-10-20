@@ -1,6 +1,5 @@
 #include "../includes/Mesh.hpp"
 #include "../includes/glad/glad.h"
-#include "../includes/FacesType.hpp"
 
 Mesh::Mesh(
     std::vector<Vertex> const& vertices, 
@@ -11,6 +10,13 @@ Mesh::Mesh(
     : vertices(vertices), indices(indices), textures(textures), facesType(facesType)
 {
     _setup();
+}
+
+Mesh::~Mesh()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 }
 
 void Mesh::_setup()
