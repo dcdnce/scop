@@ -1,7 +1,5 @@
  - ObjParser
-    - un seul rectangle manquant ?
-    - triangulation ✅
-    - gerer les faces modulaires (v/vn/vt)
+    - gerer les faces modulaires (v/vn/vt) (see Mesh) ✅
     - test exceptions/errors
     - erreurs pour vertexNb > 4 ?
     - [buildMesh()]

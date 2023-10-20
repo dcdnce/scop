@@ -26,8 +26,17 @@ ObjParser::ObjParser(char * const path)
     Logger::info(true) << "vn: " << _inVn.size() << std::endl;
     Logger::info(true) << "vt: " << _inVt.size() << std::endl;
     Logger::info(true) << "f: " << _inFaces.size() << std::endl;
-}
 
+    if (_facesType == FACE_TYPE_V)
+        Logger::info(false) << "FACE_TYPE_V" << std::endl;
+    if (_facesType == FACE_TYPE_VVT)
+        Logger::info(false) << "FACE_TYPE_VVT" << std::endl;
+    if (_facesType == FACE_TYPE_VVN)
+        Logger::info(false) << "FACE_TYPE_VVN" << std::endl;
+    if (_facesType == FACE_TYPE_VVTVN)
+        Logger::info(false) << "FACE_TYPE_VVTVN" << std::endl;
+}
+    
 void ObjParser::_parseLine() 
 {
     std::string currSection = _getWord();
@@ -90,7 +99,6 @@ void ObjParser::_parseF()
         currIndex.clear();
         for (; j < currVertex.size() && currVertex[j] != '/' ; j++)
             currIndex += currVertex[j];
-        j++; // replace by j+=1 in for loop ?
         if (currIndex.size())
         {
             if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_V; // replace by |= ?
@@ -100,9 +108,8 @@ void ObjParser::_parseF()
 
         // Vt parsing
         currIndex.clear();
-        for (; j < currVertex.size() && currVertex[j] != '/' ; j++)
+        for (j += 1; j < currVertex.size() && currVertex[j] != '/' ; j++)
             currIndex += currVertex[j];
-        j++;
         if (currIndex.size())
         {
             if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_VT;
@@ -112,7 +119,7 @@ void ObjParser::_parseF()
 
         // Vn parsing
         currIndex.clear();
-        for (; j < currVertex.size() ; j++)
+        for (j += 1 ; j < currVertex.size() ; j++)
             currIndex += currVertex[j];
         if (currIndex.size())
         {
