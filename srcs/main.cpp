@@ -54,7 +54,7 @@ int	main(void)
 	GLuint	texture1;
 
 	if (!scop.init())
-		return (-1);
+		exit(EXIT_FAILURE);	
 
 	// Create current mesh
 	ObjParser object;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "main.hpp"
+#include <GLFW/glfw3.h>
 
 class Engine
 {

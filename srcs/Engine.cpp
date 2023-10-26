@@ -1,6 +1,6 @@
 #include "main.hpp"
 #include "Engine.hpp"
-
+#include "Logger.hpp"
 #include <iostream>
 
 int Engine::init(void)
@@ -21,8 +21,7 @@ int Engine::init(void)
 	this->window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "Scop", NULL, NULL);
 	if (this->window == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
+        Logger::error(true) << "Failed to create GLFW window" << std::endl;
 		return (0);
     }
 
@@ -31,8 +30,7 @@ int Engine::init(void)
 	// Glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		glfwTerminate();
+		Logger::error(true) << "Failed to initialize GLAD" << std::endl;
 		return (0);
 	}
 

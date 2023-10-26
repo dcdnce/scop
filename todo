@@ -1,20 +1,13 @@
 - ObjParser
     - supporter 5 vertices par face
-    - [buildMesh()]
-        - tri des index + efficace
     - [bugs]
         - pas de newline fin de fichier
 
 - Shader
     - ajouter la gestion des textures
 
-- Mesh
-    - vertex out of mesh class ?
-
 - Refactor
     - buildMesh()
-    - Shader class
-        - replace errors by exceptions
 
 - Makefile
     - add debug (for logger::debug and bc it's better)

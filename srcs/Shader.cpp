@@ -1,5 +1,5 @@
 #include "Shader.hpp"
-
+#include "Logger.hpp"
 #include <iostream>
 #include <fstream>
 
@@ -34,8 +34,8 @@ int	Shader::loadShaders(char * const vertexShaderPath, char * const fragmentShad
 	if (!status)
 	{
 		glGetProgramInfoLog(program, 512, NULL, infoLog);
-		std::cout << "Shader class linking error" << std::endl;
-		std::cout << infoLog << std::endl;
+		Logger::error(true) << "Shader class linking error" << std::endl;
+		Logger::error(false) << infoLog << std::endl;
 		ret_value = 0;
 	}
 	glDeleteShader(vertexShaderRef);
@@ -58,7 +58,7 @@ static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
 			src += tmp + "\n";
 	else
 	{
-		std::cout << "Shader class couldn't open shader file" << std::endl;
+		Logger::error(true) << "Shader class couldn't open shader file" << std::endl;
 		return (0);	
 	}
 	*shaderRef = glCreateShader(type);	
@@ -70,8 +70,8 @@ static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
 	if (!status)
 	{
 		glGetShaderInfoLog(*shaderRef, 512, NULL, infoLog);
-		std::cout << "Shader class compile error" << std::endl;
-		std::cout << infoLog << std::endl;
+		Logger::error(true) << "Shader class compile error" << std::endl;
+		Logger::error(false) << infoLog << std::endl;
 		return (0);
 	}
 	return (1);
