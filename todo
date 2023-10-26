@@ -6,14 +6,10 @@
 - Shader
     - ajouter la gestion des textures
 
-- Refactor
-    - buildMesh()
-
 - Makefile
     - add debug (for logger::debug and bc it's better)
 
 - Autres
     - camera jumps chelous
-    - remplacer tous les types par [type]_[bytes]t ou GL[type]
     - Header includes consistant
     - dataraces et leaks

@@ -59,7 +59,7 @@ int	main(void)
 	// Create current mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/teapot.obj");
+		object.parse("./resources/obj/42.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
@@ -71,7 +71,7 @@ int	main(void)
 	
 	// Load texture
 	glUseProgram(currMesh.attachedShader.program);
-	loadTexture_jpg(&texture1, "container.jpg", GL_TEXTURE0);
+	loadTexture_jpg(&texture1, "./resources/textures/container.jpg", GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "texture1"), 0);
 	glUseProgram(0);
 

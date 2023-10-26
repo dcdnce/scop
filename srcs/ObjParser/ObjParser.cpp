@@ -20,7 +20,7 @@ void ObjParser::parse(char * const path)
     _ifs.open(path);
 
     if (!_ifs.is_open())
-        throw std::runtime_error("Couldn't open file");
+        throw std::runtime_error("ObjParse :: Couldn't open file");
 
     while (!_isEOF())
         _parseLine();
