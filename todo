@@ -1,7 +1,5 @@
 - ObjParser
-    - test exceptions/errors
-    - erreurs pour vertexNb > 4 < 3 ✅
-    - erreur pour FACE_TYPE_V manquant
+    - supporter 5 vertices par face
     - [buildMesh()]
         - tri des index + efficace
     - [bugs]
@@ -11,7 +9,7 @@
     - ajouter la gestion des textures
 
 - Mesh
-    - getInnerShader() ?
+    - vertex out of mesh class ?
 
 - Refactor
     - buildMesh()

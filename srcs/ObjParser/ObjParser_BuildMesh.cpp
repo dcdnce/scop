@@ -56,41 +56,44 @@ inline void    ObjParser::_buildMeshTriangulation()
     }
 }
 
-
-inline void    ObjParser::_buildMeshCraftVerticesIndices()
+inline void ObjParser::_buildMeshCraftVerticesIndices()
 {
-    for (size_t i = 0 ; i < _inFaces.size() ; i++)
+    for (size_t i = 0; i < _inFaces.size(); i++)
     {
-        if (_inFaces[i].vertexNb > 3)
-            continue;
-
-        for (size_t j = 0 ; j < _inFaces[i].vertexNb ; j++)
+        if (_inFaces[i].vertexNb <= 3)
         {
-            // Build current vertex
-            Vertex  currVertex = {};
-            if (_facesType & FACE_ELEM_V)
-                currVertex.position = _inV[_inFaces[i].positionIndexes[j]];
-            if (_facesType & FACE_ELEM_VT)
-                currVertex.texCoords = _inVt[_inFaces[i].textureIndexes[j]];
-            if (_facesType & FACE_ELEM_VN)
-                currVertex.normal = _inVn[_inFaces[i].normalIndexes[j]];
-
-            // Build indices
-            std::vector<Vertex>::iterator it = std::find_if(_outVertices.begin(), _outVertices.end(),
-            [&currVertex](const Vertex& v) {
-                return v.position.x == currVertex.position.x && v.position.y == currVertex.position.y && v.position.z == currVertex.position.z
-                    && v.normal.x == currVertex.normal.x && v.normal.y == currVertex.normal.y && v.normal.z == currVertex.normal.z
-                    && v.texCoords.x == currVertex.texCoords.x && v.texCoords.y == currVertex.texCoords.y;
-            });
-            if (it != _outVertices.end())
+            for (size_t j = 0; j < _inFaces[i].vertexNb; j++)
             {
-                _outIndices.push_back(std::distance(_outVertices.begin(), it));
-            }
-            else
-            {
-                _outVertices.push_back(currVertex);
-                _outIndices.push_back(_outVertices.size() - 1);
+                Vertex currVertex = _buildCurrentVertex(i, j);
+                size_t index = _findOrAddVertex(currVertex);
+                _outIndices.push_back(index);
             }
         }
     }
+}
+
+inline Vertex ObjParser::_buildCurrentVertex(size_t const faceIndex, size_t const vertexIndex)
+{
+    Vertex currVertex = {};
+    if (_facesType & FACE_ELEM_V)
+        currVertex.position = _inV[_inFaces[faceIndex].positionIndexes[vertexIndex]];
+    if (_facesType & FACE_ELEM_VT)
+        currVertex.texCoords = _inVt[_inFaces[faceIndex].textureIndexes[vertexIndex]];
+    if (_facesType & FACE_ELEM_VN)
+        currVertex.normal = _inVn[_inFaces[faceIndex].normalIndexes[vertexIndex]];
+    return currVertex;
+}
+
+inline size_t ObjParser::_findOrAddVertex(const Vertex& currVertex)
+{
+    std::vector<Vertex>::iterator it = std::find_if(_outVertices.begin(), _outVertices.end(),
+        [&currVertex](const Vertex& v) {
+            return v.position == currVertex.position && v.normal == currVertex.normal && v.texCoords == currVertex.texCoords;
+        });
+    if (it != _outVertices.end())
+    {
+        return std::distance(_outVertices.begin(), it);
+    }
+    _outVertices.push_back(currVertex);
+    return _outVertices.size() - 1;
 }
