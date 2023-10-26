@@ -94,7 +94,7 @@ int	main(void)
 		currMesh.attachedShader.setViewMat(camera.getViewMatrix());
 
 		// draw cubes
-		for (size_t i = 0 ; i < 10 ; i++)
+		for (size_t i = 0 ; i < 1 ; i++)
 		{
 			// Update modelmatrix
 			currMesh.attachedShader.setModelMat(pfm::translate(pfm::mat4(1.f), cubePositions[i]));

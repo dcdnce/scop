@@ -1,7 +1,6 @@
 #include "../includes/ObjParser.hpp"
 #include "../includes/Logger.hpp"
 #include <cstdlib>
-#include <algorithm>
 
 ObjParser::ObjParser(char * const path)
 {
@@ -81,55 +80,4 @@ void ObjParser::_parseVt()
         newVt[i] = strtof(_getWord().c_str(), nullptr);
 
     _inVt.push_back(newVt);
-}
-
-void ObjParser::_parseF()
-{
-    Face    currFace = {};
-    static bool firstVertexParsed = false;
-
-    while (!_isNewLine())
-    {
-        currFace.vertexNb += 1;
-        std::string currVertex = _getWord();
-        std::string currIndex = "";
-        size_t j = 0;
-
-        // V parsing
-        currIndex.clear();
-        for (; j < currVertex.size() && currVertex[j] != '/' ; j++)
-            currIndex += currVertex[j];
-        if (currIndex.size())
-        {
-            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_V; // replace by |= ?
-            currFace.positionIndexes.push_back(
-                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
-        }
-
-        // Vt parsing
-        currIndex.clear();
-        for (j += 1; j < currVertex.size() && currVertex[j] != '/' ; j++)
-            currIndex += currVertex[j];
-        if (currIndex.size())
-        {
-            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_VT;
-            currFace.textureIndexes.push_back(
-                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
-        }
-
-        // Vn parsing
-        currIndex.clear();
-        for (j += 1 ; j < currVertex.size() ; j++)
-            currIndex += currVertex[j];
-        if (currIndex.size())
-        {
-            if (!firstVertexParsed) _facesType = _facesType | FACE_ELEM_VN;
-            currFace.normalIndexes.push_back(
-                static_cast<unsigned short>(strtof(currIndex.c_str(), nullptr)) - 1);
-        }
-
-        firstVertexParsed = true;
-    }
-
-    _inFaces.push_back(currFace);
 }
