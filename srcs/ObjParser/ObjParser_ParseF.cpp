@@ -30,6 +30,9 @@ void ObjParser::_parseF()
         firstVertexParsed = true;
     }
 
+	if (currFace.vertexNb < 3 || currFace.vertexNb > 4)
+		throw std::runtime_error("ObjParser :: Vertices number of current face is not supported/incomplete");
+
     _inFaces.push_back(currFace);
 }
 

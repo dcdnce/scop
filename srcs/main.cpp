@@ -15,6 +15,7 @@
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "ObjParser.hpp"
+#include "Logger.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -56,7 +57,13 @@ int	main(void)
 		return (-1);
 
 	// Create current mesh
-	ObjParser	object("./resources/42.obj");
+	ObjParser object;
+	try {
+		object.parse("./resources/teapot.obj");
+	} catch (std::exception & e) {
+		Logger::error(true) << e.what() << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	Mesh currMesh = object.buildMesh();
 
 	// Enable z-buffer

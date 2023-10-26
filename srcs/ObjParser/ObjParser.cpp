@@ -2,14 +2,21 @@
 #include "../includes/Logger.hpp"
 #include <cstdlib>
 
-ObjParser::ObjParser(char * const path)
+
+ObjParser::ObjParser()
 {
     _inV.clear();
     _inVn.clear();
     _inVt.clear();
     _inFaces.clear();
     _facesType = 0;
+    _outIndices.clear();
+    _outVertices.clear();
+    _outTextures.clear();
+}
 
+void ObjParser::parse(char * const path)
+{
     _ifs.open(path);
 
     if (!_ifs.is_open())
@@ -17,8 +24,6 @@ ObjParser::ObjParser(char * const path)
 
     while (!_isEOF())
         _parseLine();
-
-    // do something with exceptions
 
     Logger::info(true) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
     Logger::info(true) << "v: " << _inV.size() << std::endl;

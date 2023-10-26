@@ -39,7 +39,8 @@ class ObjParser {
         void    _buildMeshCraftVerticesIndices();
 
     public:
-        ObjParser(char * const path);
+        ObjParser();
 
+        void    parse(char * const path);
         Mesh    buildMesh();
 };

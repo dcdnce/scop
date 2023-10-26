@@ -1,6 +1,6 @@
 - ObjParser
     - test exceptions/errors
-    - erreurs pour vertexNb > 4 ?
+    - erreurs pour vertexNb > 4 < 3 ✅
     - erreur pour FACE_TYPE_V manquant
     - [buildMesh()]
         - tri des index + efficace
@@ -14,7 +14,6 @@
     - getInnerShader() ?
 
 - Refactor
-    - parseF() ✅
     - buildMesh()
     - Shader class
         - replace errors by exceptions
