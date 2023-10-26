@@ -2,7 +2,7 @@
 #define MAIN_HPP
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <glfw/glfw3.h>
 
 #define	W_HEIGHT	600	
 #define	W_WIDTH		800

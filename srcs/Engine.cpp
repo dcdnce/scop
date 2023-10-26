@@ -5,7 +5,7 @@
 
 int Engine::init(void)
 {
-	//Init GLFW
+	//Init glfw
 	glfwInit();
 
 	//Create a window
@@ -21,7 +21,7 @@ int Engine::init(void)
 	this->window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "Scop", NULL, NULL);
 	if (this->window == NULL)
     {
-        Logger::error(true) << "Failed to create GLFW window" << std::endl;
+        Logger::error(true) << "Failed to create glfw window" << std::endl;
 		return (0);
     }
 
