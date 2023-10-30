@@ -9,7 +9,18 @@
 - Makefile
     - add debug (for logger::debug and bc it's better)
 
-- Autres
+- General
+    - grey shading
+    - color shading
     - camera jumps chelous
     - Header includes consistant
     - dataraces et leaks
+
+- Bonus
+    - concave, non coplanar ✅ (?)
+    - textures cannot be stretched on any of the sides (?)
+    - smooth rendering
+    - transparency
+    - fps counter
+    - antialiasing ?
+    - light ? (meh)
