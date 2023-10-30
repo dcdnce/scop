@@ -22,6 +22,7 @@ class Shader {
 
         int	loadShaders(char * const vertexShaderPath, char * const fragmentShaderPath);
 
+        void  setVec3(char * const uniformName, pfm::vec3 & v);
         void  setProjMat(pfm::mat4 const& newProjMat);
         void  setViewMat(pfm::mat4 const& newViewMat);
         void  setModelMat(pfm::mat4 const& newModelMat);

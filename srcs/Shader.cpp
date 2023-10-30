@@ -102,6 +102,13 @@ void  Shader::setModelMat(pfm::mat4 const& newModelMat)
 
 }
 
+void	Shader::setVec3(char * const uniformName, pfm::vec3 & v)	
+{
+	glUseProgram(program);
+	glUniformMatrix4fv(glGetUniformLocation(program, uniformName), 1, GL_FALSE, &v);
+	glUseProgram(0);
+}
+
 pfm::mat4	Shader::getProjMat() const
 {
 	return _projMat;
