@@ -1,16 +1,17 @@
 #include "Camera.hpp"
 #include "glm/glm.hpp"
 
-Camera::Camera(pfm::vec3 position, pfm::vec3 up, float yaw, float pitch)
+Camera::Camera()
 {
-	this->front = pfm::vec3(0.0f, 0.0f, -1.0f);
-	this->movementSpeed = SPEED;
-	this->mouseSensitivity = SENSITIVITY;
-	this->zoom = ZOOM;
-	this->position = position;
-	this->worldUp = up;
-	this->yaw = yaw;
-	this->pitch = pitch;
+	position = {0.f, 0.f, 0.f};	
+	up = {0.f, 1.f, 0.f};	
+	front = pfm::vec3(0.0f, 0.0f, -1.0f);
+	movementSpeed = SPEED;
+	mouseSensitivity = SENSITIVITY;
+	zoom = ZOOM;
+	worldUp = up;
+	yaw = YAW;
+	pitch = PITCH;
 	_updateCameraVectors();
 }
 

@@ -37,7 +37,7 @@ class Camera
 		float mouseSensitivity;
 		float zoom;
 
-		Camera(pfm::vec3 position = pfm::vec3(0.0f, 0.0f, 0.0f), pfm::vec3 up = pfm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
+		Camera();
 
 		pfm::mat4 getViewMatrix();
 

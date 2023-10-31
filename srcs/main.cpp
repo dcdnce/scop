@@ -59,7 +59,7 @@ int	main(void)
 	// Create current mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/teapot.obj");
+		object.parse("./resources/obj/42.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);

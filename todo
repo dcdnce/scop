@@ -11,11 +11,11 @@
 
 - General
     - grey shading
-    - color shading
+    - color shading ✅
     - textures
     - uniform prefix u
     - vertex shaders les memes ?
-    - camera jumps chelous (check camera constructor)
+    - camera jumps chelous (check camera constructor)✅
     - Header includes consistant
     - dataraces et leaks
 
