@@ -44,6 +44,7 @@ pfm::vec3 cubePositions[] = {
 };
 
 Camera	camera;
+bool	greyShading = true;
 
 float deltaTime = 0.f;
 float lastFrame = 0.f;
@@ -59,7 +60,7 @@ int	main(void)
 	// Create current mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/42.obj");
+		object.parse("./resources/obj/teapot.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
@@ -110,6 +111,11 @@ int	main(void)
 				(float)glfwGetTime() * pfm::radians(20.f * i + 1), 
 				pfm::vec3(0.5f, 1.0f, 0.0f))
 			);
+
+			glUseProgram(currMesh.attachedShader.program);
+			glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uGreyShading"), greyShading);
+			glUseProgram(0);
+
 			currMesh.draw();
 	}
 
@@ -137,6 +143,8 @@ void	processInput(GLFWwindow *w)
 		camera.processKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS)
 		camera.processKeyboard(RIGHT, deltaTime);
+	if (glfwGetKey(w, GLFW_KEY_C) == GLFW_PRESS)
+		greyShading = !greyShading;
 }
 
 void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)

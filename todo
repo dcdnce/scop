@@ -9,8 +9,11 @@
 - Makefile
     - add debug (for logger::debug and bc it's better)
 
+- Refactor
+    - shading
+
 - General
-    - grey shading
+    - grey shading ✅
     - color shading ✅
     - textures
     - uniform prefix u
