@@ -2,15 +2,9 @@
 
 #include "pfm/pfm.hpp"
 #include "Shader.hpp"
-
+#include "Vertex.hpp"
 #include <string>
 #include <vector>
-
-struct Vertex {
-    pfm::vec3 position;
-    pfm::vec3 normal;
-    pfm::vec2 texCoords;
-};
 
 struct Texture {
     unsigned int    id;

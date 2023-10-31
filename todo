@@ -12,6 +12,7 @@
 - General
     - grey shading
     - color shading
+    - textures
     - camera jumps chelous
     - Header includes consistant
     - dataraces et leaks
@@ -21,6 +22,7 @@
     - textures cannot be stretched on any of the sides (?)
     - smooth rendering
     - transparency
+    - point mode, wireframe mode
     - fps counter
     - antialiasing ?
     - light ? (meh)

@@ -1,5 +1,4 @@
-#ifndef MAIN_HPP
-#define MAIN_HPP
+#pragma once
 
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
@@ -12,5 +11,3 @@
 
 // main.cpp
 void	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
-
-#endif

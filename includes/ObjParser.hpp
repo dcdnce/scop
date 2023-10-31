@@ -1,4 +1,7 @@
+#pragma once
+
 #include "Mesh.hpp"
+#include "Vertex.hpp"
 #include "FacesType.hpp"
 #include <fstream>
 #include <iostream>
