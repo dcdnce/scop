@@ -13,12 +13,12 @@
     - shading
 
 - General
+    - camera jumps chelous (check camera constructor)
     - grey shading ✅
     - color shading ✅
     - textures
     - uniform prefix u
     - vertex shaders les memes ?
-    - camera jumps chelous (check camera constructor)✅
     - Header includes consistant
     - dataraces et leaks
 
