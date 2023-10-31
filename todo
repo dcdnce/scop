@@ -13,7 +13,9 @@
     - grey shading
     - color shading
     - textures
-    - camera jumps chelous
+    - uniform prefix u
+    - vertex shaders les memes ?
+    - camera jumps chelous (check camera constructor)
     - Header includes consistant
     - dataraces et leaks
 

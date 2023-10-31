@@ -9,6 +9,7 @@ Mesh::Mesh(
     )
     : vertices(vertices), indices(indices), textures(textures), facesType(facesType)
 {
+    _setupColors();
     _setupBuffers();
     _setupShaders();
 }

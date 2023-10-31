@@ -14,6 +14,7 @@ struct Texture {
 class Mesh {
     private:
         unsigned int VAO, VBO, EBO;
+        void _setupColors(void);
         void _setupBuffers(void);
         void _setupShaders(void);
 
@@ -28,4 +29,5 @@ class Mesh {
         ~Mesh();
 
         void    draw(void);
+        void    toggleColorShading();
 };

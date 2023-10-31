@@ -1,5 +1,20 @@
 #include "Mesh.hpp"
 #include "FacesType.hpp"
+#include <stdlib.h>
+
+
+void Mesh::_setupColors()
+{
+    for (size_t i = 0 ; i < vertices.size() ; i++)
+    {
+        vertices[i].color = {
+            static_cast<float>(rand()%255),
+            static_cast<float>(rand()%255),
+            static_cast<float>(rand()%255)
+        };
+    std::cout << vertices[i].color << std::endl;
+    }
+}
 
 void Mesh::_setupBuffers()
 {
@@ -24,7 +39,10 @@ void Mesh::_setupBuffers()
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, normal)));
         /* TexCoords */
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void * )(offsetof(Vertex, texCoords)));
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, texCoords)));
+        /* Color */
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, color)));
 
     /* Unbind objects */
     glBindVertexArray(0);

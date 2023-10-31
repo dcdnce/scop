@@ -81,7 +81,7 @@ void  Shader::setProjMat(pfm::mat4 const& newProjMat)
 {
 	_projMat = newProjMat;
 	glUseProgram(program);
-	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, &_projMat);
+	glUniformMatrix4fv(glGetUniformLocation(program, "uProj"), 1, GL_FALSE, &_projMat);
 	glUseProgram(0);
 }
 
@@ -89,7 +89,7 @@ void  Shader::setViewMat(pfm::mat4 const& newViewMat)
 {
 	_viewMat = newViewMat;
 	glUseProgram(program);
-	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, &_viewMat);
+	glUniformMatrix4fv(glGetUniformLocation(program, "uView"), 1, GL_FALSE, &_viewMat);
 	glUseProgram(0);
 }
 
@@ -97,7 +97,7 @@ void  Shader::setModelMat(pfm::mat4 const& newModelMat)
 {
 	_modelMat = newModelMat;
 	glUseProgram(program);
-	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &_modelMat);
+	glUniformMatrix4fv(glGetUniformLocation(program, "uModel"), 1, GL_FALSE, &_modelMat);
 	glUseProgram(0);
 
 }

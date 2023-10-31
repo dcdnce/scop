@@ -59,7 +59,7 @@ int	main(void)
 	// Create current mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/42.obj");
+		object.parse("./resources/obj/sphere.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
@@ -111,7 +111,7 @@ int	main(void)
 				pfm::vec3(0.5f, 1.0f, 0.0f))
 			);
 			currMesh.draw();
-		}
+	}
 
 		// Unbind
 		glActiveTexture(GL_TEXTURE0);
