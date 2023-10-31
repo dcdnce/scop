@@ -8,11 +8,10 @@ void Mesh::_setupColors()
     for (size_t i = 0 ; i < vertices.size() ; i++)
     {
         vertices[i].color = {
-            static_cast<float>(rand()%255),
-            static_cast<float>(rand()%255),
-            static_cast<float>(rand()%255)
+            static_cast<float>(rand()%255) / 255.f,
+            static_cast<float>(rand()%255) / 255.f,
+            static_cast<float>(rand()%255) / 255.f
         };
-    std::cout << vertices[i].color << std::endl;
     }
 }
 

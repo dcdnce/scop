@@ -5,7 +5,7 @@ layout (location = 2) in vec2 inTexCoord;
 layout (location = 3) in vec3 inColor;
 
 out vec2 fragTexCoord;
-out vec3 fragColor;
+flat out vec3 fragColor;
 
 uniform mat4 uModel;
 uniform mat4 uView;

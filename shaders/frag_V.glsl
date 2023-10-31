@@ -1,7 +1,7 @@
 #version 330 core
 
 in vec2 fragTexCoord;
-in vec3 fragColor;
+flat in vec3 fragColor;
 
 void main()
 {
