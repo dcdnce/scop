@@ -60,7 +60,7 @@ int	main(void)
 	// Create current mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/42.obj");
+		object.parse("./resources/obj/monkey.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
@@ -80,6 +80,8 @@ int	main(void)
 	currMesh.attachedShader.setProjMat(
 		pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f)
 	);
+
+	glPointSize(2.f);
 		
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
@@ -133,6 +135,9 @@ int	main(void)
 
 void	processInput(GLFWwindow *w)
 {
+	static int polygonMode[3] = {GL_FILL, GL_LINE, GL_POINT};
+	static size_t i = 0;
+
 	if (glfwGetKey(w, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(w, true);
 	if (glfwGetKey(w, GLFW_KEY_W) == GLFW_PRESS)
@@ -143,8 +148,15 @@ void	processInput(GLFWwindow *w)
 		camera.processKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS)
 		camera.processKeyboard(RIGHT, deltaTime);
+
 	if (glfwGetKey(w, GLFW_KEY_C) == GLFW_PRESS)
 		greyShading = !greyShading;
+
+	if (glfwGetKey(w, GLFW_KEY_V) == GLFW_PRESS)
+	{
+		i = (i + 1) % 3;
+		glPolygonMode(GL_FRONT_AND_BACK, polygonMode[i]);
+	}
 }
 
 void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)
