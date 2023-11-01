@@ -8,6 +8,3 @@
 
 #define	A_RAND	"\e[38;5;222m"
 #define A_ESC	"\e[0m"
-
-void	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
-void	keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods);

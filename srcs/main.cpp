@@ -26,8 +26,6 @@
 
 #include "pfm/pfm.hpp"
 
-void	processInput(GLFWwindow *w);
-void 	mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY);
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
 
 pfm::vec3 cubePositions[] = {
@@ -43,11 +41,7 @@ pfm::vec3 cubePositions[] = {
     pfm::vec3(-2.3f,  2.0f, -3.f)  
 };
 
-Camera	camera;
 bool	greyShading = true;
-
-float deltaTime = 0.f;
-float lastFrame = 0.f;
 
 int	main(void)
 {
@@ -86,9 +80,7 @@ int	main(void)
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
 	{
-		float	currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		scop.computeDeltaTime();
 
 		glClearColor(0.3f, 0.49f, 0.66f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -100,7 +92,7 @@ int	main(void)
 		glUseProgram(0);
 
 		// Update viewMatrix
-		currMesh.attachedShader.setViewMat(camera.getViewMatrix());
+		currMesh.attachedShader.setViewMat(scop.camera.getViewMatrix());
 
 		// draw cubes
 		for (size_t i = 0 ; i < 1 ; i++)
@@ -130,56 +122,6 @@ int	main(void)
 
 	// todo // delete texture
 	return (0);
-}
-
-void	keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods)
-{
-	static int polygonMode[3] = {GL_FILL, GL_LINE, GL_POINT};
-	static size_t i = 0;
-
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(w, true);
-
-	if (key == GLFW_KEY_W && action == GLFW_REPEAT | GLFW_PRESS)
-		camera.processKeyboard(FORWARD, deltaTime);
-	if (key == GLFW_KEY_S && action == GLFW_REPEAT | GLFW_PRESS)
-		camera.processKeyboard(BACKWARD, deltaTime);
-	if (key == GLFW_KEY_A && action == GLFW_REPEAT | GLFW_PRESS)
-		camera.processKeyboard(LEFT, deltaTime);
-	if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
-		camera.processKeyboard(RIGHT, deltaTime);
-
-	if (key == GLFW_KEY_C && action == GLFW_PRESS)
-		greyShading = !greyShading;
-
-	if (key == GLFW_KEY_V && action == GLFW_PRESS)
-	{
-		i = (i + 1) % 3;
-		glPolygonMode(GL_FRONT_AND_BACK, polygonMode[i]);
-	}
-}
-
-void mouseCallback(GLFWwindow* window, double currMouseX, double currMouseY)
-{
-	static bool firstMouse = true;
-	static float lastMouseX;
-	static float lastMouseY;
-    float xpos = static_cast<float>(currMouseX);
-    float ypos = static_cast<float>(currMouseY);
-
-    if (firstMouse)
-    {
-        lastMouseX = xpos;
-        lastMouseY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastMouseX;
-    float yoffset = lastMouseY - ypos; // reversed since y-coordinates go from bottom to top
-    lastMouseX = xpos;
-    lastMouseY = ypos;
-
-	camera.processMouseMovement(xoffset, yoffset);
 }
 
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture)
