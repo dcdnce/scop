@@ -1,61 +1,12 @@
-#include "main.hpp"
 #include "Engine.hpp"
 #include "Logger.hpp"
 #include <iostream>
 
-int Engine::init(void)
+Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 {
 	deltaTime = 0.f;
 	lastFrame = 0.f;
-
-	//Init glfw
-	glfwInit();
-
-	//Create a window
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); 
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	#ifdef __APPLE__
-			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	#endif
-
-	window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "Scop", NULL, NULL);
-	if (window == NULL)
-    {
-        Logger::error(true) << "Failed to create glfw window" << std::endl;
-		return (0);
-    }
-
-	glfwMakeContextCurrent(window);
-
-	// Glad
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		Logger::error(true) << "Failed to initialize GLAD" << std::endl;
-		return (0);
-	}
-
-	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
-	glViewport(0, 0, framebufferWidth, framebufferHeight);
-
-	// Inputs
-	glfwSetWindowUserPointer(window, this);
-
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, Engine::mouseCallback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	if (glfwRawMouseMotionSupported())
-		glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-
-	glfwSetKeyCallback(window, Engine::keyCallback);
-
-	return (1);
-}
-
-Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
-{
+	greyShading = true;
 }
 
 Engine::~Engine(void)
@@ -83,8 +34,8 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 	if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
 		engine->camera.processKeyboard(RIGHT, engine->deltaTime);
 
-	// if (key == GLFW_KEY_C && action == GLFW_PRESS)
-	// 	greyShading = !greyShading;
+	if (key == GLFW_KEY_C && action == GLFW_PRESS)
+		engine->greyShading = !engine->greyShading;
 
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{

@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "glad/glad.h"
 #include "main.hpp"
 #include "Engine.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "ObjParser.hpp"
 #include "Logger.hpp"
-
+#include "pfm/pfm.hpp"
 #include <cmath>
 #include <iostream>
 #include <string>
-
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
-
-#include "pfm/pfm.hpp"
 
 void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture);
 
@@ -41,17 +39,20 @@ pfm::vec3 cubePositions[] = {
     pfm::vec3(-2.3f,  2.0f, -3.f)  
 };
 
-bool	greyShading = true;
-
 int	main(void)
 {
 	Engine 	scop;
 	GLuint	texture1;
 
-	if (!scop.init())
-		exit(EXIT_FAILURE);	
+	// Initialization
+	try {
+		scop.init();
+	} catch (std::exception & e) {
+		Logger::error(true) << e.what() << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
-	// Create current mesh
+	// Create mesh
 	ObjParser object;
 	try {
 		object.parse("./resources/obj/monkey.obj");
@@ -61,8 +62,6 @@ int	main(void)
 	}
 	Mesh currMesh = object.buildMesh();
 
-	// Enable z-buffer
-	glEnable(GL_DEPTH_TEST);
 	
 	// Load texture
 	glUseProgram(currMesh.attachedShader.program);
@@ -75,8 +74,6 @@ int	main(void)
 		pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f)
 	);
 
-	glPointSize(2.f);
-		
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
 	{
@@ -106,7 +103,7 @@ int	main(void)
 			);
 
 			glUseProgram(currMesh.attachedShader.program);
-			glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uGreyShading"), greyShading);
+			glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uGreyShading"), scop.greyShading);
 			glUseProgram(0);
 
 			currMesh.draw();

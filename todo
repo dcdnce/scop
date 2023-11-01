@@ -9,14 +9,15 @@
 
 - Refactor
     - shading
+    - engine
 
 - General
     - [bugs] pas de newline fin de fichier .obj
     - keypress propre ✅
+    - events et callback .cpp ✅
     - textures
     - uniform prefix u
     - unique vertex shader ?
-    - events et callback .cpp
     - Header includes consistant
     - dataraces et leaks
     - camera jumps chelous (check camera constructor)
