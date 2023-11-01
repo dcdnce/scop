@@ -37,12 +37,14 @@ int Engine::init(void)
 	glfwGetFramebufferSize(this->window, &this->framebufferWidth, &this->framebufferHeight);
 	glViewport(0, 0, this->framebufferWidth, this->framebufferHeight);
 
-	// Mouse setup
+	// Inputs
 	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	if (glfwRawMouseMotionSupported())
 		glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+
+	glfwSetKeyCallback(window, keyCallback);
 
 	return (1);
 }

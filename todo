@@ -12,10 +12,11 @@
 
 - General
     - [bugs] pas de newline fin de fichier .obj
-    - keypress propre 
+    - keypress propre ✅
     - textures
     - uniform prefix u
-    - vertex shaders les memes ?
+    - unique vertex shader ?
+    - events et callback .cpp
     - Header includes consistant
     - dataraces et leaks
     - camera jumps chelous (check camera constructor)

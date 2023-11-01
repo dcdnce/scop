@@ -90,7 +90,6 @@ int	main(void)
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		processInput(scop.window);
 		glClearColor(0.3f, 0.49f, 0.66f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -133,26 +132,27 @@ int	main(void)
 	return (0);
 }
 
-void	processInput(GLFWwindow *w)
+void	keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods)
 {
 	static int polygonMode[3] = {GL_FILL, GL_LINE, GL_POINT};
 	static size_t i = 0;
 
-	if (glfwGetKey(w, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(w, true);
-	if (glfwGetKey(w, GLFW_KEY_W) == GLFW_PRESS)
+
+	if (key == GLFW_KEY_W && action == GLFW_REPEAT | GLFW_PRESS)
 		camera.processKeyboard(FORWARD, deltaTime);
-	if (glfwGetKey(w, GLFW_KEY_S) == GLFW_PRESS)
+	if (key == GLFW_KEY_S && action == GLFW_REPEAT | GLFW_PRESS)
 		camera.processKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(w, GLFW_KEY_A) == GLFW_PRESS)
+	if (key == GLFW_KEY_A && action == GLFW_REPEAT | GLFW_PRESS)
 		camera.processKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(w, GLFW_KEY_D) == GLFW_PRESS)
+	if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
 		camera.processKeyboard(RIGHT, deltaTime);
 
-	if (glfwGetKey(w, GLFW_KEY_C) == GLFW_PRESS)
+	if (key == GLFW_KEY_C && action == GLFW_PRESS)
 		greyShading = !greyShading;
 
-	if (glfwGetKey(w, GLFW_KEY_V) == GLFW_PRESS)
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)
 	{
 		i = (i + 1) % 3;
 		glPolygonMode(GL_FRONT_AND_BACK, polygonMode[i]);
