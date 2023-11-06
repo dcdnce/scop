@@ -12,10 +12,13 @@
     - engine
 
 - General
+    - generate texture mapping
     - [bugs] pas de newline fin de fichier .obj
     - keypress propre ✅
     - events et callback .cpp ✅
     - textures
+    - parse bmp ?
+    - mtl ?
     - uniform prefix u
     - unique vertex shader ?
     - Header includes consistant
