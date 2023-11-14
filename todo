@@ -17,10 +17,11 @@
     - keypress propre ✅
     - events et callback .cpp ✅
     - textures
+    - bounding box centrage objet
     - parse bmp ?
     - mtl ?
     - uniform prefix u
-    - unique vertex shader ?
+    - unique shader ?
     - Header includes consistant
     - dataraces et leaks
     - camera jumps chelous (check camera constructor)
@@ -31,6 +32,6 @@
     - point mode, wireframe mode ✅
     - smooth rendering
     - transparency
-    - fps counter
+    - light ? 
+    - fps counter ?
     - antialiasing ?
-    - light ? (meh)
