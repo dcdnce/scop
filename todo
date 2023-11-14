@@ -1,30 +1,27 @@
 - ObjParser
     - supporter 5 vertices par face ?
 
-- Shader
-    - ajouter la gestion des textures
+- Features
+    - Generate textures coordinates ✅
+    - Centrage objet - bounding box
+    - Generate normal coordinates
+    - Textures fading
+    - Parse .bmp ?
+    - .mtl
 
-- Makefile
-    - add debug (for logger::debug and bc it's better)
+- Bugs
+    - pas de newline fin de fichier .obj
+    - camera jumps chelous (check camera constructor)
 
 - Refactor
-    - shading
-    - engine
-
-- General
-    - generate texture mapping ✅
-    - build normal coords
-    - [bugs] pas de newline fin de fichier .obj
-    - textures
-    - bounding box centrage objet
-    - parse bmp ?
-    - mtl ?
+    - Class Shader
+    - Textures dans shader class
+    - Class Engine
     - uniform prefix u
-    - unique shader ?
+    - Shader unique
     - Header includes consistant
     - dataraces et leaks
-    - camera jumps chelous (check camera constructor)
-    - c++11 ok ??
+    - c++20
 
 - Bonus
     - textures cannot be stretched on any of the sides
