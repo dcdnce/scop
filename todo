@@ -12,10 +12,9 @@
     - engine
 
 - General
-    - generate texture mapping
+    - generate texture mapping ✅
+    - build normal coords
     - [bugs] pas de newline fin de fichier .obj
-    - keypress propre ✅
-    - events et callback .cpp ✅
     - textures
     - bounding box centrage objet
     - parse bmp ?
@@ -25,11 +24,10 @@
     - Header includes consistant
     - dataraces et leaks
     - camera jumps chelous (check camera constructor)
+    - c++11 ok ??
 
 - Bonus
-    - concave, non coplanar ✅ (?)
-    - textures cannot be stretched on any of the sides (?)
-    - point mode, wireframe mode ✅
+    - textures cannot be stretched on any of the sides
     - smooth rendering
     - transparency
     - light ? 

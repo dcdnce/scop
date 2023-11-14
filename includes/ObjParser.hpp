@@ -40,6 +40,7 @@ class ObjParser {
 
         void    _buildMeshTriangulation();
         void    _buildMeshCraftVerticesIndices();
+        void    _buildMeshCraftTexCoords();
         size_t  _findOrAddVertex(const Vertex& currVertex);
         Vertex  _buildCurrentVertex(size_t const faceIndex, size_t const vertexIndex);
 

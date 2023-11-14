@@ -55,6 +55,8 @@ void Mesh::_setupShaders()
         attachedShader.loadShaders(FACE_TYPE_V_VERTEX_SHADER, FACE_TYPE_V_FRAG_SHADER);
     else if (facesType == FACE_TYPE_VVN)
         attachedShader.loadShaders(FACE_TYPE_V_VERTEX_SHADER, FACE_TYPE_V_FRAG_SHADER);
+    else if (facesType == FACE_TYPE_VVT)
+        attachedShader.loadShaders(FACE_TYPE_VVTVN_VERTEX_SHADER, FACE_TYPE_VVTVN_FRAG_SHADER);
     else if (facesType == FACE_TYPE_VVTVN)
         attachedShader.loadShaders(FACE_TYPE_VVTVN_VERTEX_SHADER, FACE_TYPE_VVTVN_FRAG_SHADER);
 }

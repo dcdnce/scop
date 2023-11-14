@@ -7,6 +7,7 @@ Mesh    ObjParser::buildMesh()
 {
     _buildMeshTriangulation();
     _buildMeshCraftVerticesIndices();
+    _buildMeshCraftTexCoords();
 
     return (Mesh(_outVertices, _outIndices, _outTextures, _facesType));
 }
@@ -96,4 +97,21 @@ inline size_t ObjParser::_findOrAddVertex(const Vertex& currVertex)
     }
     _outVertices.push_back(currVertex);
     return _outVertices.size() - 1;
+}
+
+inline void ObjParser::_buildMeshCraftTexCoords()
+{
+    if (_facesType & FACE_ELEM_VT)
+        return ;
+
+    _facesType |= FACE_ELEM_VT;
+
+    for (size_t i = 0 ; i < _outVertices.size() ; i++)
+    {
+        // Polar coords
+        float theta = atan2(_outVertices[i].position.z, _outVertices[i].position.x);
+        float phi = acos(_outVertices[i].position.y / pfm::magnitude(_outVertices[i].position));
+        _outVertices[i].texCoords.x = (theta + M_PI) / (2.f * M_PI);
+        _outVertices[i].texCoords.y = phi / M_PI;
+    }
 }
