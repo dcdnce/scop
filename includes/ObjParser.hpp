@@ -2,6 +2,7 @@
 
 #include "Mesh.hpp"
 #include "Vertex.hpp"
+#include "BoundingBox.hpp"
 #include "FacesType.hpp"
 #include <fstream>
 #include <iostream>
@@ -22,6 +23,7 @@ class ObjParser {
         std::vector<pfm::vec2>      _inVt;
         std::vector<Face>           _inFaces;
         int                         _facesType;
+        BoundingBox boundingBox;
 
         std::vector<Vertex> _outVertices;
         std::vector<unsigned int> _outIndices;
@@ -41,6 +43,7 @@ class ObjParser {
         void    _buildMeshTriangulation();
         void    _buildMeshCraftVerticesIndices();
         void    _buildMeshCraftTexCoords();
+        void    _buildMeshNormalizePosition();
         size_t  _findOrAddVertex(const Vertex& currVertex);
         Vertex  _buildCurrentVertex(size_t const faceIndex, size_t const vertexIndex);
 

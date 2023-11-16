@@ -7,12 +7,29 @@ Mesh    ObjParser::buildMesh()
 {
     _buildMeshTriangulation();
     _buildMeshCraftVerticesIndices();
+    _buildMeshNormalizePosition();
     _buildMeshCraftTexCoords();
 
     return (Mesh(_outVertices, _outIndices, _outTextures, _facesType));
 }
 
-inline void    ObjParser::_buildMeshTriangulation()
+inline void ObjParser::_buildMeshNormalizePosition()
+{
+    pfm::vec3 boundingBoxSizeHalf(
+        (boundingBox.max_x - boundingBox.min_x) * 0.5f,
+        (boundingBox.max_y - boundingBox.min_y) * 0.5f,
+        (boundingBox.max_z - boundingBox.min_z) * 0.5f
+        );
+
+    for (size_t i = 0 ; i < _outVertices.size() ; i++)
+    {
+        _outVertices[i].position.x -= boundingBox.min_x + boundingBoxSizeHalf.x;
+        _outVertices[i].position.y -= boundingBox.min_y + boundingBoxSizeHalf.y;
+        _outVertices[i].position.z -= boundingBox.min_z + boundingBoxSizeHalf.z;
+    }
+}
+
+inline void ObjParser::_buildMeshTriangulation()
 {
     for (size_t i = 0 ; i < _inFaces.size() ; i++)
     {

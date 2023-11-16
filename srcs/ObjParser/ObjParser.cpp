@@ -60,9 +60,25 @@ void ObjParser::_parseLine()
 void ObjParser::_parseV()
 {
     pfm::vec3 newV;
+    static bool firstPositionParsed = false;
 
     for (size_t i = 0 ; i < 3 ; i++)
         newV[i] = strtof(_getWord().c_str(), nullptr);
+
+    if (!firstPositionParsed)
+    {
+        boundingBox.min_x = boundingBox.max_x = newV.x;
+        boundingBox.min_y = boundingBox.max_y = newV.y;
+        boundingBox.min_z = boundingBox.max_z = newV.z;
+        firstPositionParsed = true;
+    }
+
+    boundingBox.min_x = std::min(boundingBox.min_x, newV.x);
+    boundingBox.min_y = std::min(boundingBox.min_y, newV.y);
+    boundingBox.min_z = std::min(boundingBox.min_z, newV.z);
+    boundingBox.max_x = std::max(boundingBox.max_x, newV.x);
+    boundingBox.max_y = std::max(boundingBox.max_y, newV.y);
+    boundingBox.max_z = std::max(boundingBox.max_z, newV.z);
 
     _inV.push_back(newV);
 }

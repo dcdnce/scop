@@ -3,7 +3,7 @@
 
 - Features
     - Generate textures coordinates ✅
-    - Centrage objet - bounding box
+    - Centrage objet - bounding box ✅
     - Generate normal coordinates
     - Textures fading
     - Parse .bmp ?
