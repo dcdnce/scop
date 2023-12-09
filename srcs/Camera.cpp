@@ -15,6 +15,15 @@ Camera::Camera()
 	_updateCameraVectors();
 }
 
+std::ostream& operator<<(std::ostream & o, Camera const& camera)
+{
+	o << "Camera :" << std::endl;
+	o << "- Position: " << camera.position << std::endl;
+	o << "- Up: " << camera.up << std::endl;
+	o << "- Front: " << camera.front << std::endl;
+	return (o);
+}
+
 pfm::mat4 Camera::getViewMatrix()
 {
 	return pfm::lookAt(position, position + front, up);
