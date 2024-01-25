@@ -10,6 +10,7 @@
     - .mtl
 
 - Bugs
+    - texture mapping stretch (seams)
     - pas de newline fin de fichier .obj
     - camera jumps chelous (check camera constructor)
 
