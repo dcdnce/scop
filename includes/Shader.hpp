@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 #include "pfm/pfm.hpp"
+#include <map>
 
 #define FACE_TYPE_V_VERTEX_SHADER "./shaders/vertex_V.glsl"
 #define FACE_TYPE_V_FRAG_SHADER "./shaders/frag_V.glsl"
@@ -16,10 +17,15 @@ class Shader {
 
     public:
         GLuint		program;
+        std::map<std::string, GLuint> textures_map;
 
         Shader();
         ~Shader();
 
+
+        void CreateTextureJpg(char* const path, int const texture_unit, int const texture_index, char* const texture_name);
+        void BindTexture(char* const texture_name, int const texture_unit);
+        void UnbindTexture(int const texture_unit);
         int	loadShaders(char * const vertexShaderPath, char * const fragmentShaderPath);
 
         void  setVec3(char * const uniformName, pfm::vec3 & v);

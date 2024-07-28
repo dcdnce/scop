@@ -2,10 +2,13 @@
 #include "Logger.hpp"
 #include <iostream>
 #include <fstream>
+#include "stb/stb_image.h"
 
-static int	createShader(GLuint *shaderRef, GLenum type, const char *path);
+static inline int	createShader(GLuint *shaderRef, GLenum type, const char *path);
+static inline void	LoadTextureJpg(GLuint *texture, char* const filename, GLenum activeTexture);
 
-Shader::Shader() {}
+Shader::Shader() {
+}
 
 
 Shader::~Shader()
@@ -122,4 +125,52 @@ pfm::mat4	Shader::getViewMat() const
 pfm::mat4	Shader::getModelMat() const
 {
 	return _modelMat;
+}
+
+void Shader::CreateTextureJpg(char* const path, int const texture_unit, int const texture_index, char* const texture_name)
+{
+	glUseProgram(program);
+	textures_map[texture_name] = 0;
+	LoadTextureJpg(&textures_map[texture_name], path, texture_unit);
+	glUniform1i(glGetUniformLocation(program, texture_name), texture_index);
+	glUseProgram(0);
+}
+
+void Shader::BindTexture(char* const texture_name, int const texture_unit)
+{
+	glUseProgram(program);
+	glActiveTexture(texture_unit);
+	glBindTexture(GL_TEXTURE_2D, textures_map[texture_name]);
+	glUseProgram(0);
+}
+
+void Shader::UnbindTexture(int const texture_unit)
+{
+	glActiveTexture(texture_unit);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+static inline void	LoadTextureJpg(GLuint *texture, char* const filename, GLenum activeTexture)
+{
+	glGenTextures(1, texture);
+	glActiveTexture(activeTexture);
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	// stbi Load
+	unsigned char	*data;
+	int				width, height, nbrChannels;
+	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
+	if (data) {
+		/* Add(!) & Configure texture	*/
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
+	stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
