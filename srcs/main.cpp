@@ -40,7 +40,7 @@ int	main(void)
 	// Create mesh
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/teapot.obj");
+		object.parse("./resources/obj/42.obj");
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
@@ -79,8 +79,9 @@ int	main(void)
 			pfm::vec3(0.5f, 1.0f, 0.0f))
 		);
 
+		// Color rendering uniform
 		glUseProgram(currMesh.attachedShader.program);
-		glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uGreyShading"), scop.greyShading);
+		glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uColorRendering"), scop.uColorRendering);
 		glUseProgram(0);
 
 		currMesh.draw();

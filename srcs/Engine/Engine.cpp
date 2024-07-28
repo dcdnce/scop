@@ -6,7 +6,7 @@ Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 {
 	deltaTime = 0.f;
 	lastFrame = 0.f;
-	greyShading = true;
+	uColorRendering = 0;
 }
 
 Engine::~Engine(void)
@@ -34,11 +34,11 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 	if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
 		engine->camera.processKeyboard(RIGHT, engine->deltaTime);
 
-	if (key == GLFW_KEY_C && action == GLFW_PRESS)
-		engine->greyShading = !engine->greyShading;
+	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
+		engine->uColorRendering =  (engine->uColorRendering + 1) % 3;
+	}
 
-	if (key == GLFW_KEY_V && action == GLFW_PRESS)
-	{
+	if (key == GLFW_KEY_V && action == GLFW_PRESS) {
 		i = (i + 1) % 3;
 		glPolygonMode(GL_FRONT_AND_BACK, polygonMode[i]);
 	}

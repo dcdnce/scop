@@ -7,16 +7,16 @@
     - .mtl
 
 - Bugs
+    - GL_POINT not working
     - texture mapping stretch (seams)
     - pas de newline fin de fichier .obj
     - camera jumps chelous (check camera constructor)
 
 - Refactor
     - Textures dans shader class ✅
-    - Class Shader
+    - Shader unique ✅
     - Class Engine
     - uniform prefix u
-    - Shader unique
     - Header includes consistant
     - dataraces et leaks
     - c++20
