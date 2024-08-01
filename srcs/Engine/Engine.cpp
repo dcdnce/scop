@@ -6,7 +6,8 @@ Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 {
 	deltaTime = 0.f;
 	lastFrame = 0.f;
-	uColorRendering = 0;
+	bColorRendering = false;
+	uAlpha = 0.f;
 }
 
 Engine::~Engine(void)
@@ -38,7 +39,7 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 		engine->camera.processKeyboard(RIGHT, engine->deltaTime);
 
 	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
-		engine->uColorRendering =  (engine->uColorRendering + 1) % 3;
+		engine->bColorRendering = !(engine->bColorRendering);
 	}
 
 	if (key == GLFW_KEY_V && action == GLFW_PRESS) {

@@ -25,6 +25,7 @@ class Engine
 		float deltaTime;
 		float lastFrame;
 		Camera	camera;
-		int	uColorRendering;
+		bool	bColorRendering;
+		float	uAlpha;
 };
 

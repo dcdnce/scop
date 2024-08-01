@@ -1,8 +1,8 @@
 - Features
-    - Rotate objet
-    - Smooth transition texture <-> color
-    - Texture chaton
+    - ✅ Smooth transition texture <-> color
     - ✅ UX -> launch with .obj and texture
+    - ✅ Texture chaton
+    - Rotate objet
     - Testing 
 
 - Bugs

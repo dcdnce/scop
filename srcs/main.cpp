@@ -89,9 +89,10 @@ int	main(int ac, char **av)
 			pfm::vec3(0.5f, 1.0f, 0.0f))
 		);
 
-		// Color rendering uniform
+		// Color rendering alpha uniform
 		glUseProgram(currMesh.attachedShader.program);
-		glUniform1i(glGetUniformLocation(currMesh.attachedShader.program, "uColorRendering"), scop.uColorRendering);
+		scop.uAlpha = std::min(std::max(scop.uAlpha + ((scop.bColorRendering) ? 0.01 : -0.01), 0.0), 1.0);
+		glUniform1f(glGetUniformLocation(currMesh.attachedShader.program, "uAlpha"), scop.uAlpha);
 		glUseProgram(0);
 
 		currMesh.draw();
