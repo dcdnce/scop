@@ -15,8 +15,11 @@ ObjParser::ObjParser()
     _outTextures.clear();
 }
 
-void ObjParser::parse(char * const path)
+void ObjParser::parse(std::string const & path)
 {
+    if (path.substr(path.length() - 3, path.length()) != "obj")
+        throw std::runtime_error("ObjParser :: Object file extension isn't .obj");
+
     _ifs.open(path);
 
     if (!_ifs.is_open())
@@ -25,20 +28,20 @@ void ObjParser::parse(char * const path)
     while (!_isEOF())
         _parseLine();
 
-    Logger::info(true) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
-    Logger::info(true) << "v: " << _inV.size() << std::endl;
-    Logger::info(true) << "vn: " << _inVn.size() << std::endl;
-    Logger::info(true) << "vt: " << _inVt.size() << std::endl;
-    Logger::info(true) << "f: " << _inFaces.size() << std::endl;
+    Logger::debug(false) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
+    Logger::debug(false) << "v: " << _inV.size() << std::endl;
+    Logger::debug(false) << "vn: " << _inVn.size() << std::endl;
+    Logger::debug(false) << "vt: " << _inVt.size() << std::endl;
+    Logger::debug(false) << "f: " << _inFaces.size() << std::endl;
 
     if (_facesType == FACE_TYPE_V)
-        Logger::info(false) << "FACE_TYPE_V" << std::endl;
+        Logger::debug(false) << "FACE_TYPE_V" << std::endl;
     if (_facesType == FACE_TYPE_VVT)
-        Logger::info(false) << "FACE_TYPE_VVT" << std::endl;
+        Logger::debug(false) << "FACE_TYPE_VVT" << std::endl;
     if (_facesType == FACE_TYPE_VVN)
-        Logger::info(false) << "FACE_TYPE_VVN" << std::endl;
+        Logger::debug(false) << "FACE_TYPE_VVN" << std::endl;
     if (_facesType == FACE_TYPE_VVTVN)
-        Logger::info(false) << "FACE_TYPE_VVTVN" << std::endl;
+        Logger::debug(false) << "FACE_TYPE_VVTVN" << std::endl;
 }
     
 void ObjParser::_parseLine() 

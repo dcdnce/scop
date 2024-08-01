@@ -20,7 +20,7 @@ OS = $(shell uname)
 # CFLAGS - Compiler flags (where to find headers)
 # LFLAGS - Linking flags (where to find library to link at - -L & -l)
 
-CFLAGS = -Wall -Wextra -Wno-deprecated -g
+CFLAGS = -Wall -Wextra -Wno-deprecated -g -Wno-parentheses
 CFLAGS += -Iincludes
 
 ifeq ($(OS), Darwin)
@@ -32,7 +32,7 @@ else
 	LFLAGS += -lGL -lglfw -ldl
 endif
 
-NAME = gl
+NAME = scop
 
 %.o	:	%.cpp
 	$(C) -g $(CFLAGS) -c $< -o $@

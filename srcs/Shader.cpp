@@ -4,8 +4,8 @@
 #include <fstream>
 #include "stb/stb_image.h"
 
-static inline int	createShader(GLuint *shaderRef, GLenum type, const char *path);
-static inline void	LoadTextureJpg(GLuint *texture, char* const filename, GLenum activeTexture);
+static inline int	createShader(GLuint *shaderRef, GLenum type, std::string const & path);
+static inline void	LoadTextureJpg(GLuint *texture, std::string const & filename, GLenum activeTexture);
 
 Shader::Shader() {
 }
@@ -17,7 +17,7 @@ Shader::~Shader()
 }
 
 
-int	Shader::loadShaders(char * const vertexShaderPath, char * const fragmentShaderPath)
+int	Shader::loadShaders(std::string const & vertexShaderPath, std::string const & fragmentShaderPath)
 {
 	int			ret_value = 1;
 	char		infoLog[512];
@@ -46,7 +46,7 @@ int	Shader::loadShaders(char * const vertexShaderPath, char * const fragmentShad
 	return (ret_value);
 }
 
-static int	createShader(GLuint *shaderRef, GLenum type, const char *path)
+static int	createShader(GLuint *shaderRef, GLenum type, std::string const & path)
 {
 	GLint			status;
 	char			infoLog[512];
@@ -127,16 +127,19 @@ pfm::mat4	Shader::getModelMat() const
 	return _modelMat;
 }
 
-void Shader::CreateTextureJpg(char* const path, int const texture_unit, int const texture_index, char* const texture_name)
+void Shader::CreateTextureJpg(std::string const & path, int const texture_unit, int const texture_index, std::string const & texture_name)
 {
+    if (path.substr(path.length() - 3, path.length()) != "jpg")
+        throw std::runtime_error("CreateTextureJpg :: Texture file extension isn't .jpg");
+
 	glUseProgram(program);
 	textures_map[texture_name] = 0;
 	LoadTextureJpg(&textures_map[texture_name], path, texture_unit);
-	glUniform1i(glGetUniformLocation(program, texture_name), texture_index);
+	glUniform1i(glGetUniformLocation(program, texture_name.c_str()), texture_index);
 	glUseProgram(0);
 }
 
-void Shader::BindTexture(char* const texture_name, int const texture_unit)
+void Shader::BindTexture(std::string const & texture_name, int const texture_unit)
 {
 	glUseProgram(program);
 	glActiveTexture(texture_unit);
@@ -150,7 +153,7 @@ void Shader::UnbindTexture(int const texture_unit)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-static inline void	LoadTextureJpg(GLuint *texture, char* const filename, GLenum activeTexture)
+static inline void	LoadTextureJpg(GLuint *texture, std::string const & filename, GLenum activeTexture)
 {
 	glGenTextures(1, texture);
 	glActiveTexture(activeTexture);
@@ -163,14 +166,14 @@ static inline void	LoadTextureJpg(GLuint *texture, char* const filename, GLenum 
 	// stbi Load
 	unsigned char	*data;
 	int				width, height, nbrChannels;
-	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
+	data = stbi_load(filename.c_str(), &width, &height, &nbrChannels, 0);
 	if (data) {
 		/* Add(!) & Configure texture	*/
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
-		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
+		throw std::runtime_error("LoadTextureJpg::stbi_load::couldn't load texture into data\n");
 	stbi_image_free(data);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

@@ -23,10 +23,10 @@ class Shader {
         ~Shader();
 
 
-        void CreateTextureJpg(char* const path, int const texture_unit, int const texture_index, char* const texture_name);
-        void BindTexture(char* const texture_name, int const texture_unit);
+        void CreateTextureJpg(std::string const & path, int const texture_unit, int const texture_index, std::string const & texture_name);
+        void BindTexture(std::string const & texture_name, int const texture_unit);
         void UnbindTexture(int const texture_unit);
-        int	loadShaders(char * const vertexShaderPath, char * const fragmentShaderPath);
+        int	loadShaders(std::string const & vertexShaderPath, std::string const & fragmentShaderPath);
 
         void  setVec3(char * const uniformName, pfm::vec3 & v);
         void  setProjMat(pfm::mat4 const& newProjMat);

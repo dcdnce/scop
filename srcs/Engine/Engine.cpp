@@ -18,6 +18,9 @@ Engine::~Engine(void)
 
 void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods)
 {
+	(void)scancode;
+	(void)mods;
+
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
 	static int polygonMode[3] = {GL_FILL, GL_LINE, GL_POINT};
 	static size_t i = 0;

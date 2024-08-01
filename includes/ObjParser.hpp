@@ -50,6 +50,6 @@ class ObjParser {
     public:
         ObjParser();
 
-        void    parse(char * const path);
+        void    parse(std::string const & path);
         Mesh    buildMesh();
 };

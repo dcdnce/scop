@@ -130,5 +130,8 @@ inline void ObjParser::_buildMeshCraftTexCoords()
         float phi = acos(_outVertices[i].position.y / pfm::magnitude(_outVertices[i].position));
         _outVertices[i].texCoords.x = (theta + M_PI) / (2.f * M_PI);
         _outVertices[i].texCoords.y = phi / M_PI;
+
+        if (_outVertices[i].texCoords.x == 0.0)
+            _outVertices[i].texCoords.x = 1.0;
     }
 }

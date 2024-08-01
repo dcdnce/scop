@@ -24,10 +24,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
+	if (ac != 3) {
+		Logger::error(false) << "./scop [.obj path] [.jpg path]" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
 	Engine 	scop;
-	GLuint	texture1;
 
 	// Initialization
 	try {
@@ -37,19 +41,25 @@ int	main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	// Create mesh
+	// Parse .obj
 	ObjParser object;
 	try {
-		object.parse("./resources/obj/42.obj");
+		object.parse(av[1]);
 	} catch (std::exception & e) {
 		Logger::error(true) << e.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
+
+	// Create mesh
 	Mesh currMesh = object.buildMesh();
 
-	
 	// Load texture
-	currMesh.attachedShader.CreateTextureJpg("./resources/textures/container.jpg", GL_TEXTURE0, 0, "texture1");
+	try {
+		currMesh.attachedShader.CreateTextureJpg(av[2], GL_TEXTURE0, 0, "texture1");
+	} catch (std::exception & e) {
+		Logger::error(true) << e.what() << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
 	// Projection Matrix
 	currMesh.attachedShader.setProjMat(
@@ -95,29 +105,4 @@ int	main(void)
 
 	// todo // delete texture
 	return (0);
-}
-
-void	loadTexture_jpg(GLuint *texture, const char* filename, GLenum activeTexture)
-{
-	glGenTextures(1, texture);
-	glActiveTexture(activeTexture);
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	// stbi Load
-	unsigned char	*data;
-	int				width, height, nbrChannels;
-	data = stbi_load(filename, &width, &height, &nbrChannels, 0);
-	if (data) {
-		/* Add(!) & Configure texture	*/
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "main.cpp::stbi_load::couldn't load texture into data\n" << std::endl;
-	stbi_image_free(data);
-	glBindTexture(GL_TEXTURE_2D, 0);
 }

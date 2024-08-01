@@ -1,20 +1,16 @@
 - Features
-    - Generate textures coordinates ✅
-    - Centrage objet - bounding box ✅
-    - Generate normal coordinates
-    - Textures fading
-    - Parse .bmp ?
-    - .mtl
+    - Rotate objet
+    - Smooth transition texture <-> color
+    - Texture chaton
+    - ✅ UX -> launch with .obj and texture
+    - Testing 
 
 - Bugs
-    - GL_POINT not working
-    - texture mapping stretch (seams)
     - pas de newline fin de fichier .obj
+    - GL_POINT not working
     - camera jumps chelous (check camera constructor)
 
 - Refactor
-    - Textures dans shader class ✅
-    - Shader unique ✅
     - Class Engine
     - uniform prefix u
     - Header includes consistant
@@ -22,10 +18,9 @@
     - c++20
 
 - Bonus
-    - textures cannot be stretched on any of the sides
-    - smooth rendering
-    - transparency
-    - light ? 
+    - ✅ .obj ambigus (vt manquant, faces avec 4 vertex)
+    - texture seams (side stretch)
+
     - fps counter ?
     - antialiasing ?
 
