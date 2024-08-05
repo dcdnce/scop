@@ -33,10 +33,10 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 		engine->camera.processKeyboard(FORWARD, engine->deltaTime);
 	if (key == GLFW_KEY_S && action == GLFW_REPEAT | GLFW_PRESS)
 		engine->camera.processKeyboard(BACKWARD, engine->deltaTime);
-	if (key == GLFW_KEY_A && action == GLFW_REPEAT | GLFW_PRESS)
-		engine->camera.processKeyboard(LEFT, engine->deltaTime);
-	if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
-		engine->camera.processKeyboard(RIGHT, engine->deltaTime);
+	// if (key == GLFW_KEY_A && action == GLFW_REPEAT | GLFW_PRESS)
+	// 	engine->camera.processKeyboard(LEFT, engine->deltaTime);
+	// if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
+	// 	engine->camera.processKeyboard(RIGHT, engine->deltaTime);
 
 	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
 		engine->bColorRendering = !(engine->bColorRendering);
@@ -48,28 +48,23 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 	}
 }
 
+
+void	Engine::MouseButtonCallback(GLFWwindow *w, int button, int action, int mods)
+{
+	(void)mods;
+
+	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        std::cout << "Mouse clicked at (" << engine->mouse.x << ", " << engine->mouse.y << ")\n";
+    }
+}
+
 void Engine::mouseCallback(GLFWwindow* w, double currMouseX, double currMouseY)
 {
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
-	static bool firstMouse = true;
-	static float lastMouseX;
-	static float lastMouseY;
-    float xpos = static_cast<float>(currMouseX);
-    float ypos = static_cast<float>(currMouseY);
-
-    if (firstMouse)
-    {
-        lastMouseX = xpos;
-        lastMouseY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastMouseX;
-    float yoffset = lastMouseY - ypos; // reversed since y-coordinates go from bottom to top
-    lastMouseX = xpos;
-    lastMouseY = ypos;
-
-	engine->camera.processMouseMovement(xoffset, yoffset);
+	engine->mouse.x = (float)currMouseX;
+	engine->mouse.y = (float)currMouseY;
 }
 
 void Engine::computeDeltaTime()

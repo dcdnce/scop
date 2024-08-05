@@ -17,6 +17,7 @@ class Engine
 		void init(void);
 		static void	mouseCallback(GLFWwindow* w, double currMouseX, double currMouseY);
 		static void	keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods);
+		static void	MouseButtonCallback(GLFWwindow *w, int button, int action, int mods);
 		void	computeDeltaTime();
 
 		int			framebufferWidth;
@@ -27,5 +28,6 @@ class Engine
 		Camera	camera;
 		bool	bColorRendering;
 		float	uAlpha;
+		pfm::vec2 mouse;
 };
 

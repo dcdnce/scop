@@ -11,9 +11,6 @@
     - camera jumps chelous (check camera constructor)
 
 - Refactor
-    - Class Engine
-    - uniform prefix u
-    - Header includes consistant
     - dataraces et leaks
     - c++20
 

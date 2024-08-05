@@ -23,7 +23,6 @@ class ObjParser {
         std::vector<pfm::vec2>      _inVt;
         std::vector<Face>           _inFaces;
         int                         _facesType;
-        BoundingBox boundingBox;
 
         std::vector<Vertex> _outVertices;
         std::vector<unsigned int> _outIndices;
@@ -49,6 +48,8 @@ class ObjParser {
 
     public:
         ObjParser();
+
+        BoundingBox boundingBox;
 
         void    parse(std::string const & path);
         Mesh    buildMesh();

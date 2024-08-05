@@ -66,6 +66,9 @@ int	main(int ac, char **av)
 		pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f)
 	);
 
+	// Camera position
+	scop.camera.position.z = 2.f * std::max(std::max(object.boundingBox.max_x, object.boundingBox.max_y), object.boundingBox.max_z);
+
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
 	{
