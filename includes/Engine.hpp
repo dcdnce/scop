@@ -29,5 +29,8 @@ class Engine
 		bool	bColorRendering;
 		float	uAlpha;
 		pfm::vec2 mouse;
+		pfm::vec2 previous_mouse;
+		pfm::vec2 object_rotation_vector;
+		bool is_left_mouse_button_pressed;
 };
 

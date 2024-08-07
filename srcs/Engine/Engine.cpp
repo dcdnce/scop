@@ -8,6 +8,7 @@ Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 	lastFrame = 0.f;
 	bColorRendering = false;
 	uAlpha = 0.f;
+	is_left_mouse_button_pressed = false;
 }
 
 Engine::~Engine(void)
@@ -52,17 +53,21 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 void	Engine::MouseButtonCallback(GLFWwindow *w, int button, int action, int mods)
 {
 	(void)mods;
-
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         std::cout << "Mouse clicked at (" << engine->mouse.x << ", " << engine->mouse.y << ")\n";
+		engine->is_left_mouse_button_pressed = true;
     }
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+		engine->is_left_mouse_button_pressed = false;
+	}
 }
 
 void Engine::mouseCallback(GLFWwindow* w, double currMouseX, double currMouseY)
 {
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
+	engine->previous_mouse = engine->mouse;
 	engine->mouse.x = (float)currMouseX;
 	engine->mouse.y = (float)currMouseY;
 }

@@ -69,6 +69,10 @@ int	main(int ac, char **av)
 	// Camera position
 	scop.camera.position.z = 2.f * std::max(std::max(object.boundingBox.max_x, object.boundingBox.max_y), object.boundingBox.max_z);
 
+
+	// Object world position
+	currMesh.attachedShader.setModelMat(pfm::translate(pfm::mat4(1.f), pfm::vec3(0.f, 0.f, 0.f)));
+
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
 	{
@@ -85,12 +89,17 @@ int	main(int ac, char **av)
 
 		// Draw
 		// Update model matrix
-		currMesh.attachedShader.setModelMat(pfm::translate(pfm::mat4(1.f), pfm::vec3(0.f, 0.f, 0.f)));
-		currMesh.attachedShader.setModelMat(pfm::rotate(
-			currMesh.attachedShader.getModelMat(),
-			(float)glfwGetTime() * pfm::radians(20.f), 
-			pfm::vec3(0.5f, 1.0f, 0.0f))
-		);
+		if (scop.is_left_mouse_button_pressed) {
+			scop.object_rotation_vector = scop.mouse - scop.previous_mouse;
+			pfm::vec2 n = pfm::normalize(scop.object_rotation_vector);
+
+			currMesh.attachedShader.setModelMat(pfm::rotate(
+				currMesh.attachedShader.getModelMat(),
+				pfm::radians(2.f), 
+				pfm::vec3(n.y, n.x, 0.f))
+				// pfm::vec3(0.f, 0.f, 1.f))
+			);
+		}
 
 		// Color rendering alpha uniform
 		glUseProgram(currMesh.attachedShader.program);
