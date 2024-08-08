@@ -56,7 +56,6 @@ void	Engine::MouseButtonCallback(GLFWwindow *w, int button, int action, int mods
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        std::cout << "Mouse clicked at (" << engine->mouse.x << ", " << engine->mouse.y << ")\n";
 		engine->is_left_mouse_button_pressed = true;
     }
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {

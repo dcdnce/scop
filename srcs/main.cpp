@@ -92,12 +92,13 @@ int	main(int ac, char **av)
 		if (scop.is_left_mouse_button_pressed) {
 			scop.object_rotation_vector = scop.mouse - scop.previous_mouse;
 			pfm::vec2 n = pfm::normalize(scop.object_rotation_vector);
+			double res_magnitude = pfm::magnitude(pfm::vec2(W_WIDTH, W_HEIGHT));
+			float angle = (pfm::magnitude(scop.object_rotation_vector) - 1) / res_magnitude * 360.f;
 
 			currMesh.attachedShader.setModelMat(pfm::rotate(
 				currMesh.attachedShader.getModelMat(),
-				pfm::radians(2.f), 
+				pfm::radians(angle),
 				pfm::vec3(n.y, n.x, 0.f))
-				// pfm::vec3(0.f, 0.f, 1.f))
 			);
 		}
 
