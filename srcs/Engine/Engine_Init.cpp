@@ -47,6 +47,7 @@ void	Engine::_initGl()
 	glViewport(0, 0, framebufferWidth, framebufferHeight);
 	glEnable(GL_DEPTH_TEST);
 	glPointSize(2.f);
+	glLineWidth(2.f);
 }
 
 void	Engine::_initGlad()

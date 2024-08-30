@@ -8,6 +8,8 @@
 #define FACE_TYPE_V_FRAG_SHADER "./shaders/frag_V.glsl"
 #define FACE_TYPE_VVTVN_VERTEX_SHADER "./shaders/vertex_VVTVN.glsl"
 #define FACE_TYPE_VVTVN_FRAG_SHADER "./shaders/frag_VVTVN.glsl"
+#define FRAME_VERTEX_SHADER "./shaders/vertex_frame.glsl"
+#define FRAME_FRAG_SHADER "./shaders/frag_frame.glsl"
 
 class Shader {
     private:

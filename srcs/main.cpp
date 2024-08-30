@@ -17,6 +17,7 @@
 #include "Mesh.hpp"
 #include "ObjParser.hpp"
 #include "Logger.hpp"
+#include "Frame.hpp"
 #include "pfm/pfm.hpp"
 #include <cmath>
 #include <iostream>
@@ -32,6 +33,7 @@ int	main(int ac, char **av)
 	}
 
 	Engine 	scop;
+
 
 	// Initialization
 	try {
@@ -53,6 +55,10 @@ int	main(int ac, char **av)
 	// Create mesh
 	Mesh currMesh = object.buildMesh();
 
+	// TEMP
+	Frame frame({pfm::vec3(0.f), pfm::vec3(object.boundingBox.max_x, 0.f, 0.f)});
+	frame.SetColor(pfm::vec3(0.f, 1.f, 0.f));
+
 	// Load texture
 	try {
 		currMesh.attachedShader.CreateTextureJpg(av[2], GL_TEXTURE0, 0, "texture1");
@@ -65,13 +71,17 @@ int	main(int ac, char **av)
 	currMesh.attachedShader.setProjMat(
 		pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f)
 	);
+	frame.attached_shader.setProjMat(
+		pfm::perspective(pfm::radians(90.f), (float)W_WIDTH/(float)W_HEIGHT, 0.1f, 100.f)
+	);
 
 	// Camera position
 	scop.camera.position.z = 2.f * std::max(std::max(object.boundingBox.max_x, object.boundingBox.max_y), object.boundingBox.max_z);
 
 
-	// Object world position
+	// Objects world position
 	currMesh.attachedShader.setModelMat(pfm::translate(pfm::mat4(1.f), pfm::vec3(0.f, 0.f, 0.f)));
+	frame.attached_shader.setModelMat(pfm::translate(pfm::mat4(1.f), pfm::vec3(0.f, 0.f, 0.f)));
 
 	// Main loop
 	while (!glfwWindowShouldClose(scop.window))
@@ -86,6 +96,7 @@ int	main(int ac, char **av)
 
 		// Update viewMatrix
 		currMesh.attachedShader.setViewMat(scop.camera.getViewMatrix());
+		frame.attached_shader.setViewMat(scop.camera.getViewMatrix());
 
 		// Draw
 		// Update model matrix
@@ -98,7 +109,8 @@ int	main(int ac, char **av)
 			currMesh.attachedShader.setModelMat(pfm::rotate(
 				currMesh.attachedShader.getModelMat(),
 				pfm::radians(angle),
-				pfm::vec3(n.y, n.x, 0.f))
+				// pfm::vec3(n.y, n.x, 0.f))
+				n.y*scop.camera.right + n.x*scop.camera.up)
 			);
 		}
 
@@ -108,7 +120,8 @@ int	main(int ac, char **av)
 		glUniform1f(glGetUniformLocation(currMesh.attachedShader.program, "uAlpha"), scop.uAlpha);
 		glUseProgram(0);
 
-		currMesh.draw();
+		// currMesh.draw();
+		frame.Draw();
 
 		// Unbind
 		currMesh.attachedShader.UnbindTexture(GL_TEXTURE0);
