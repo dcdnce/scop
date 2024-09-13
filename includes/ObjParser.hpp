@@ -49,7 +49,7 @@ class ObjParser {
     public:
         ObjParser();
 
-        BoundingBox boundingBox;
+        BoundingBox BoundingBox;
 
         void    parse(std::string const & path);
         Mesh    buildMesh();

@@ -23,7 +23,7 @@ Mesh::~Mesh()
 
 void Mesh::draw(void)
 {
-    glUseProgram(attachedShader.program);
+    glUseProgram(attached_shader.program);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

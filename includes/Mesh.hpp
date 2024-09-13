@@ -23,7 +23,7 @@ class Mesh {
         std::vector<unsigned int> indices;
         std::vector<Texture> textures;
         int const facesType;
-        Shader  attachedShader;  
+        Shader  attached_shader;  
 
         Mesh(std::vector<Vertex> const& vertices, std::vector<unsigned int> const& indices, std::vector<Texture> const& textures, int const facesType);
         ~Mesh();

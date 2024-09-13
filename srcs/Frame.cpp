@@ -1,12 +1,14 @@
 #include "../includes/Frame.hpp"
 
 Frame::Frame(
-        std::vector<pfm::vec3> const& positions
+        std::vector<pfm::vec3> const& positions,
+        pfm::vec3 const& color
 	) 
 {
     for (size_t i = 0 ; i < 2 ; i++) {
         Vertex vertex;
         vertex.position = positions[i];
+        vertex.color = color;
         vertices.push_back(vertex);
     }
 	_SetupBuffers();
@@ -52,17 +54,11 @@ void Frame::_SetupShaders()
     attached_shader.loadShaders(FRAME_VERTEX_SHADER, FRAME_FRAG_SHADER);
 }
 
-void Frame::SetColor(pfm::vec3 const& new_color)
-{
-	for (size_t i = 0 ; i < vertices.size() ; i++)
-		vertices[i].color = new_color;
-}
-
 void Frame::Draw()
 {
     glUseProgram(attached_shader.program);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_LINE, 0, 2);
+    glDrawArrays(GL_LINES, 0, 2);
     glBindVertexArray(0);
     glUseProgram(0);
 }

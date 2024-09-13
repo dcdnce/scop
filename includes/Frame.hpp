@@ -15,9 +15,8 @@ class Frame {
 		std::vector<Vertex> vertices;
 		Shader attached_shader;
 		
-        Frame(std::vector<pfm::vec3> const& positions);
+        Frame(std::vector<pfm::vec3> const& positions, pfm::vec3 const& color);
 		~Frame();
 
 		void Draw();
-		void SetColor(pfm::vec3 const& new_color);
 };

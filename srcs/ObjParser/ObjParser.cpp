@@ -70,18 +70,18 @@ void ObjParser::_parseV()
 
     if (!firstPositionParsed)
     {
-        boundingBox.min_x = boundingBox.max_x = newV.x;
-        boundingBox.min_y = boundingBox.max_y = newV.y;
-        boundingBox.min_z = boundingBox.max_z = newV.z;
+        BoundingBox.min_x = BoundingBox.max_x = newV.x;
+        BoundingBox.min_y = BoundingBox.max_y = newV.y;
+        BoundingBox.min_z = BoundingBox.max_z = newV.z;
         firstPositionParsed = true;
     }
 
-    boundingBox.min_x = std::min(boundingBox.min_x, newV.x);
-    boundingBox.min_y = std::min(boundingBox.min_y, newV.y);
-    boundingBox.min_z = std::min(boundingBox.min_z, newV.z);
-    boundingBox.max_x = std::max(boundingBox.max_x, newV.x);
-    boundingBox.max_y = std::max(boundingBox.max_y, newV.y);
-    boundingBox.max_z = std::max(boundingBox.max_z, newV.z);
+    BoundingBox.min_x = std::min(BoundingBox.min_x, newV.x);
+    BoundingBox.min_y = std::min(BoundingBox.min_y, newV.y);
+    BoundingBox.min_z = std::min(BoundingBox.min_z, newV.z);
+    BoundingBox.max_x = std::max(BoundingBox.max_x, newV.x);
+    BoundingBox.max_y = std::max(BoundingBox.max_y, newV.y);
+    BoundingBox.max_z = std::max(BoundingBox.max_z, newV.z);
 
     _inV.push_back(newV);
 }

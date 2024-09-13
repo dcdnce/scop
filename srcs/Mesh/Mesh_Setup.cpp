@@ -51,5 +51,5 @@ void Mesh::_setupBuffers()
 
 void Mesh::_setupShaders()
 {
-    attachedShader.loadShaders(FACE_TYPE_VVTVN_VERTEX_SHADER, FACE_TYPE_VVTVN_FRAG_SHADER);
+    attached_shader.loadShaders(FACE_TYPE_VVTVN_VERTEX_SHADER, FACE_TYPE_VVTVN_FRAG_SHADER);
 }

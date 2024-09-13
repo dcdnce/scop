@@ -16,16 +16,16 @@ Mesh    ObjParser::buildMesh()
 inline void ObjParser::_buildMeshNormalizePosition()
 {
     pfm::vec3 boundingBoxSizeHalf(
-        (boundingBox.max_x - boundingBox.min_x) * 0.5f,
-        (boundingBox.max_y - boundingBox.min_y) * 0.5f,
-        (boundingBox.max_z - boundingBox.min_z) * 0.5f
+        (BoundingBox.max_x - BoundingBox.min_x) * 0.5f,
+        (BoundingBox.max_y - BoundingBox.min_y) * 0.5f,
+        (BoundingBox.max_z - BoundingBox.min_z) * 0.5f
         );
 
     for (size_t i = 0 ; i < _outVertices.size() ; i++)
     {
-        _outVertices[i].position.x -= boundingBox.min_x + boundingBoxSizeHalf.x;
-        _outVertices[i].position.y -= boundingBox.min_y + boundingBoxSizeHalf.y;
-        _outVertices[i].position.z -= boundingBox.min_z + boundingBoxSizeHalf.z;
+        _outVertices[i].position.x -= BoundingBox.min_x + boundingBoxSizeHalf.x;
+        _outVertices[i].position.y -= BoundingBox.min_y + boundingBoxSizeHalf.y;
+        _outVertices[i].position.z -= BoundingBox.min_z + boundingBoxSizeHalf.z;
     }
 }
 
