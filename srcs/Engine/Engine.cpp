@@ -8,7 +8,9 @@ Engine::Engine(void) : framebufferWidth(0), framebufferHeight(0), window(NULL)
 	lastFrame = 0.f;
 	bColorRendering = false;
 	uAlpha = 0.f;
-	is_left_mouse_button_pressed = false;
+	left_mouse_button_pressed = false;
+	e_key_pressed = false;
+	q_key_pressed = false;
 }
 
 Engine::~Engine(void)
@@ -38,6 +40,19 @@ void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 	// 	engine->camera.processKeyboard(LEFT, engine->deltaTime);
 	// if (key == GLFW_KEY_D && action == GLFW_REPEAT | GLFW_PRESS)
 	// 	engine->camera.processKeyboard(RIGHT, engine->deltaTime);
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS) {
+		engine->q_key_pressed = true;
+    }
+	if (key == GLFW_KEY_Q && action == GLFW_RELEASE) {
+		engine->q_key_pressed = false;
+    }
+	if (key == GLFW_KEY_E && action == GLFW_PRESS) {
+		engine->e_key_pressed = true;
+    }
+	if (key == GLFW_KEY_E && action == GLFW_RELEASE) {
+		engine->e_key_pressed = false;
+    }
+
 
 	if (key == GLFW_KEY_C && action == GLFW_PRESS) {
 		engine->bColorRendering = !(engine->bColorRendering);
@@ -56,10 +71,10 @@ void	Engine::MouseButtonCallback(GLFWwindow *w, int button, int action, int mods
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		engine->is_left_mouse_button_pressed = true;
+		engine->left_mouse_button_pressed = true;
     }
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-		engine->is_left_mouse_button_pressed = false;
+		engine->left_mouse_button_pressed = false;
 	}
 }
 

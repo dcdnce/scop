@@ -102,34 +102,43 @@ int	main(int ac, char **av)
 
 		// Draw
 		// Update model matrix
-		if (scop.is_left_mouse_button_pressed) {
-			scop.object_rotation_vector = scop.mouse - scop.previous_mouse;
-			pfm::vec2 n = pfm::normalize(scop.object_rotation_vector);
-			double res_magnitude = pfm::magnitude(pfm::vec2(W_WIDTH, W_HEIGHT));
+		if (scop.left_mouse_button_pressed || scop.e_key_pressed || scop.q_key_pressed) {
+			static double const res_magnitude = pfm::magnitude(pfm::vec2(W_WIDTH, W_HEIGHT));
+			if (scop.left_mouse_button_pressed) {
+				scop.object_rotation_vector = pfm::vec3(scop.mouse.x - scop.previous_mouse.x, scop.mouse.y - scop.previous_mouse.y, 0.f);
+			}
+			if (scop.e_key_pressed) {
+				scop.object_rotation_vector = pfm::vec3(0.f, 0.f, 10.0f);
+			}
+			if (scop.q_key_pressed) {
+				scop.object_rotation_vector = pfm::vec3(0.f, 0.f, -10.0f);
+			}
+
+			pfm::vec3 n = pfm::normalize(scop.object_rotation_vector);
 			float angle = (pfm::magnitude(scop.object_rotation_vector) - 1) / res_magnitude * 360.f;
 
 			main_mesh.attached_shader.setModelMat(pfm::rotate(
 				main_mesh.attached_shader.getModelMat(),
 				pfm::radians(angle),
-				n.y*scop.camera.right + n.x*scop.camera.up)
+				n.y * scop.camera.right + n.x*scop.camera.up + n.z*scop.camera.front)
 			);
 
 			frame_y.attached_shader.setModelMat(pfm::rotate(
 				frame_y.attached_shader.getModelMat(),
 				pfm::radians(angle),
-				n.y*scop.camera.right + n.x*scop.camera.up)
+				n.y * scop.camera.right + n.x*scop.camera.up + n.z*scop.camera.front)
 			);
 
 			frame_x.attached_shader.setModelMat(pfm::rotate(
 				frame_x.attached_shader.getModelMat(),
 				pfm::radians(angle),
-				n.y*scop.camera.right + n.x*scop.camera.up)
+				n.y * scop.camera.right + n.x*scop.camera.up + n.z*scop.camera.front)
 			);
 
 			frame_z.attached_shader.setModelMat(pfm::rotate(
 				frame_z.attached_shader.getModelMat(),
 				pfm::radians(angle),
-				n.y*scop.camera.right + n.x*scop.camera.up)
+				n.y * scop.camera.right + n.x*scop.camera.up + n.z*scop.camera.front)
 			);
 		}
 
