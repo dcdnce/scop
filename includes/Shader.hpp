@@ -32,7 +32,7 @@ class Shader {
 
         void  setVec3(char * const uniformName, pfm::vec3 & v);
         void  setProjMat(pfm::mat4 const& newProjMat);
-        void  setViewMat(pfm::mat4 const& newViewMat);
+        void  SetViewMat(pfm::mat4 const& newViewMat);
         void  setModelMat(pfm::mat4 const& newModelMat);
         pfm::mat4 getProjMat() const;
         pfm::mat4 getViewMat() const;

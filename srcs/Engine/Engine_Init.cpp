@@ -37,9 +37,10 @@ void	Engine::_initEvents()
 {
 	glfwSetWindowUserPointer(window, this);
 
-	glfwSetCursorPosCallback(window, Engine::mouseCallback);
+	glfwSetCursorPosCallback(window, Engine::MouseCallback);
 	glfwSetMouseButtonCallback(window, Engine::MouseButtonCallback);
-	glfwSetKeyCallback(window, Engine::keyCallback);
+	glfwSetKeyCallback(window, Engine::KeyCallback);
+	glfwSetScrollCallback(window, Engine::ScrollCallback);
 }
 
 void	Engine::_initGl()

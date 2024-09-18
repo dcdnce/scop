@@ -20,7 +20,7 @@ Engine::~Engine(void)
 	glfwTerminate();
 }
 
-void	Engine::keyCallback(GLFWwindow *w, int key, int scancode, int action, int mods)
+void	Engine::KeyCallback(GLFWwindow *w, int key, int scancode, int action, int mods)
 {
 	(void)scancode;
 	(void)mods;
@@ -78,7 +78,7 @@ void	Engine::MouseButtonCallback(GLFWwindow *w, int button, int action, int mods
 	}
 }
 
-void Engine::mouseCallback(GLFWwindow* w, double currMouseX, double currMouseY)
+void Engine::MouseCallback(GLFWwindow* w, double currMouseX, double currMouseY)
 {
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
 	engine->previous_mouse = engine->mouse;
@@ -86,7 +86,19 @@ void Engine::mouseCallback(GLFWwindow* w, double currMouseX, double currMouseY)
 	engine->mouse.y = (float)currMouseY;
 }
 
-void Engine::computeDeltaTime()
+void Engine::ScrollCallback(GLFWwindow* w, double xoffset, double yoffset)
+{
+	(void)xoffset;
+	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(w));
+
+
+	if (yoffset > 0)
+		engine->camera.processKeyboard(FORWARD, engine->deltaTime);
+	if (yoffset < 0)
+		engine->camera.processKeyboard(BACKWARD, engine->deltaTime);
+}
+
+void Engine::ComputeDeltaTime()
 {
 	float	currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;

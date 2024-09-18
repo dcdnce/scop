@@ -1,7 +1,8 @@
 - Features
     - ✅ Rotate objet
-    - Zoom with mouse
-    - Refactor main
+    - ✅ Refactor main
+    - ✅ Zoom with mouse
+    - Leaks
     - Testing 
 
 - Bugs
@@ -10,7 +11,6 @@
     - camera jumps chelous (check camera constructor)
 
 - Refactor
-    - dataraces et leaks
     - c++20
 
 - Bonus

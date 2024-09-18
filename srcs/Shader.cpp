@@ -88,7 +88,7 @@ void  Shader::setProjMat(pfm::mat4 const& newProjMat)
 	glUseProgram(0);
 }
 
-void  Shader::setViewMat(pfm::mat4 const& newViewMat)
+void  Shader::SetViewMat(pfm::mat4 const& newViewMat)
 {
 	_viewMat = newViewMat;
 	glUseProgram(program);

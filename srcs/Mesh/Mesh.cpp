@@ -21,7 +21,7 @@ Mesh::~Mesh()
     glDeleteBuffers(1, &EBO);
 }
 
-void Mesh::draw(void)
+void Mesh::Draw(void)
 {
     glUseProgram(attached_shader.program);
     glBindVertexArray(VAO);
