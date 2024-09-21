@@ -28,20 +28,20 @@ void ObjParser::parse(std::string const & path)
     while (!_ifs.eof())
         _parseLine();
 
-    Logger::debug(false) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
-    Logger::debug(false) << "v: " << _inV.size() << std::endl;
-    Logger::debug(false) << "vn: " << _inVn.size() << std::endl;
-    Logger::debug(false) << "vt: " << _inVt.size() << std::endl;
-    Logger::debug(false) << "f: " << _inFaces.size() << std::endl;
+    Logger::info(false) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 
+    Logger::info(false) << "v: " << _inV.size() << std::endl;
+    Logger::info(false) << "vn: " << _inVn.size() << std::endl;
+    Logger::info(false) << "vt: " << _inVt.size() << std::endl;
+    Logger::info(false) << "f: " << _inFaces.size() << std::endl;
 
     if (_facesType == FACE_TYPE_V)
-        Logger::debug(false) << "FACE_TYPE_V" << std::endl;
+        Logger::info(false) << "FACE_TYPE_V" << std::endl;
     if (_facesType == FACE_TYPE_VVT)
-        Logger::debug(false) << "FACE_TYPE_VVT" << std::endl;
+        Logger::info(false) << "FACE_TYPE_VVT" << std::endl;
     if (_facesType == FACE_TYPE_VVN)
-        Logger::debug(false) << "FACE_TYPE_VVN" << std::endl;
+        Logger::info(false) << "FACE_TYPE_VVN" << std::endl;
     if (_facesType == FACE_TYPE_VVTVN)
-        Logger::debug(false) << "FACE_TYPE_VVTVN" << std::endl;
+        Logger::info(false) << "FACE_TYPE_VVTVN" << std::endl;
 }
     
 void ObjParser::_parseLine() 
