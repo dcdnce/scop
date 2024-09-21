@@ -32,9 +32,9 @@ void	Engine::KeyCallback(GLFWwindow *w, int key, int scancode, int action, int m
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(w, true);
 
-	if (key == GLFW_KEY_W && action == GLFW_REPEAT | GLFW_PRESS)
+	if (key == GLFW_KEY_W && (action == GLFW_REPEAT || action == GLFW_PRESS))
 		engine->camera.processKeyboard(FORWARD, engine->deltaTime);
-	if (key == GLFW_KEY_S && action == GLFW_REPEAT | GLFW_PRESS)
+	if (key == GLFW_KEY_S && (action == GLFW_REPEAT || action == GLFW_PRESS))
 		engine->camera.processKeyboard(BACKWARD, engine->deltaTime);
 	// if (key == GLFW_KEY_A && action == GLFW_REPEAT | GLFW_PRESS)
 	// 	engine->camera.processKeyboard(LEFT, engine->deltaTime);

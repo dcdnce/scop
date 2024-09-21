@@ -2,6 +2,7 @@
 #include "Logger.hpp"
 #include <iostream>
 #include <fstream>
+#include <map>
 #include "stb/stb_image.h"
 
 static inline int	createShader(GLuint *shaderRef, GLenum type, std::string const & path);
@@ -13,6 +14,8 @@ Shader::Shader() {
 
 Shader::~Shader()
 {
+	for (std::map<std::string, GLuint>::iterator it = textures_map.begin() ; it != textures_map.end() ; it++)
+		glDeleteTextures(1, &it->second);
     glDeleteProgram(program);
 }
 
@@ -129,8 +132,9 @@ pfm::mat4	Shader::getModelMat() const
 
 void Shader::CreateTextureJpg(std::string const & path, int const texture_unit, int const texture_index, std::string const & texture_name)
 {
-    if (path.substr(path.length() - 3, path.length()) != "jpg")
+    if (path.substr(path.length() - 3, path.length()) != "jpg") {
         throw std::runtime_error("CreateTextureJpg :: Texture file extension isn't .jpg");
+	}
 
 	glUseProgram(program);
 	textures_map[texture_name] = 0;

@@ -3,10 +3,9 @@ SRCS =	srcs/main.cpp \
 		srcs/Shader.cpp \
 		srcs/Camera.cpp \
 		srcs/Frame.cpp \
+		srcs/Mesh.cpp \
 		srcs/Engine/Engine.cpp \
 		srcs/Engine/Engine_Init.cpp \
-		srcs/Mesh/Mesh.cpp \
-		srcs/Mesh/Mesh_Setup.cpp \
 		srcs/ObjParser/ObjParser.cpp \
 		srcs/ObjParser/ObjParser_ParseF.cpp \
 		srcs/ObjParser/ObjParser_Utils.cpp \
@@ -14,14 +13,14 @@ SRCS =	srcs/main.cpp \
 
 OBJS = $(SRCS:%.cpp=%.o)
 
-C = clang++
+C = g++
 
 OS = $(shell uname)
 
 # CFLAGS - Compiler flags (where to find headers)
 # LFLAGS - Linking flags (where to find library to link at - -L & -l)
 
-CFLAGS = -Wall -Wextra -Wno-deprecated -g -Wno-parentheses
+CFLAGS = -Wall -Wextra -g 
 CFLAGS += -Iincludes
 
 ifeq ($(OS), Darwin)
@@ -36,13 +35,13 @@ endif
 NAME = scop
 
 %.o	:	%.cpp
-	$(C) -g $(CFLAGS) -c $< -o $@
+	$(C) $(CFLAGS) -c $< -o $@
 
 #######################################################################################
 #######################################################################################
 
 $(NAME):	$(OBJS)
-	$(C) -o $@ $^ $(LFLAGS)
+	$(C) -fsanitize=address -g -o $@ $^ $(LFLAGS)
 
 all:	$(NAME)
 

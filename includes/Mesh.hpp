@@ -29,5 +29,4 @@ class Mesh {
         ~Mesh();
 
         void    Draw(void);
-        void    toggleColorShading();
 };

@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 	Frame frame_x({pfm::vec3(0.f), pfm::vec3(max_frame_length, 0.f, 0.f)}, pfm::vec3(0.f, 0.f, 1.f));
 	Frame frame_z({pfm::vec3(0.f), pfm::vec3(0.f, 0.f, max_frame_length)}, pfm::vec3(0.f, 1.f, 0.f));
 
-	// Load texture
+	// Texture - create and load
 	try {
 		main_mesh.attached_shader.CreateTextureJpg(av[2], GL_TEXTURE0, 0, "texture1");
 	} catch (std::exception & e) {
@@ -122,8 +122,7 @@ int	main(int ac, char **av)
         glfwPollEvents();
 	}
 
-	// todo // delete texture
-	return (0);
+	return(EXIT_SUCCESS);
 }
 
 

@@ -2,7 +2,7 @@
 
 #include "Mesh.hpp"
 #include "Vertex.hpp"
-#include "BoundingBox.hpp"
+#include "BoundingBoxObject.hpp"
 #include "FacesType.hpp"
 #include <fstream>
 #include <iostream>
@@ -49,7 +49,7 @@ class ObjParser {
     public:
         ObjParser();
 
-        BoundingBox BoundingBox;
+        BoundingBoxObject BoundingBox;
 
         void    parse(std::string const & path);
         Mesh    buildMesh();
