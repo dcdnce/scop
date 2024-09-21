@@ -1,17 +1,7 @@
 - Features
-    - ✅ Rotate objet
-    - ✅ Refactor main
-    - ✅ Zoom with mouse
-    - Leaks
+    - ✅ Leaks
     - Testing 
-
-- Bugs
-    - pas de newline fin de fichier .obj
-    - GL_POINT not working
-    - camera jumps chelous (check camera constructor)
-
-- Refactor
-    - c++20
+    - Ready to push ?
 
 - Bonus
     - ✅ .obj ambigus (vt manquant, faces avec 4 vertex)

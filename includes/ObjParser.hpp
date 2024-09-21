@@ -28,8 +28,7 @@ class ObjParser {
         std::vector<unsigned int> _outIndices;
         std::vector<Texture> _outTextures;
 
-        bool        _isEOF();
-        bool        _isNewLine();
+        bool        _isNewLineOrEOF();
         std::string _getWord();
         void        _skipToNewLine();
 

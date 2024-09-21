@@ -25,7 +25,7 @@ void ObjParser::parse(std::string const & path)
     if (!_ifs.is_open())
         throw std::runtime_error("ObjParse :: Couldn't open file");
 
-    while (!_isEOF())
+    while (!_ifs.eof())
         _parseLine();
 
     Logger::debug(false) << "ObjParser successfully parsed \"" << path << "\"" << std::endl; 

@@ -1,18 +1,10 @@
 #include "../includes/ObjParser.hpp"
 
-bool ObjParser::_isEOF()
+bool ObjParser::_isNewLineOrEOF()
 {
-	for (; std::isspace(_ifs.peek()); _ifs.get())
-		;
-
-	if (_ifs.peek() == std::char_traits<char>::eof())
+	if (_ifs.eof())
 		return (true);
 
-	return (false);
-}
-
-bool ObjParser::_isNewLine()
-{
 	for (; _ifs.peek() != '\n' && std::isspace(_ifs.peek()); _ifs.get())
 		;
 
@@ -26,8 +18,9 @@ std::string ObjParser::_getWord()
 {
     std::string word = "";
 
-	for (; std::isspace(_ifs.peek()) ; _ifs.get())
+	for (; std::isspace(_ifs.peek()) && !_ifs.eof() ; _ifs.get())
 		;
+
 	for (; !std::isspace(_ifs.peek()) && !_ifs.eof(); word += _ifs.get())
 		;
 
@@ -36,7 +29,10 @@ std::string ObjParser::_getWord()
 
 void ObjParser::_skipToNewLine()
 {
-    for (; _ifs.peek() != '\n' && !_isEOF(); _ifs.get())
+	if (_ifs.eof())	
+		return ;
+
+    for (; _ifs.peek() != '\n'; _ifs.get())
 		;
 	_ifs.get();
 }

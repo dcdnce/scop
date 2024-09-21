@@ -9,7 +9,7 @@ void ObjParser::_parseF()
     Face currFace = {};
     static bool firstVertexParsed = false;
 
-    while (!_isNewLine())
+    while (!_isNewLineOrEOF())
     {
         currFace.vertexNb += 1;
         std::string currVertex = _getWord();
