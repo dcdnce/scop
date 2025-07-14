@@ -37,10 +37,11 @@ void Mesh::_setupColors()
 {
     for (size_t i = 0 ; i < vertices.size() ; i++)
     {
+        const float color = static_cast<float>(rand()%255) / 255.f;
         vertices[i].color = {
-            static_cast<float>(rand()%255) / 255.f,
-            static_cast<float>(rand()%255) / 255.f,
-            static_cast<float>(rand()%255) / 255.f
+            color,
+            color,
+            color
         };
     }
 }
